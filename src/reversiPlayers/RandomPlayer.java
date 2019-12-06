@@ -24,7 +24,7 @@ public class RandomPlayer implements ReversiPlayer {
 		// Check if the player has any legal moves
 		if (gb.isMoveAvailable(color)) {
 
-			System.out.print(String.format("RandomPlayer %s is calculating a random move.\n", Utils.toString(color)));
+//			System.out.print(String.format("RandomPlayer %s is calculating a random move.\n", Utils.toString(color)));
 
 			// The Coordinates that the random player chooses
 			Coordinates where = new Coordinates(-1, -1);
@@ -41,11 +41,11 @@ public class RandomPlayer implements ReversiPlayer {
 				}
 			}
 			
-			System.out.println(String.format("RandomPlayer %s moves: %s", Utils.toString(color), where.toMoveString()));
+//			System.out.println(String.format("RandomPlayer %s moves: %s", Utils.toString(color), where.toMoveString()));
 			
 			return where;
 		} else {
-			System.out.println(String.format("RandomPlayer %s has no legal moves, passes.", Utils.toString(color)));
+//			System.out.println(String.format("RandomPlayer %s has no legal moves, passes.", Utils.toString(color)));
 			return null;
 		}
 		

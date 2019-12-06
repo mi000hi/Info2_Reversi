@@ -6,10 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/michael/eclipse-workspace/Reversi/reversi.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="reversi.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
