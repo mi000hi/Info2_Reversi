@@ -24,3 +24,6 @@ hs_err_pid*
 
 # my DutyCalls.java player
 DutyCalls.java
+
+# the ratings files
+*.txt
