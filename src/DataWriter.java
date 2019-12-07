@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +16,7 @@ public class DataWriter {
 	private final ReversiPlayer[] players; // players that are playing the games
 	private boolean dontLookAtOldData = false; // true if you want to write the whole file new
 	private final int BOARDSIZE; // size of the gameboard
+	private boolean fileExists; // false if we need to create the file
 
 	/*
 	 * variables stored already in the file FILENAME
@@ -37,7 +39,8 @@ public class DataWriter {
 		BOARDSIZE = boardSize;
 
 		// if we merge the data together
-		if (!trashOldData) {
+		fileExists = (new File(filename)).exists();
+		if (!trashOldData && fileExists) {
 			readDataFromFile();
 		} else {
 			
@@ -227,6 +230,11 @@ public class DataWriter {
 	 */
 	private ArrayList<double[][]> mergeRatings(ArrayList<double[][]> ratings01, ArrayList<double[][]> ratings02) {
 
+		// if ratings file doesnt exist, return ratings02
+		if(!fileExists) {
+			return ratings02;
+		}
+		
 		// return null if ratings dont match their dimensions
 		if(ratings01.size() != ratings02.size() || ratings01.get(0).length != ratings02.get(0).length) {
 			System.out.println("RATINGS MATRICES DONT MATCH!!!");
