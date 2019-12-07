@@ -14,13 +14,15 @@ public class GameCoordinator {
 	 */
 	private int[] scores = new int[3]; // scores of the 2 players
 	private int winner; // winner of the last game
-	private final long SAVE_TO_FILE_INTERVAL = 30; // interval of saving the rating data to a file
-	private final int MIN_GAMES_BEFORE_SAVING = 100; // maximum games to play before we save the data to a file
+	private final long SAVE_TO_FILE_INTERVAL = 60000; // interval of saving the rating data to a file
+	private final int MIN_GAMES_BEFORE_SAVING = 1000; // maximum games to play before we save the data to a file
 	private long fileIntervalStartTime; // time of last data saving
-	private final String FILENAME_RANDOM_VS_RANDOM = "boardRatings_randomPlayer_vs_randomPlayer.txt"; // name of the
-																										// file where
-																										// the ratings
-																										// are stored
+	private final static String FILENAME_RANDOM_VS_RANDOM = "boardRatings_randomPlayer_vs_randomPlayer.txt"; // name of
+																												// the
+	// file where
+	// the ratings
+	// are stored
+	private DataWriter dataWriter; // writes the board rating data to a file
 
 	/*
 	 * the two reversi players
@@ -32,7 +34,7 @@ public class GameCoordinator {
 	 */
 	private final int BOARD_SIZE = 8; // size of the gameboard
 	private final long MOVE_TIME = 100; // time a player has to make its move; we trust the players here :)
-	private final int NUMBER_OF_GAMES = 1002; // number of games to be played
+	private final int NUMBER_OF_GAMES = 1000000; // number of games to be played
 
 	/*
 	 * variables to analyze the games
@@ -50,7 +52,8 @@ public class GameCoordinator {
 
 		// create new GameCoordinator
 		System.out.println("creating new GameCoordinator");
-		GameCoordinator gameCoordinator = new GameCoordinator(new RandomPlayer(), new RandomPlayer());
+		GameCoordinator gameCoordinator = new GameCoordinator(new RandomPlayer(), new RandomPlayer(),
+				FILENAME_RANDOM_VS_RANDOM);
 
 		// play a game
 		long startTime = System.currentTimeMillis();
@@ -66,7 +69,7 @@ public class GameCoordinator {
 	 * @param player01
 	 * @param player02
 	 */
-	public GameCoordinator(ReversiPlayer player01, ReversiPlayer player02) {
+	public GameCoordinator(ReversiPlayer player01, ReversiPlayer player02, String boardRatingsDataFilename) {
 
 		// initialize variables
 		players[1] = player01;
@@ -80,6 +83,9 @@ public class GameCoordinator {
 		for (int i = 0; i < 60; i++) {
 			boardRatings.add(new double[8][8]);
 		}
+
+		// initialize data writer
+		dataWriter = new DataWriter(players, boardRatingsDataFilename, false, BOARD_SIZE);
 
 	}
 
@@ -117,7 +123,7 @@ public class GameCoordinator {
 
 			}
 
-			System.out.println("Game " + gameIndex + " finished.");
+//			System.out.println("Game " + gameIndex + " finished.");
 			// printBoard(board);
 			// printAllBoards(gameBoards);
 
@@ -175,8 +181,11 @@ public class GameCoordinator {
 			e.printStackTrace();
 		}
 
-		System.out.println(numberOfGames + " games finished, added to ratings and saved:");
+		System.out.println(NUMBER_OF_GAMES + " games finished, added to ratings and saved. rating for board 59:");
 		printRatingsBoard(boardRatings, 60 - 1);
+		
+		System.out.println("rating for all " + dataWriter.readDataFromFile() + " games for board 59 is now: ");
+		printRatingsBoard(dataWriter.readRatingsFromFile(), 60 - 1);
 
 	}
 
@@ -191,74 +200,10 @@ public class GameCoordinator {
 			throws IOException {
 
 		// writes title, date, names etc to the file, DELETES THE FILE CONTENT!
-		writeFileHeader(relativeFilename, false);
+		dataWriter.writeFileHeader(false);
 
 		// write ratings data to file
-		writeRatingsData(ratings, numberOfGames, relativeFilename, true);
-
-	}
-
-	/**
-	 * writes the given string to the requested file
-	 * 
-	 * @param relativeFilename
-	 * @param output
-	 * @throws IOException
-	 */
-	private void writeToFile(String relativeFilename, String output, boolean append) throws IOException {
-
-		BufferedWriter writer = new BufferedWriter(new FileWriter(relativeFilename, append));
-		writer.write(output);
-		writer.close();
-
-	}
-
-	/**
-	 * writes the board rating data to the file
-	 * 
-	 * @param relativeFilename
-	 * @param append
-	 * @throws IOException
-	 */
-	private void writeRatingsData(ArrayList<double[][]> ratings, int numberOfGames, String relativeFilename,
-			boolean append) throws IOException {
-
-		// write statistic info
-		writeToFile(relativeFilename, "\n-- numberOfGames: " + numberOfGames + "\n\n", true); // TODO: add old number of
-																								// games
-
-		// write board ratings
-		for (int i = 0; i < ratings.size(); i++) {
-
-			writeToFile(relativeFilename, "MOVE " + i + "\n", true);
-
-			writeToFile(relativeFilename, ratingsToString(ratings.get(i)) + "\n\n", true);
-
-		}
-
-	}
-
-	/**
-	 * writes the header of the data file into the file (AND POSSIBLY OVERWRITES THE
-	 * WHOLE FILE!)
-	 * 
-	 * @param relativeFilename
-	 * @param append
-	 * @throws IOException
-	 */
-	private void writeFileHeader(String relativeFilename, boolean append) throws IOException {
-
-		// title
-		writeToFile(relativeFilename, "         +==============================================+\n", append);
-		writeToFile(relativeFilename, "         |   BOARD RATING DATA for our reversi player   |\n", true);
-		writeToFile(relativeFilename, "         +==============================================+\n\n", true);
-
-		// playing players
-		writeToFile(relativeFilename,
-				"    " + players[1].getClass().getName() + " vs " + players[2].getClass().getName() + "\n\n", true);
-
-		writeToFile(relativeFilename, "+================================================================+\n", true);
-		writeToFile(relativeFilename, "+================================================================+\n", true);
+		dataWriter.writeRatingsData(ratings, numberOfGames, true);
 
 	}
 
@@ -414,33 +359,6 @@ public class GameCoordinator {
 	}
 
 	/**
-	 * returns a string containing all the ratings
-	 * 
-	 * @param ratings
-	 * @return
-	 */
-	private String ratingsToString(double[][] ratings) { // TODO: add already stored ratings to these ones
-		
-		String result = "";
-
-		for (int y = 0; y < ratings.length; y++) {
-			for (int x = 0; x < ratings.length; x++) {
-
-				// add the actual doubles to the string
-				result += adjustStringLength(Double.toString(ratings[x][y]), 25) + "\t";
-
-			}
-
-			result += "\n";
-		}
-
-		result += "\n";
-		
-		return result;
-
-	}
-
-	/**
 	 * adjusts the values to a range of 0 to 1
 	 * 
 	 * @param values
@@ -513,25 +431,6 @@ public class GameCoordinator {
 
 		return min;
 
-	}
-	
-	/**
-	 * returns the str with |str.length - newLength| spaces before it
-	 * 
-	 * @param str
-	 * @param newLength
-	 * @return
-	 */
-	private String adjustStringLength(String str, int newLength) {
-		
-		String spaces = "";
-		
-		for(int length = str.length(); length <= newLength; length++) {
-			spaces += " ";
-		}
-		
-		return spaces + str;
-		
 	}
 
 }
