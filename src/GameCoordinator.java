@@ -17,12 +17,14 @@ public class GameCoordinator {
 	private final long SAVE_TO_FILE_INTERVAL = 60000; // interval of saving the rating data to a file
 	private final int MIN_GAMES_BEFORE_SAVING = 1000; // maximum games to play before we save the data to a file
 	private long fileIntervalStartTime; // time of last data saving
-	private final static String FILENAME_RANDOM_VS_RANDOM = "boardRatings_randomPlayer_vs_randomPlayer.txt"; // name of
-																												// the
-	// file where
-	// the ratings
-	// are stored
+	
+	// name of the file where the ratings are stored
+	private final static String FILENAME_RANDOM_VS_RANDOM = "boardRatings_randomPlayer_vs_randomPlayer.txt";
 	private DataWriter dataWriter; // writes the board rating data to a file
+	
+	private Terminator terminator; // if we play until the user stops the program, the terminator will know when to terminate the program
+	private Thread terminatorThread; // thread that runs the terminator runnable
+	private static boolean terminateProgram = true; // the Terminator will set this to false and later to true to terminate the program
 
 	/*
 	 * the two reversi players
@@ -34,7 +36,7 @@ public class GameCoordinator {
 	 */
 	private final int BOARD_SIZE = 8; // size of the gameboard
 	private final long MOVE_TIME = 100; // time a player has to make its move; we trust the players here :)
-	private final int NUMBER_OF_GAMES = 1000000; // number of games to be played
+	private final int NUMBER_OF_GAMES = 0; // number of games to be played, set to 0 to play infinitely
 
 	/*
 	 * variables to analyze the games
@@ -86,6 +88,14 @@ public class GameCoordinator {
 
 		// initialize data writer
 		dataWriter = new DataWriter(players, boardRatingsDataFilename, false, BOARD_SIZE);
+		
+		// initialize the terminator
+		
+		if(NUMBER_OF_GAMES == 0) {
+			terminator = new Terminator();
+			terminatorThread = new Thread(terminator);
+			terminatorThread.start();
+		}
 
 	}
 
@@ -97,7 +107,7 @@ public class GameCoordinator {
 		// take time to save after SAVE_TO_FILE_INTERVAL
 		fileIntervalStartTime = System.currentTimeMillis();
 
-		for (int gameIndex = 0; gameIndex < NUMBER_OF_GAMES; gameIndex++) {
+		for (int gameIndex = 0; gameIndex < NUMBER_OF_GAMES || !terminateProgram; gameIndex++) {
 
 			// create the game board
 			GameBoard board = new BitBoard();
@@ -151,8 +161,12 @@ public class GameCoordinator {
 			if (MIN_GAMES_BEFORE_SAVING < numberOfGames
 					&& System.currentTimeMillis() - fileIntervalStartTime - SAVE_TO_FILE_INTERVAL > 0) {
 
-				System.out.println("===== SAVING DATA =====");
-
+				if(NUMBER_OF_GAMES == 0) {
+					System.out.println("===== SAVING DATA: \nGamesPlayed: " + numberOfGames + " - playing to infinity");
+				} else {
+					System.out.println("===== SAVING DATA: \nGamesPlayed: " + numberOfGames + " out of " + NUMBER_OF_GAMES);
+				}
+				
 				try {
 					saveData(boardRatings, numberOfGames, FILENAME_RANDOM_VS_RANDOM);
 					fileIntervalStartTime = System.currentTimeMillis();
@@ -164,6 +178,12 @@ public class GameCoordinator {
 					for (int i = 0; i < 60; i++) {
 						boardRatings.add(new double[8][8]);
 					}
+					
+					// update the terminate message
+					if(terminator != null) {
+						terminator.printInputRequest();
+					}
+					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -181,9 +201,9 @@ public class GameCoordinator {
 			e.printStackTrace();
 		}
 
-		System.out.println(NUMBER_OF_GAMES + " games finished, added to ratings and saved. rating for board 59:");
+		System.out.println(numberOfGames + " games finished, added to ratings and saved. rating for board 59:");
 		printRatingsBoard(boardRatings, 60 - 1);
-		
+
 		System.out.println("rating for all " + dataWriter.readDataFromFile() + " games for board 59 is now: ");
 		printRatingsBoard(dataWriter.readRatingsFromFile(), 60 - 1);
 
@@ -431,6 +451,15 @@ public class GameCoordinator {
 
 		return min;
 
+	}
+	
+	/**
+	 * sets the parameter terminateProgram
+	 * 
+	 * @param value
+	 */
+	public static void setTerminateProgram(boolean value) {
+		terminateProgram = value;
 	}
 
 }
