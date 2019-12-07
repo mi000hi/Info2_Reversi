@@ -40,7 +40,7 @@ public class DataWriter {
 
 		// if we merge the data together
 		fileExists = (new File(filename)).exists();
-		if (!trashOldData && fileExists) {
+		if (!dontLookAtOldData && fileExists) {
 			readDataFromFile();
 		} else {
 			

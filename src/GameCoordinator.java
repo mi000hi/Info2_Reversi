@@ -35,7 +35,7 @@ public class GameCoordinator {
 	 * game variables
 	 */
 	private final int BOARD_SIZE = 8; // size of the gameboard
-	private final long MOVE_TIME = 100; // time a player has to make its move; we trust the players here :)
+	private final long MOVE_TIME; // time a player has to make its move; we trust the players here :)
 	private final int NUMBER_OF_GAMES = 0; // number of games to be played, set to 0 to play infinitely
 
 	/*
@@ -51,11 +51,37 @@ public class GameCoordinator {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		// standard values
+		String filename = "boardRatings_RandomPlayer_vs_RandomPlayer.txt";
+		long moveTime = 100;
+		ReversiPlayer player01 = new RandomPlayer(), player02 = new RandomPlayer();
 
 		// create new GameCoordinator
 		System.out.println("creating new GameCoordinator");
-		GameCoordinator gameCoordinator = new GameCoordinator(new RandomPlayer(), new RandomPlayer(),
-				FILENAME_RANDOM_VS_RANDOM);
+		System.out.println("we have " + args.length + " arguments");
+		
+		// read the players from args
+		// first argument is moveTime, second and third the two players
+		if(args.length > 0 && args[0] != "") {
+			moveTime = (long) Integer.parseInt(args[0]);
+		}
+		if(args.length > 1 && args[1].equals("DutyCalls")) {
+			player01 = new DutyCalls();
+			filename = "boardRatings_DutyCalls_vs_RandomPlayer.txt";
+		}
+		if(args.length > 2 && args[2].equals("DutyCalls")) {
+			player02 = new DutyCalls();
+			filename = "boardRatings_RandomPlayer_vs_DutyCalls.txt";
+			
+			if(args[1] == "DutyCalls") {
+				System.out.println("do not use 2 times DutyCalls as player!");
+				System.exit(0);
+			}
+		}
+		
+		GameCoordinator gameCoordinator = new GameCoordinator(player01, player02,
+				filename, moveTime);
 
 		// play a game
 		long startTime = System.currentTimeMillis();
@@ -71,11 +97,12 @@ public class GameCoordinator {
 	 * @param player01
 	 * @param player02
 	 */
-	public GameCoordinator(ReversiPlayer player01, ReversiPlayer player02, String boardRatingsDataFilename) {
+	public GameCoordinator(ReversiPlayer player01, ReversiPlayer player02, String boardRatingsDataFilename, long moveTime) {
 
 		// initialize variables
 		players[1] = player01;
 		players[2] = player02;
+		MOVE_TIME = moveTime;
 
 		// initialize players
 		players[1].initialize(GameBoard.RED, MOVE_TIME);
@@ -85,6 +112,9 @@ public class GameCoordinator {
 		for (int i = 0; i < 60; i++) {
 			boardRatings.add(new double[8][8]);
 		}
+		
+		System.out.println("moveTime = " + MOVE_TIME);
+		System.out.println("filename = " + boardRatingsDataFilename);
 
 		// initialize data writer
 		dataWriter = new DataWriter(players, boardRatingsDataFilename, false, BOARD_SIZE);
