@@ -15,7 +15,7 @@ public class GameCoordinator {
 	private int[] scores = new int[3]; // scores of the 2 players
 	private int winner; // winner of the last game
 	private final long SAVE_TO_FILE_INTERVAL = 60000; // interval of saving the rating data to a file
-	private final int MIN_GAMES_BEFORE_SAVING = 1000; // maximum games to play before we save the data to a file
+	private final int MIN_GAMES_BEFORE_SAVING = 10; // maximum games to play before we save the data to a file
 	private long fileIntervalStartTime; // time of last data saving
 	
 	// name of the file where the ratings are stored
