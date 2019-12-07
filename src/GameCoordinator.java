@@ -163,7 +163,7 @@ public class GameCoordinator {
 
 			}
 
-//			System.out.println("Game " + gameIndex + " finished.");
+			System.out.println("Game " + gameIndex + " finished.");
 			// printBoard(board);
 			// printAllBoards(gameBoards);
 
