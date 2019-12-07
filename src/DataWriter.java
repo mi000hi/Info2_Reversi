@@ -443,5 +443,26 @@ public class DataWriter {
 		return min;
 
 	}
+	
+	/**
+	 * returns the ratings board for the given move index
+	 * 
+	 * @param index
+	 * @return
+	 */
+	public double[][] getBoardRating(int index) {
+		
+		return ratings.get(index);
+		
+	}
 
+	/**
+	 * returns the number of games played in total
+	 * 
+	 * @return
+	 */
+	public int getNumberOfGames() {
+		
+		return numberOfGames;
+	}
 }

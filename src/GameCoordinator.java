@@ -15,7 +15,6 @@ public class GameCoordinator {
 	private int[] scores = new int[3]; // scores of the 2 players
 	private int winner; // winner of the last game
 	private final long SAVE_TO_FILE_INTERVAL = 60000; // interval of saving the rating data to a file
-	private final int MIN_GAMES_BEFORE_SAVING = 10; // maximum games to play before we save the data to a file
 	private long fileIntervalStartTime; // time of last data saving
 	
 	// name of the file where the ratings are stored
@@ -163,7 +162,7 @@ public class GameCoordinator {
 
 			}
 
-			System.out.println("Game " + gameIndex + " finished.");
+//			System.out.println("Game " + gameIndex + " finished.");
 			// printBoard(board);
 			// printAllBoards(gameBoards);
 
@@ -188,8 +187,7 @@ public class GameCoordinator {
 
 			// save ratings data to file
 //			System.out.println((System.currentTimeMillis() - fileIntervalStartTime - SAVE_TO_FILE_INTERVAL));
-			if (MIN_GAMES_BEFORE_SAVING < numberOfGames
-					&& System.currentTimeMillis() - fileIntervalStartTime - SAVE_TO_FILE_INTERVAL > 0) {
+			if (System.currentTimeMillis() - fileIntervalStartTime - SAVE_TO_FILE_INTERVAL > 0) {
 
 				if(NUMBER_OF_GAMES == 0) {
 					System.out.println("===== SAVING DATA: \nGamesPlayed: " + numberOfGames + " - playing to infinity");
@@ -208,6 +206,9 @@ public class GameCoordinator {
 					for (int i = 0; i < 60; i++) {
 						boardRatings.add(new double[8][8]);
 					}
+					
+					System.out.println("rating for all " + dataWriter.getNumberOfGames() + " games for board 59 is now: ");
+					printRatingsBoard(dataWriter.getBoardRating(60 - 1));
 					
 					// update the terminate message
 					if(terminator != null) {
@@ -387,6 +388,33 @@ public class GameCoordinator {
 	private void printRatingsBoard(ArrayList<double[][]> ratingBoards, int index) {
 
 		double[][] boardToPrint = normalize(ratingBoards.get(index));
+
+		System.out.println("+=================+");
+
+		for (int y = 0; y < BOARD_SIZE; y++) {
+
+			System.out.print("| ");
+
+			for (int x = 0; x < BOARD_SIZE; x++) {
+
+				// print the numbers between 0 and 10
+				System.out.print((int) Math.round(boardToPrint[x][y] * 10) + " ");
+
+			}
+
+			System.out.println("|");
+		}
+
+		System.out.println("+=================+");
+
+	}
+	
+	/**
+	 * prints the given GameBoard to the console like this:
+	 */
+	private void printRatingsBoard(double[][] ratingBoard) {
+
+		double[][] boardToPrint = normalize(ratingBoard);
 
 		System.out.println("+=================+");
 
