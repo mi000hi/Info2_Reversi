@@ -212,7 +212,7 @@ public class AlphaBetaPlayer implements ReversiPlayer {
 					Coordinates coord = new Coordinates(col, row);
 					try {
 						if (gb.getOccupation(coord) == myColor) {
-							rating += ratings.get(depth)[col][row];
+							rating += ratings.get(depth)[row][col];
 						}
 					} catch (OutOfBoundsException e) {
 					}
