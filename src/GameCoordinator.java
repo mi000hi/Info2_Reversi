@@ -328,9 +328,9 @@ public class GameCoordinator {
 			// rate the field according to occupation: 1 for winners field, -1 for loosers
 			// field, 0 for unoccupied
 			if (occupation == winner) {
-				return 1.0 / board.countStones(winner); // winners field
+				return 10.0 / board.countStones(winner); // winners field
 			} else if (occupation == -winner + 3) {
-				return -1.0 / board.countStones(-winner + 3); // loosers field
+				return -10.0 / board.countStones(-winner + 3); // loosers field
 				// TODO: can divisor be 0?
 			}
 			return 0; // field unoccupied
@@ -341,9 +341,9 @@ public class GameCoordinator {
 			// for
 			if (board.checkMove(player, field)) {
 				if (player == winner) { // winner could pick this move
-					return 1.0 / board.mobility(player);
+					return 10.0 / board.mobility(player);
 				} else if (player == -player + 3) {
-					return -1.0 / board.mobility(player); // looser could pick this move
+					return -10.0 / board.mobility(player); // looser could pick this move
 				}// TODO: is this the right divisor?
 			}
 			return 0; // no player could pick this move

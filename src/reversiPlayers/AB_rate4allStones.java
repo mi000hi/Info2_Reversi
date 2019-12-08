@@ -34,7 +34,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 	private final static String FILENAME_RANDOM_VS_RANDOM = "boardRatings_RandomPlayer_vs_RandomPlayer.txt";
 	private final static String FILENAME_DUTYCALLS_VS_RANDOM = "boardRatings_DutyCalls_vs_RandomPlayer.txt";
 	private final static String FILENAME_RANDOM_VS_DUTYCALLS = "boardRatings_RandomPlayer_vs_DutyCalls.txt";
-	private DataWriter dataWriter = new DataWriter(null, FILENAME_DUTYCALLS_VS_RANDOM, false, 8);
+	private DataWriter dataWriter = new DataWriter(null, FILENAME_RANDOM_VS_RANDOM, false, 8);
 	ArrayList<double[][]> ratings = dataWriter.readRatingsFromFile();
 
 	@Override
@@ -297,9 +297,9 @@ public class AB_rate4allStones implements ReversiPlayer {
 					currentOccupation = currentBoard.getOccupation(new Coordinates(y + 1, x + 1));
 				
 					if (currentOccupation == myColor) {
-						rating += currentBoardRating[x][y];
+						rating += currentBoardRating[x][y] / currentBoard.countStones(myColor);
 					} else if(currentOccupation == -myColor + 3) {
-						rating -= currentBoardRating[x][y];
+						rating -= currentBoardRating[x][y] / currentBoard.countStones(-myColor + 3);
 					}
 					
 					// TODO: do something if no player has this field?
