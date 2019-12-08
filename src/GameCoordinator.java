@@ -1,3 +1,4 @@
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,6 +7,7 @@ import java.util.concurrent.TimeoutException;
 
 import reversi.*;
 import reversiPlayers.*;
+import dataAccess.DataWriter;
 
 public class GameCoordinator {
 
