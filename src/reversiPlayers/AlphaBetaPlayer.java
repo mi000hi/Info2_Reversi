@@ -3,17 +3,16 @@ package reversiPlayers;
 import java.util.ArrayList;
 
 import reversi.*;
-import dataAccess.DataWriter;
 
 public class AlphaBetaPlayer implements ReversiPlayer {
 	private int myColor;
 	private int otherColor;
 
 	private int depth = 0; // current depth
-	private int move = 0; // current move (0,63)
+	private int move = 0; // current move (0,59)
 
 	// name of the file where the ratings are stored
-	private final static String FILENAME_RANDOM_VS_RANDOM = "boardRatings_RandomPlayer_vs_RandomPlayer.txt";
+	private final static String FILENAME_RANDOM_VS_RANDOM = "boardRatings_randomPlayer_vs_randomPlayer.txt";
 	private DataWriter dataWriter = new DataWriter(null, FILENAME_RANDOM_VS_RANDOM, false, 8);
 	ArrayList<double[][]> ratings = dataWriter.readRatingsFromFile();
 
@@ -31,7 +30,7 @@ public class AlphaBetaPlayer implements ReversiPlayer {
 
 	public Coordinates nextMove(GameBoard gb) {
 		long timeout = System.currentTimeMillis() + timeLimit - 10;
-		move = gb.countStones(myColor) + gb.countStones(otherColor);
+		move = gb.countStones(myColor) + gb.countStones(otherColor) - 4;
 		BestMove bestMove = null;
 		try {
 			bestMove = max(1, timeout, gb, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
@@ -203,13 +202,10 @@ public class AlphaBetaPlayer implements ReversiPlayer {
 	private double eval(GameBoard gb) {
 		// endgame
 		double rating = 0;
-		if (move + depth >= 63) {
+		if (move + depth >= 59) {
 			return gb.countStones(myColor) - gb.countStones(otherColor);
 		}
-		// in case of too low depth in the endgame
-		else if (move + depth <= 59) {
-			return gb.countStones(myColor) - gb.countStones(otherColor);
-		} else {
+		else {
 			for (int row = 0; row < 8; ++row) {
 				for (int col = 0; row < 8; ++row) {
 					Coordinates coord = new Coordinates(col, row);
