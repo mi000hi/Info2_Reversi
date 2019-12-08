@@ -319,7 +319,7 @@ public class GameCoordinator {
 	 * @return
 	 * @throws OutOfBoundsException
 	 */
-	private int rating(GameBoard board, int player, int winner, Coordinates field) throws OutOfBoundsException {
+	private double rating(GameBoard board, int player, int winner, Coordinates field) throws OutOfBoundsException {
 
 		int occupation = board.getOccupation(field); // saves the occupation of one field on the gameboard
 		player = -player + 3; // switch the player because now the other player can make a move
@@ -328,9 +328,10 @@ public class GameCoordinator {
 			// rate the field according to occupation: 1 for winners field, -1 for loosers
 			// field, 0 for unoccupied
 			if (occupation == winner) {
-				return 1; // winners field
+				return 1.0 / board.countStones(winner); // winners field
 			} else if (occupation == -winner + 3) {
-				return -1; // loosers field
+				return -1.0 / board.countStones(-winner + 3); // loosers field
+				// TODO: can divisor be 0?
 			}
 			return 0; // field unoccupied
 
@@ -340,10 +341,10 @@ public class GameCoordinator {
 			// for
 			if (board.checkMove(player, field)) {
 				if (player == winner) { // winner could pick this move
-					return 1;
+					return 1.0 / board.mobility(player);
 				} else if (player == -player + 3) {
-					return -1; // looser could pick this move
-				}
+					return -1.0 / board.mobility(player); // looser could pick this move
+				}// TODO: is this the right divisor?
 			}
 			return 0; // no player could pick this move
 
