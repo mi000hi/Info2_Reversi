@@ -3,6 +3,7 @@ package reversiPlayers;
 import java.util.ArrayList;
 
 import reversi.*;
+import dataAccess.DataWriter;
 
 public class AlphaBetaPlayer implements ReversiPlayer {
 	private int myColor;
@@ -12,7 +13,7 @@ public class AlphaBetaPlayer implements ReversiPlayer {
 	private int move = 0; // current move (0,59)
 
 	// name of the file where the ratings are stored
-	private final static String FILENAME_RANDOM_VS_RANDOM = "boardRatings_randomPlayer_vs_randomPlayer.txt";
+	private final static String FILENAME_RANDOM_VS_RANDOM = "boardRatings_RandomPlayer_vs_RandomPlayer.txt";
 	private DataWriter dataWriter = new DataWriter(null, FILENAME_RANDOM_VS_RANDOM, false, 8);
 	ArrayList<double[][]> ratings = dataWriter.readRatingsFromFile();
 
