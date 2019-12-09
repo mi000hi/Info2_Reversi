@@ -386,8 +386,8 @@ public class GameCoordinator {
 		double[][] currentRatings; // saves the current board ratings for that move
 		int nrOfMovesMade = boards.size(); // the number of moves done that game
 //		System.out.println("nrOfMovesMade = " + nrOfMovesMade);
-		double weight = boards.get(boards.size() - 1).countStones(winner)
-				- boards.get(boards.size() - 1).countStones(-winner + 3); // weight that will be counted to the
+		double weight = (boards.get(boards.size() - 1).countStones(winner)
+				- boards.get(boards.size() - 1).countStones(-winner + 3)) / 100.0; // weight that will be counted to the
 																			// boardRatings
 //		System.out.println("weight = " + weight);
 
@@ -441,9 +441,9 @@ public class GameCoordinator {
 			// rate the field according to occupation: 1 for winners field, -1 for loosers
 			// field, 0 for unoccupied
 			if (occupation == winner) {
-				return 1.0 /* (64 - boardIndex - 4.0) */ / board.countStones(winner); // winners field
+				return (64 - boardIndex - 4.0) / board.countStones(winner); // winners field
 			} else if (occupation == -winner + 3) {
-				return -1.0 /* (64 - boardIndex - 4.0) */ / board.countStones(-winner + 3); // loosers field
+				return -(64 - boardIndex - 4.0) / board.countStones(-winner + 3); // loosers field
 				// TODO: can divisor be 0?
 			}
 			return 0; // field unoccupied
