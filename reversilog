@@ -2814,3 +2814,71 @@ RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
 13:46:26: finished reds=61 greens=3
 13:46:26: REGULAR FINISH: GameState: RED wins (RED vs. GREEN = 61:3)
 CSV: RED,,61,3
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 09.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+13:48:49: Players initialized
+13:48:50: rating=32/32 RED DutyCalls moves c6
+13:48:53: rating=32/31 GREEN AB_rate4allStones moves c5
+13:48:56: rating=32/31 RED DutyCalls moves b6
+13:48:59: rating=33/31 GREEN AB_rate4allStones moves c3
+13:49:02: rating=32/31 RED DutyCalls moves f5
+13:49:04: rating=31/32 GREEN AB_rate4allStones moves f4
+13:49:07: rating=31/33 RED DutyCalls moves g3
+13:49:10: rating=29/34 GREEN AB_rate4allStones moves f6
+13:49:13: rating=28/35 RED DutyCalls moves c4
+13:49:16: rating=29/35 GREEN AB_rate4allStones moves c7
+13:49:19: rating=29/34 RED DutyCalls moves b5
+13:49:22: rating=30/33 GREEN AB_rate4allStones moves a5
+13:49:25: rating=32/32 RED DutyCalls moves a7
+13:49:28: rating=33/31 GREEN AB_rate4allStones moves d3
+13:49:31: rating=32/31 RED DutyCalls moves d6
+13:49:34: rating=31/32 GREEN AB_rate4allStones moves f3
+13:49:37: rating=32/32 RED DutyCalls moves e3
+13:49:40: rating=32/31 GREEN AB_rate4allStones moves h3
+13:49:43: rating=33/31 RED DutyCalls moves f2
+13:49:46: rating=34/30 GREEN AB_rate4allStones moves e1
+13:49:49: rating=35/28 RED DutyCalls moves g1
+13:49:52: rating=36/28 GREEN AB_rate4allStones moves d2
+13:49:55: rating=34/30 RED DutyCalls moves e2
+13:49:58: rating=32/31 GREEN AB_rate4allStones moves d1
+13:50:00: rating=33/31 RED DutyCalls moves h4
+13:50:03: rating=33/31 GREEN AB_rate4allStones moves h5
+13:50:06: rating=32/31 RED DutyCalls moves g4
+13:50:09: rating=32/32 GREEN AB_rate4allStones moves d7
+13:50:12: rating=32/32 RED DutyCalls moves e6
+13:50:15: rating=32/32 GREEN AB_rate4allStones moves f7
+13:50:18: rating=32/32 RED DutyCalls moves b3
+13:50:21: rating=32/32 GREEN AB_rate4allStones moves b4
+13:50:24: rating=31/32 RED DutyCalls moves a3
+13:50:27: rating=31/32 GREEN AB_rate4allStones moves a4
+13:50:30: rating=32/32 RED DutyCalls moves a6
+13:50:33: rating=32/32 GREEN AB_rate4allStones moves b2
+13:50:36: rating=32/32 RED DutyCalls moves f1
+13:50:39: rating=34/29 GREEN AB_rate4allStones moves e7
+13:50:42: rating=35/29 RED DutyCalls moves a2
+13:50:45: rating=34/30 GREEN AB_rate4allStones moves h2
+13:50:48: rating=35/29 RED DutyCalls moves g5
+13:50:51: rating=34/29 GREEN AB_rate4allStones moves h1
+13:50:53: rating=34/29 RED DutyCalls moves g2
+13:50:56: rating=34/29 GREEN AB_rate4allStones moves h6
+13:50:59: rating=34/29 RED DutyCalls moves g6
+13:51:02: rating=35/29 GREEN AB_rate4allStones moves b7
+13:51:05: rating=34/30 RED DutyCalls moves a1
+13:51:08: rating=35/28 GREEN AB_rate4allStones moves c2
+13:51:11: rating=37/26 RED DutyCalls moves c1
+13:51:14: rating=37/27 GREEN AB_rate4allStones moves h7
+13:51:17: rating=36/28 RED DutyCalls moves a8
+13:51:19: rating=33/31 GREEN AB_rate4allStones moves b8
+13:51:22: rating=31/33 RED DutyCalls moves b1
+13:51:24: rating=35/29 GREEN AB_rate4allStones moves g7
+13:51:26: rating=39/25 RED DutyCalls moves d8
+13:51:29: rating=39/25 GREEN AB_rate4allStones moves c8
+13:51:31: rating=39/25 RED DutyCalls moves e8
+13:51:33: rating=39/24 GREEN AB_rate4allStones moves f8
+13:51:36: rating=40/24 RED DutyCalls moves g8
+13:51:38: rating=40/24 GREEN AB_rate4allStones moves h8
+13:51:40: finished reds=40 greens=24
+13:51:40: REGULAR FINISH: GameState: RED wins (RED vs. GREEN = 40:24)
+CSV: RED,,40,24

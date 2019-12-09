@@ -21,8 +21,9 @@ public class GameCoordinator {
 	private long fileIntervalStartTime; // time of last data saving
 
 	// name of the file where the ratings are stored
-	private DataWriter dataWriter01; // writes the board rating data to a file
-	private DataWriter dataWriter02; // writes the board rating data to a file
+	private DataWriter dataWriter01; // writes the board rating data to a file for red
+	private DataWriter dataWriter02; // writes the board rating data to a file for green
+	private DataWriter dataWriter03; // writes the board rating data to a file for both merged
 
 	private Terminator terminator; // if we play until the user stops the program, the terminator will know when to
 									// terminate the program
@@ -166,6 +167,9 @@ public class GameCoordinator {
 		dataWriter02 = new DataWriter(players,
 				boardRatingsDataFilename.substring(0, boardRatingsDataFilename.length() - 4) + "_green_wins.txt",
 				trashOldFile, BOARD_SIZE);
+		dataWriter03 = new DataWriter(players,
+				boardRatingsDataFilename.substring(0, boardRatingsDataFilename.length() - 4) + "_merged.txt",
+				trashOldFile, BOARD_SIZE);
 
 		// initialize the terminator
 
@@ -255,10 +259,11 @@ public class GameCoordinator {
 			if (System.currentTimeMillis() - fileIntervalStartTime - SAVE_TO_FILE_INTERVAL > 0) {
 
 				if (NUMBER_OF_GAMES == 0) {
-					System.out.println("===== SAVING DATA: \nGamesPlayed: " + (numberOfGames01 + numberOfGames02) + " - playing to infinity");
+					System.out.println("===== SAVING DATA: \nGamesPlayed: " + (numberOfGames01 + numberOfGames02)
+							+ " - playing to infinity");
 				} else {
-					System.out.println(
-							"===== SAVING DATA: \nGamesPlayed: " + (numberOfGames01 + numberOfGames02) + " out of " + NUMBER_OF_GAMES);
+					System.out.println("===== SAVING DATA: \nGamesPlayed: " + (numberOfGames01 + numberOfGames02)
+							+ " out of " + NUMBER_OF_GAMES);
 				}
 
 				try {
@@ -271,6 +276,7 @@ public class GameCoordinator {
 
 					boardRatings01 = new ArrayList<>();
 					boardRatings02 = new ArrayList<>();
+					
 					for (int i = 0; i < 60; i++) {
 						boardRatings01.add(new double[8][8]);
 						boardRatings02.add(new double[8][8]);
@@ -305,7 +311,8 @@ public class GameCoordinator {
 			e.printStackTrace();
 		}
 
-		System.out.println((numberOfGames01 + numberOfGames02) + " games finished, added to ratings and saved. rating for board 59:");
+		System.out.println((numberOfGames01 + numberOfGames02)
+				+ " games finished, added to ratings and saved. rating for board 59:");
 		printRatingsBoard(boardRatings01, 60 - 1);
 		printRatingsBoard(boardRatings02, 60 - 1);
 
@@ -325,16 +332,45 @@ public class GameCoordinator {
 	 * @param numberOfGames
 	 * @throws IOException
 	 */
-	private void saveData(ArrayList<double[][]> ratings01, ArrayList<double[][]> ratings02, int numberOfGames01, int numberOfGames02)
-			throws IOException {
+	private void saveData(ArrayList<double[][]> ratings01, ArrayList<double[][]> ratings02, int numberOfGames01,
+			int numberOfGames02) throws IOException {
 
 		// writes title, date, names etc to the file, DELETES THE FILE CONTENT!
 		dataWriter01.writeFileHeader(false);
 		dataWriter02.writeFileHeader(false);
+		dataWriter03.writeFileHeader(false);
 
 		// write ratings data to file
 		dataWriter01.writeRatingsData(ratings01, numberOfGames01, true);
 		dataWriter02.writeRatingsData(ratings02, numberOfGames02, true);
+		dataWriter03.writeRatingsData(mergeRatings(ratings01, ratings02), numberOfGames01 + numberOfGames02, true);
+
+	}
+
+	private ArrayList<double[][]> mergeRatings(ArrayList<double[][]> ratings01, ArrayList<double[][]> ratings02) {
+
+		ArrayList<double[][]> result = new ArrayList<>();
+		double[][] currentRatings01, currentRatings02;
+
+		for (int i = 0; i < ratings01.size(); i++) {
+			
+			double[][] merged = new double[8][8];
+
+			currentRatings01 = ratings01.get(i);
+			currentRatings02 = ratings02.get(i);
+
+			for (int x = 0; x < 8; x++) {
+				for (int y = 0; y < 8; y++) {
+
+					merged[x][y] = currentRatings01[x][y] + currentRatings02[x][y];
+
+				}
+			}
+
+			result.add(merged);
+		}
+
+		return result;
 
 	}
 
