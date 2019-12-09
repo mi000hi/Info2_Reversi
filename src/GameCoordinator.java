@@ -59,8 +59,10 @@ public class GameCoordinator {
 	public static void main(String[] args) {
 
 		HashMap<String, ReversiPlayer> players = new HashMap<>();
-		players.put("Random", new RandomPlayer());
-		players.put("AB_rate4allStones", new AB_rate4allStones());
+		players.put("Random01", new RandomPlayer());
+		players.put("Random02", new RandomPlayer());
+		players.put("AB_rate4allStones01", new AB_rate4allStones());
+		players.put("AB_rate4allStones02", new AB_rate4allStones());
 		
 		// dont let program run without commandline arguments
 		if(args.length < 6) {
@@ -74,8 +76,8 @@ public class GameCoordinator {
 
 		RATING_METHOD = Integer.parseInt(args[0]);
 		boolean trashOldFile = Boolean.parseBoolean(args[2]);
-		ReversiPlayer player01 = players.get(args[3]);
-		ReversiPlayer player02 = players.get(args[4]);
+		ReversiPlayer player01 = players.get(args[3]+"01");
+		ReversiPlayer player02 = players.get(args[4]+"02");
 		
 		// create new GameCoordinator
 		System.out.println("creating new GameCoordinator");
@@ -171,6 +173,14 @@ public class GameCoordinator {
 
 		for (int gameIndex = 0; gameIndex < NUMBER_OF_GAMES || !terminateProgram; gameIndex++) {
 
+			// update data players data
+			if(players[1] instanceof AB_rate4allStones) {
+				((AB_rate4allStones) players[1]).setRatings(boardRatings);
+			}
+			if(players[2] instanceof AB_rate4allStones) {
+				((AB_rate4allStones) players[2]).setRatings(boardRatings);
+			}
+			
 			// create the game board
 			GameBoard board = new BitBoard();
 			int currentPlayer = GameBoard.RED;

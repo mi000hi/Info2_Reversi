@@ -389,7 +389,7 @@ public class DataWriter {
 				values[x][y] -= minValue;
 
 				// make the maximum value 1
-				values[x][y] /= maxValue;
+				values[x][y] /= (maxValue - minValue);
 
 			}
 		}

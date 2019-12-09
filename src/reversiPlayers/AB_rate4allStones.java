@@ -190,7 +190,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 			}
 		}
 
-		System.out.println("maximum depth was: " + depth);
+//		System.out.println("maximum depth was: " + depth);
 //		System.out.println("rating for this game is: " + bestRating);
 
 		return bestCoordinates;
@@ -316,6 +316,17 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 		return rating;
 
+	}
+	
+	/**
+	 * sets the ratings
+	 * 
+	 * @param boardRatings
+	 */
+	public void setRatings(ArrayList<double[][]> boardRatings) {
+		
+		ratings = boardRatings; // TODO: maybe unnecessary because pointer
+		
 	}
 
 }
