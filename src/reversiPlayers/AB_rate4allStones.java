@@ -211,7 +211,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 		}
 
 //		System.out.println("maximum depth was: " + depth);
-//		System.out.println("rating for this game is: " + bestRating);
+		System.out.println("rating for this game is: " + bestRating);
 
 		return bestCoordinates;
 
@@ -322,18 +322,22 @@ public class AB_rate4allStones implements ReversiPlayer {
 					currentOccupation = currentBoard.getOccupation(new Coordinates(y + 1, x + 1));
 				
 					if (currentOccupation == myColor) {
-						rating += currentStoneRating[x][y] / currentBoard.countStones(myColor);
+						rating += currentStoneRating[x][y] / currentBoard.countStones(myColor) / 5000 / Math.max(1, (60 - moveNumber));
 					} else if(currentOccupation == -myColor + 3) {
-						rating -= currentStoneRating[x][y] / currentBoard.countStones(-myColor + 3);
+						rating -= currentStoneRating[x][y] / currentBoard.countStones(-myColor + 3) / 5000 / Math.max(1, (60 - moveNumber));
 					}
 					
 					// TODO: do something if no player has this field?
 
-					if(currentBoard.checkMove(-whoDidLastMove+3, new Coordinates(y+1, x+1))) {
-						rating -= currentMobilityRating[x][y]; // TODO: which player, which move?
-						
-						
-					}
+//					if(currentBoard.checkMove(-whoDidLastMove+3, new Coordinates(y+1, x+1))) {
+//						if(whoDidLastMove == myColor) {
+//							rating += 90 / moveNumber * currentMobilityRating[x][y]; // TODO: which player, which move?
+//						} else {
+//							rating -= 90 / moveNumber * currentMobilityRating[x][y];
+//						}
+//						
+//						
+//					}
 					
 				}
 			}
@@ -341,7 +345,11 @@ public class AB_rate4allStones implements ReversiPlayer {
 			e.printStackTrace();
 		}
 
-//		rating *= currentBoard.mobility(-whoDidLastMove + 3); // TODO
+		if(myColor != whoDidLastMove) {
+			rating *= currentBoard.mobility(whoDidLastMove) * currentBoard.mobility(whoDidLastMove); // TODO
+		} else {
+			rating /= currentBoard.mobility(whoDidLastMove) * currentBoard.mobility(whoDidLastMove); // TODO
+		}
 		
 		return rating;
 

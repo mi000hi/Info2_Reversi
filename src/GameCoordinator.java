@@ -475,9 +475,9 @@ public class GameCoordinator {
 			// for
 			if (board.checkMove(player, field)) {
 				if (player == winner) { // winner could pick this move
-					return 1.0 / board.mobility(player);
+					return 1.0;// / board.mobility(player);
 				} else {
-					return -1.0 / board.mobility(player); // looser could pick this move
+					return 0;//-1.0;// / board.mobility(player); // looser could pick this move
 				} // TODO: is this the right divisor?, can it be 0?
 			}
 			return 0; // no player could pick this move
