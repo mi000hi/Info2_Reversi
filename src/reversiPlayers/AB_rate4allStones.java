@@ -27,20 +27,14 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 	Coordinates[] corners = { new Coordinates(1, 1), new Coordinates(1, 8), new Coordinates(8, 1),
 			new Coordinates(8, 8) };
-	
-	
+
 	/*
 	 * 
-	 * add to ratings if stone difference is bigger than 10-20 set 20
-	 * evt gewichtung freefields egal
-	 * ~100 / min (random vs random)
+	 * add to ratings if stone difference is bigger than 10-20 set 20 evt gewichtung
+	 * freefields egal ~100 / min (random vs random)
 	 * 
-	 * depth 8-9
-	 * 2000ms: depth 10-11
-	 * 1000ms: depth 9-10
-	 * 500ms: depth 9
-	 * 300ms: depth 8
-	 * 200ms: depth 7-8
+	 * depth 8-9 2000ms: depth 10-11 1000ms: depth 9-10 500ms: depth 9 300ms: depth
+	 * 8 200ms: depth 7-8
 	 * 
 	 * min stones on board to rate game 40-50 set 50
 	 * 
@@ -57,7 +51,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 	private final static String FILENAME_DUTYCALLS_VS_RANDOM = "boardRatings_DutyCalls_vs_RandomPlayer.txt";
 	private final static String FILENAME_RANDOM_VS_DUTYCALLS = "boardRatings_RandomPlayer_vs_DutyCalls.txt";
 //	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_stoneLocationRating.txt", false, 8);
-	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_stoneLocationRating_green_wins.txt", false, 8);
+	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_michaelEclipseTestingFile_green_wins.txt",
+			false, 8);
 	ArrayList<double[][]> ratings = dataWriter.readRatingsFromFile();
 
 	@Override
@@ -67,7 +62,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 		timeToUse = 0.999;
 		noTimeLeft = false;
 	}
-	
+
 	public void initializeDataWriter(String filename) {
 		dataWriter = new DataWriter(null, filename, false, 8);
 	}
@@ -331,6 +326,12 @@ public class AB_rate4allStones implements ReversiPlayer {
 					
 					// TODO: do something if no player has this field?
 
+//					if(currentBoard.checkMove(-whoDidLastMove+3, new Coordinates(y+1, x+1))) {
+//						rating -= currentBoardRating[x][y];
+//						
+//						
+//					}
+					
 				}
 			}
 		} catch (OutOfBoundsException e) {
@@ -342,16 +343,16 @@ public class AB_rate4allStones implements ReversiPlayer {
 		return rating;
 
 	}
-	
+
 	/**
 	 * sets the ratings
 	 * 
 	 * @param boardRatings
 	 */
 	public void setRatings(ArrayList<double[][]> boardRatings) {
-		
+
 		ratings = boardRatings; // TODO: maybe unnecessary because pointer
-		
+
 	}
 
 }
