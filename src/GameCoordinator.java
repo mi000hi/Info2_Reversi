@@ -57,7 +57,7 @@ public class GameCoordinator {
 	public static void main(String[] args) {
 
 		// dont let program run without commandline arguments
-		if(args.length == 0) {
+		if(args.length < 3) {
 			System.out.println("PLEASE USE COMMANDLINE ARGUMENTS: {ratingMethod} {filename} {trashOldFile}");
 			System.exit(0);
 		}
