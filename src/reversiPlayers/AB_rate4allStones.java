@@ -34,7 +34,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 	private final static String FILENAME_RANDOM_VS_RANDOM = "boardRatings_RandomPlayer_vs_RandomPlayer.txt";
 	private final static String FILENAME_DUTYCALLS_VS_RANDOM = "boardRatings_DutyCalls_vs_RandomPlayer.txt";
 	private final static String FILENAME_RANDOM_VS_DUTYCALLS = "boardRatings_RandomPlayer_vs_DutyCalls.txt";
-	private DataWriter dataWriter = new DataWriter(null, FILENAME_DUTYCALLS_VS_RANDOM, false, 8);
+	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_stoneLocationRating.txt", false, 8);
 	ArrayList<double[][]> ratings = dataWriter.readRatingsFromFile();
 
 	@Override
@@ -43,6 +43,10 @@ public class AB_rate4allStones implements ReversiPlayer {
 		this.timeLimit = timeLimit;
 		timeToUse = 0.999;
 		noTimeLeft = false;
+	}
+	
+	public void initializeDataWriter(String filename) {
+		dataWriter = new DataWriter(null, filename, false, 8);
 	}
 
 	@Override
@@ -186,7 +190,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 			}
 		}
 
-//		System.out.println("maximum depth was: " + depth);
+		System.out.println("maximum depth was: " + depth);
 //		System.out.println("rating for this game is: " + bestRating);
 
 		return bestCoordinates;

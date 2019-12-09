@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.TimeoutException;
 
 import reversi.*;
@@ -32,7 +33,8 @@ public class GameCoordinator {
 	 * the two reversi players
 	 */
 	ReversiPlayer[] players = new ReversiPlayer[3]; // those players will play against each other
-
+	
+	
 	/*
 	 * game variables
 	 */
@@ -56,20 +58,24 @@ public class GameCoordinator {
 	 */
 	public static void main(String[] args) {
 
+		HashMap<String, ReversiPlayer> players = new HashMap<>();
+		players.put("Random", new RandomPlayer());
+		players.put("AB_rate4allStones", new AB_rate4allStones());
+		
 		// dont let program run without commandline arguments
-		if(args.length < 3) {
-			System.out.println("PLEASE USE COMMANDLINE ARGUMENTS: {ratingMethod} {filename} {trashOldFile}");
+		if(args.length < 6) {
+			System.out.println("PLEASE USE COMMANDLINE ARGUMENTS: {ratingMethod} {filename} {trashOldFile} {player01} {player02} {moveTime}");
 			System.exit(0);
 		}
 		
 		// standard values
-		String filename = "boardRatings/RandomPlayer_vs_RandomPlayer.txt";
-		long moveTime = 100;
-		ReversiPlayer player01 = new RandomPlayer(), player02 = new RandomPlayer();
+		String filename = "boardRatings/" + args[3] + "_vs_" + args[4] + "_" + args[1] + ".txt";
+		long moveTime = (long) Integer.parseInt(args[5]);
 
 		RATING_METHOD = Integer.parseInt(args[0]);
-		filename = args[1];
 		boolean trashOldFile = Boolean.parseBoolean(args[2]);
+		ReversiPlayer player01 = players.get(args[3]);
+		ReversiPlayer player02 = players.get(args[4]);
 		
 		// create new GameCoordinator
 		System.out.println("creating new GameCoordinator");
@@ -122,6 +128,13 @@ public class GameCoordinator {
 		players[1] = player01;
 		players[2] = player02;
 		MOVE_TIME = moveTime;
+		
+		if(players[1] instanceof AB_rate4allStones) {
+			((AB_rate4allStones) players[1]).initializeDataWriter(boardRatingsDataFilename);
+		}
+		if(players[2] instanceof AB_rate4allStones) {
+			((AB_rate4allStones) players[2]).initializeDataWriter(boardRatingsDataFilename);
+		}
 
 		// initialize players
 		players[1].initialize(GameBoard.RED, MOVE_TIME);
