@@ -21,7 +21,8 @@ public class GameCoordinator {
 	private long fileIntervalStartTime; // time of last data saving
 
 	// name of the file where the ratings are stored
-	private DataWriter dataWriter; // writes the board rating data to a file
+	private DataWriter dataWriter01; // writes the board rating data to a file
+	private DataWriter dataWriter02; // writes the board rating data to a file
 
 	private Terminator terminator; // if we play until the user stops the program, the terminator will know when to
 									// terminate the program
@@ -33,8 +34,7 @@ public class GameCoordinator {
 	 * the two reversi players
 	 */
 	ReversiPlayer[] players = new ReversiPlayer[3]; // those players will play against each other
-	
-	
+
 	/*
 	 * game variables
 	 */
@@ -42,14 +42,18 @@ public class GameCoordinator {
 	private final long MOVE_TIME; // time a player has to make its move; we trust the players here :)
 	private final int NUMBER_OF_GAMES = 0; // number of games to be played, set to 0 to play infinitely
 	private static int RATING_METHOD; // 0 for field possession, 1 for possible moves
+	private final int MIN_STONES_ON_BOARD = 55; // min stones on board to add the game to the ratings
+	private final int MIN_STONE_DIFFERENCE = 40; // min stone difference to add the game to the ratings
 
 	/*
 	 * variables to analyze the games
 	 */
 	private ArrayList<GameBoard> gameBoards = new ArrayList<>();
 	private ArrayList<Integer> moveWasMadeBy = new ArrayList<>();
-	private ArrayList<double[][]> boardRatings = new ArrayList<>();
-	private int numberOfGames = 0;
+	private ArrayList<double[][]> boardRatings01 = new ArrayList<>(); // ratings for red wins
+	private ArrayList<double[][]> boardRatings02 = new ArrayList<>(); // ratings for green wins
+	private int numberOfGames01 = 0;
+	private int numberOfGames02 = 0;
 
 	/**
 	 * creates the GameCoordinator, who can run reversi games
@@ -63,13 +67,14 @@ public class GameCoordinator {
 		players.put("Random02", new RandomPlayer());
 		players.put("AB_rate4allStones01", new AB_rate4allStones());
 		players.put("AB_rate4allStones02", new AB_rate4allStones());
-		
+
 		// dont let program run without commandline arguments
-		if(args.length < 6) {
-			System.out.println("PLEASE USE COMMANDLINE ARGUMENTS: {ratingMethod} {filename} {trashOldFile} {player01} {player02} {moveTime}");
+		if (args.length < 6) {
+			System.out.println(
+					"PLEASE USE COMMANDLINE ARGUMENTS: {ratingMethod} {filename} {trashOldFile} {player01} {player02} {moveTime}");
 			System.exit(0);
 		}
-		
+
 		// standard values
 		String filename = "boardRatings/" + args[3] + "_vs_" + args[4] + "_" + args[1] + ".txt";
 		System.out.println("filename: " + filename);
@@ -77,9 +82,9 @@ public class GameCoordinator {
 
 		RATING_METHOD = Integer.parseInt(args[0]);
 		boolean trashOldFile = Boolean.parseBoolean(args[2]);
-		ReversiPlayer player01 = players.get(args[3]+"01");
-		ReversiPlayer player02 = players.get(args[4]+"02");
-		
+		ReversiPlayer player01 = players.get(args[3] + "01");
+		ReversiPlayer player02 = players.get(args[4] + "02");
+
 		// create new GameCoordinator
 		System.out.println("creating new GameCoordinator");
 		System.out.println("we have " + args.length + " arguments, looking good");
@@ -102,7 +107,7 @@ public class GameCoordinator {
 //				System.exit(0);
 //			}
 //		}
-		
+
 		// adjust filename if we rate possible moves
 //		if(RATING_METHOD == 1) {
 //			filename = filename.substring(0, filename.length() - 4) + "_ratingPossibleMoves.txt";
@@ -131,12 +136,14 @@ public class GameCoordinator {
 		players[1] = player01;
 		players[2] = player02;
 		MOVE_TIME = moveTime;
-		
-		if(players[1] instanceof AB_rate4allStones) {
-			((AB_rate4allStones) players[1]).initializeDataWriter(boardRatingsDataFilename);
+
+		if (players[1] instanceof AB_rate4allStones) {
+			((AB_rate4allStones) players[1]).initializeDataWriter(
+					boardRatingsDataFilename.substring(0, boardRatingsDataFilename.length() - 4) + "_red_wins.txt");
 		}
-		if(players[2] instanceof AB_rate4allStones) {
-			((AB_rate4allStones) players[2]).initializeDataWriter(boardRatingsDataFilename);
+		if (players[2] instanceof AB_rate4allStones) {
+			((AB_rate4allStones) players[2]).initializeDataWriter(
+					boardRatingsDataFilename.substring(0, boardRatingsDataFilename.length() - 4) + "_green_wins.txt");
 		}
 
 		// initialize players
@@ -145,14 +152,20 @@ public class GameCoordinator {
 
 		// initialize boardRatings
 		for (int i = 0; i < 60; i++) {
-			boardRatings.add(new double[8][8]);
+			boardRatings01.add(new double[8][8]);
+			boardRatings02.add(new double[8][8]);
 		}
 
 		System.out.println("moveTime = " + MOVE_TIME);
 		System.out.println("filename = " + boardRatingsDataFilename);
 
 		// initialize data writer
-		dataWriter = new DataWriter(players, boardRatingsDataFilename, trashOldFile, BOARD_SIZE);
+		dataWriter01 = new DataWriter(players,
+				boardRatingsDataFilename.substring(0, boardRatingsDataFilename.length() - 4) + "_red_wins.txt",
+				trashOldFile, BOARD_SIZE);
+		dataWriter02 = new DataWriter(players,
+				boardRatingsDataFilename.substring(0, boardRatingsDataFilename.length() - 4) + "_green_wins.txt",
+				trashOldFile, BOARD_SIZE);
 
 		// initialize the terminator
 
@@ -175,13 +188,13 @@ public class GameCoordinator {
 		for (int gameIndex = 0; gameIndex < NUMBER_OF_GAMES || !terminateProgram; gameIndex++) {
 
 			// update data players data
-			if(players[1] instanceof AB_rate4allStones) {
-				((AB_rate4allStones) players[1]).setRatings(boardRatings);
+			if (players[1] instanceof AB_rate4allStones) {
+				((AB_rate4allStones) players[1]).setRatings(boardRatings01);
 			}
-			if(players[2] instanceof AB_rate4allStones) {
-				((AB_rate4allStones) players[2]).setRatings(boardRatings);
+			if (players[2] instanceof AB_rate4allStones) {
+				((AB_rate4allStones) players[2]).setRatings(boardRatings02);
 			}
-			
+
 			// create the game board
 			GameBoard board = new BitBoard();
 			int currentPlayer = GameBoard.RED;
@@ -225,9 +238,15 @@ public class GameCoordinator {
 			}
 
 			// add this game to the boardRatings
-			if (winner != GameBoard.EMPTY) {
+			if (Math.abs(board.countStones(1) - board.countStones(2)) > MIN_STONE_DIFFERENCE
+					&& board.countStones(1) + board.countStones(2) > MIN_STONES_ON_BOARD) {
+
 				addGameToBoardRatings(gameBoards, moveWasMadeBy, winner);
-				numberOfGames++;
+				if (winner == 1) {
+					numberOfGames01++;
+				} else {
+					numberOfGames02++;
+				}
 				// printRatingsBoard(boardRatings, 60 - 1);
 			}
 
@@ -236,27 +255,33 @@ public class GameCoordinator {
 			if (System.currentTimeMillis() - fileIntervalStartTime - SAVE_TO_FILE_INTERVAL > 0) {
 
 				if (NUMBER_OF_GAMES == 0) {
-					System.out.println("===== SAVING DATA: \nGamesPlayed: " + numberOfGames + " - playing to infinity");
+					System.out.println("===== SAVING DATA: \nGamesPlayed: " + (numberOfGames01 + numberOfGames02) + " - playing to infinity");
 				} else {
 					System.out.println(
-							"===== SAVING DATA: \nGamesPlayed: " + numberOfGames + " out of " + NUMBER_OF_GAMES);
+							"===== SAVING DATA: \nGamesPlayed: " + (numberOfGames01 + numberOfGames02) + " out of " + NUMBER_OF_GAMES);
 				}
 
 				try {
-					saveData(boardRatings, numberOfGames);
+					saveData(boardRatings01, boardRatings02, numberOfGames01, numberOfGames02);
 					fileIntervalStartTime = System.currentTimeMillis();
 
 					// reset variables and arrays
-					numberOfGames = 0;
+					numberOfGames01 = 0;
+					numberOfGames02 = 0;
 
-					boardRatings = new ArrayList<>();
+					boardRatings01 = new ArrayList<>();
+					boardRatings02 = new ArrayList<>();
 					for (int i = 0; i < 60; i++) {
-						boardRatings.add(new double[8][8]);
+						boardRatings01.add(new double[8][8]);
+						boardRatings02.add(new double[8][8]);
 					}
 
-					System.out.println(
-							"rating for all " + dataWriter.getNumberOfGames() + " games for board 59 is now: ");
-					printRatingsBoard(dataWriter.getBoardRating(60 - 1));
+					System.out.println("rating for all " + dataWriter01.getNumberOfGames()
+							+ " games for board 59 is now (red wins): ");
+					printRatingsBoard(dataWriter01.getBoardRating(60 - 1));
+					System.out.println("rating for all " + dataWriter02.getNumberOfGames()
+							+ " games for board 59 is now (green wins): ");
+					printRatingsBoard(dataWriter02.getBoardRating(60 - 1));
 
 					// update the terminate message
 					if (terminator != null) {
@@ -275,16 +300,21 @@ public class GameCoordinator {
 		System.out.println("===== SAVING DATA =====");
 
 		try {
-			saveData(boardRatings, numberOfGames);
+			saveData(boardRatings01, boardRatings02, numberOfGames01, numberOfGames02);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		System.out.println(numberOfGames + " games finished, added to ratings and saved. rating for board 59:");
-		printRatingsBoard(boardRatings, 60 - 1);
+		System.out.println((numberOfGames01 + numberOfGames02) + " games finished, added to ratings and saved. rating for board 59:");
+		printRatingsBoard(boardRatings01, 60 - 1);
+		printRatingsBoard(boardRatings02, 60 - 1);
 
-		System.out.println("rating for all " + dataWriter.readDataFromFile() + " games for board 59 is now: ");
-		printRatingsBoard(dataWriter.readRatingsFromFile(), 60 - 1);
+		System.out.println(
+				"rating for all " + dataWriter01.readDataFromFile() + " games for board 59 is now (red wins): ");
+		printRatingsBoard(dataWriter01.readRatingsFromFile(), 60 - 1);
+		System.out.println(
+				"rating for all " + dataWriter02.readDataFromFile() + " games for board 59 is now (green wins): ");
+		printRatingsBoard(dataWriter02.readRatingsFromFile(), 60 - 1);
 
 	}
 
@@ -295,14 +325,16 @@ public class GameCoordinator {
 	 * @param numberOfGames
 	 * @throws IOException
 	 */
-	private void saveData(ArrayList<double[][]> ratings, int numberOfGames)
+	private void saveData(ArrayList<double[][]> ratings01, ArrayList<double[][]> ratings02, int numberOfGames01, int numberOfGames02)
 			throws IOException {
 
 		// writes title, date, names etc to the file, DELETES THE FILE CONTENT!
-		dataWriter.writeFileHeader(false);
+		dataWriter01.writeFileHeader(false);
+		dataWriter02.writeFileHeader(false);
 
 		// write ratings data to file
-		dataWriter.writeRatingsData(ratings, numberOfGames, true);
+		dataWriter01.writeRatingsData(ratings01, numberOfGames01, true);
+		dataWriter02.writeRatingsData(ratings02, numberOfGames02, true);
 
 	}
 
@@ -318,7 +350,9 @@ public class GameCoordinator {
 		double[][] currentRatings; // saves the current board ratings for that move
 		int nrOfMovesMade = boards.size(); // the number of moves done that game
 //		System.out.println("nrOfMovesMade = " + nrOfMovesMade);
-		double weight = boards.get(boards.size() - 1).countStones(winner) - boards.get(boards.size() - 1).countStones(-winner + 3); // weight that will be counted to the boardRatings
+		double weight = boards.get(boards.size() - 1).countStones(winner)
+				- boards.get(boards.size() - 1).countStones(-winner + 3); // weight that will be counted to the
+																			// boardRatings
 //		System.out.println("weight = " + weight);
 
 		try {
@@ -326,7 +360,11 @@ public class GameCoordinator {
 
 				currentBoard = boards.get(moveIndex);
 				currentPlayer = moveWasMadeBy.get(moveIndex);
-				currentRatings = boardRatings.get(moveIndex);
+				if (winner == 1) {
+					currentRatings = boardRatings01.get(moveIndex);
+				} else {
+					currentRatings = boardRatings02.get(moveIndex);
+				}
 
 				for (int x = 0; x < BOARD_SIZE; x++) {
 					for (int y = 0; y < BOARD_SIZE; y++) {
@@ -338,7 +376,11 @@ public class GameCoordinator {
 				}
 
 				// save the new boardRating
-				boardRatings.set(moveIndex, currentRatings);
+				if (winner == 1) {
+					boardRatings01.set(moveIndex, currentRatings);
+				} else {
+					boardRatings02.set(moveIndex, currentRatings);
+				}
 
 			}
 		} catch (OutOfBoundsException o) {
@@ -353,7 +395,8 @@ public class GameCoordinator {
 	 * @return
 	 * @throws OutOfBoundsException
 	 */
-	private double rating(GameBoard board, int boardIndex, int player, int winner, Coordinates field) throws OutOfBoundsException {
+	private double rating(GameBoard board, int boardIndex, int player, int winner, Coordinates field)
+			throws OutOfBoundsException {
 
 		int occupation = board.getOccupation(field); // saves the occupation of one field on the gameboard
 		player = -player + 3; // switch the player because now the other player can make a move
@@ -362,9 +405,9 @@ public class GameCoordinator {
 			// rate the field according to occupation: 1 for winners field, -1 for loosers
 			// field, 0 for unoccupied
 			if (occupation == winner) {
-				return (64 - boardIndex - 4.0) / board.countStones(winner); // winners field
+				return 1.0 /* (64 - boardIndex - 4.0) */ / board.countStones(winner); // winners field
 			} else if (occupation == -winner + 3) {
-				return -(64 - boardIndex - 4.0) / board.countStones(-winner + 3); // loosers field
+				return -1.0 /* (64 - boardIndex - 4.0) */ / board.countStones(-winner + 3); // loosers field
 				// TODO: can divisor be 0?
 			}
 			return 0; // field unoccupied
@@ -376,9 +419,9 @@ public class GameCoordinator {
 			if (board.checkMove(player, field)) {
 				if (player == winner) { // winner could pick this move
 					return 1.0 / board.mobility(player);
-				} else if (player == -player + 3) {
+				} else {
 					return -1.0 / board.mobility(player); // looser could pick this move
-				}// TODO: is this the right divisor?
+				} // TODO: is this the right divisor?
 			}
 			return 0; // no player could pick this move
 
