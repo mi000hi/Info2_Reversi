@@ -43,8 +43,8 @@ public class GameCoordinator {
 	private final long MOVE_TIME; // time a player has to make its move; we trust the players here :)
 	private final int NUMBER_OF_GAMES = 0; // number of games to be played, set to 0 to play infinitely
 	private static int RATING_METHOD; // 0 for field possession, 1 for possible moves
-	private final int MIN_STONES_ON_BOARD = 55; // min stones on board to add the game to the ratings
-	private final int MIN_STONE_DIFFERENCE = 40; // min stone difference to add the game to the ratings
+	private final int MIN_STONES_ON_BOARD = 30; // min stones on board to add the game to the ratings
+	private final int MIN_STONE_DIFFERENCE = 30; // min stone difference to add the game to the ratings
 
 	/*
 	 * variables to analyze the games
@@ -243,7 +243,7 @@ public class GameCoordinator {
 
 			// add this game to the boardRatings
 			if (Math.abs(board.countStones(1) - board.countStones(2)) > MIN_STONE_DIFFERENCE
-					&& board.countStones(1) + board.countStones(2) > MIN_STONES_ON_BOARD) {
+					&& board.countStones(1) + board.countStones(2) > MIN_STONES_ON_BOARD && board.countStones(-winner+3) == 0) {
 
 				addGameToBoardRatings(gameBoards, moveWasMadeBy, winner);
 				if (winner == 1) {
@@ -441,10 +441,11 @@ public class GameCoordinator {
 			// rate the field according to occupation: 1 for winners field, -1 for loosers
 			// field, 0 for unoccupied
 			if (occupation == winner) {
-				return (64 - boardIndex - 4.0) / board.countStones(winner); // winners field
+				return 1.0 /*(64 - boardIndex - 4.0)*/ / board.countStones(winner); // winners field
 			} else if (occupation == -winner + 3) {
-				return -(64 - boardIndex - 4.0) / board.countStones(-winner + 3); // loosers field
+				return -1.0 /*(64 - boardIndex - 4.0)*/ / board.countStones(-winner + 3); // loosers field
 				// TODO: can divisor be 0?
+				// TODO: * freeFields is unnecessary becuase its just a constant
 			}
 			return 0; // field unoccupied
 
@@ -457,7 +458,7 @@ public class GameCoordinator {
 					return 1.0 / board.mobility(player);
 				} else {
 					return -1.0 / board.mobility(player); // looser could pick this move
-				} // TODO: is this the right divisor?
+				} // TODO: is this the right divisor?, can it be 0?
 			}
 			return 0; // no player could pick this move
 
