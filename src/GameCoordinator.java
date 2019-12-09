@@ -19,7 +19,8 @@ public class GameCoordinator {
 	private int winner; // winner of the last game
 	private final long SAVE_TO_FILE_INTERVAL = 60000; // interval of saving the rating data to a file
 	private long fileIntervalStartTime; // time of last data saving
-
+	private int[][] nrOfFieldColorChange;
+	
 	// name of the file where the ratings are stored
 	private DataWriter dataWriter01; // writes the board rating data to a file for red
 	private DataWriter dataWriter02; // writes the board rating data to a file for green
@@ -43,7 +44,7 @@ public class GameCoordinator {
 	private final long MOVE_TIME; // time a player has to make its move; we trust the players here :)
 	private final int NUMBER_OF_GAMES = 0; // number of games to be played, set to 0 to play infinitely
 	private static int RATING_METHOD; // 0 for field possession, 1 for possible moves
-	private final int MIN_STONES_ON_BOARD = 30; // min stones on board to add the game to the ratings
+	private final int MIN_STONES_ON_BOARD = 50; // min stones on board to add the game to the ratings
 	private final int MIN_STONE_DIFFERENCE = 30; // min stone difference to add the game to the ratings
 
 	/*
@@ -189,8 +190,9 @@ public class GameCoordinator {
 		// take time to save after SAVE_TO_FILE_INTERVAL
 		fileIntervalStartTime = System.currentTimeMillis();
 
+		int lastOccupation = 0;
 		for (int gameIndex = 0; gameIndex < NUMBER_OF_GAMES || !terminateProgram; gameIndex++) {
-
+			
 			// update data players data
 			if (players[1] instanceof AB_rate4allStones) {
 				((AB_rate4allStones) players[1]).setRatings(boardRatings01);
@@ -243,8 +245,8 @@ public class GameCoordinator {
 
 			// add this game to the boardRatings
 			if (Math.abs(board.countStones(1) - board.countStones(2)) > MIN_STONE_DIFFERENCE
-					&& board.countStones(1) + board.countStones(2) > MIN_STONES_ON_BOARD && board.countStones(-winner+3) == 0) {
-
+					&& board.countStones(1) + board.countStones(2) > MIN_STONES_ON_BOARD) {// && board.countStones(-winner+3) == 0) {
+				
 				addGameToBoardRatings(gameBoards, moveWasMadeBy, winner);
 				if (winner == 1) {
 					numberOfGames01++;
@@ -391,7 +393,23 @@ public class GameCoordinator {
 																			// boardRatings
 //		System.out.println("weight = " + weight);
 
+		
+		
 		try {
+			
+			nrOfFieldColorChange = new int[8][8];
+			int lastOccupation = 0;
+			for(int x = 0; x < 8; x++) {
+				for(int y = 0; y < 8; y++) {
+					for(int i = 0; i < boards.size(); i++) {
+						if(boards.get(i).getOccupation(new Coordinates(y+1, x+1)) != lastOccupation) {
+							nrOfFieldColorChange[x][y] ++;
+							lastOccupation = boards.get(i).getOccupation(new Coordinates(y+1, x+1));
+						}
+					}
+				}
+			}
+			
 			for (int moveIndex = 0; moveIndex < nrOfMovesMade; moveIndex++) {
 
 				currentBoard = boards.get(moveIndex);
@@ -406,7 +424,7 @@ public class GameCoordinator {
 					for (int y = 0; y < BOARD_SIZE; y++) {
 
 						currentRatings[x][y] += weight
-								* rating(currentBoard, moveIndex, currentPlayer, winner, new Coordinates(y + 1, x + 1));
+								* rating(currentBoard, moveIndex, currentPlayer, winner, new Coordinates(y + 1, x + 1)) / nrOfFieldColorChange[x][y];
 
 					}
 				}
@@ -437,13 +455,15 @@ public class GameCoordinator {
 		int occupation = board.getOccupation(field); // saves the occupation of one field on the gameboard
 		player = -player + 3; // switch the player because now the other player can make a move
 
+		
+		
 		if (RATING_METHOD == 0) {
 			// rate the field according to occupation: 1 for winners field, -1 for loosers
 			// field, 0 for unoccupied
 			if (occupation == winner) {
-				return 1.0 /*(64 - boardIndex - 4.0)*/ / board.countStones(winner); // winners field
+				return 1.0 /*(64 - boardIndex - 4.0)*/; //board.countStones(winner); // winners field
 			} else if (occupation == -winner + 3) {
-				return -1.0 /*(64 - boardIndex - 4.0)*/ / board.countStones(-winner + 3); // loosers field
+				return -1.0 /*(64 - boardIndex - 4.0)*/; //board.countStones(-winner + 3); // loosers field
 				// TODO: can divisor be 0?
 				// TODO: * freeFields is unnecessary becuase its just a constant
 			}

@@ -51,7 +51,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 	private final static String FILENAME_DUTYCALLS_VS_RANDOM = "boardRatings_DutyCalls_vs_RandomPlayer.txt";
 	private final static String FILENAME_RANDOM_VS_DUTYCALLS = "boardRatings_RandomPlayer_vs_DutyCalls.txt";
 //	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_stoneLocationRating.txt", false, 8);
-	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_michaelEclipseTestingFile_green_wins.txt",
+	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_stoneLocationRatingToZero_green_wins.txt",
 			false, 8);
 	ArrayList<double[][]> ratings = dataWriter.readRatingsFromFile();
 
