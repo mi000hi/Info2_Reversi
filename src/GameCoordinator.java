@@ -140,11 +140,11 @@ public class GameCoordinator {
 		MOVE_TIME = moveTime;
 
 		if (players[1] instanceof AB_rate4allStones) {
-			((AB_rate4allStones) players[1]).initializeDataWriter(
+			((AB_rate4allStones) players[1]).initializeDataReader(
 					boardRatingsDataFilename.substring(0, boardRatingsDataFilename.length() - 4) + "_red_wins.txt");
 		}
 		if (players[2] instanceof AB_rate4allStones) {
-			((AB_rate4allStones) players[2]).initializeDataWriter(
+			((AB_rate4allStones) players[2]).initializeDataReader(
 					boardRatingsDataFilename.substring(0, boardRatingsDataFilename.length() - 4) + "_green_wins.txt");
 		}
 

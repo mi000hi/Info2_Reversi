@@ -3,6 +3,7 @@ package reversiPlayers;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import dataAccess.DataReader;
 import dataAccess.DataWriter;
 import reversi.Coordinates;
 import reversi.GameBoard;
@@ -51,9 +52,10 @@ public class AB_rate4allStones implements ReversiPlayer {
 	private final static String FILENAME_DUTYCALLS_VS_RANDOM = "boardRatings_DutyCalls_vs_RandomPlayer.txt";
 	private final static String FILENAME_RANDOM_VS_DUTYCALLS = "boardRatings_RandomPlayer_vs_DutyCalls.txt";
 //	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_stoneLocationRating.txt", false, 8);
-	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_stoneLocationRatingToZero_green_wins.txt",
-			false, 8);
-	ArrayList<double[][]> ratings = dataWriter.readRatingsFromFile();
+	private DataReader dataReaderStones = new DataReader("boardRatings/Random_vs_Random_stoneLocationRating_fieldColorChange_green_wins.txt", 8);
+	private DataReader dataReaderMobility = new DataReader("boardRatings/Random_vs_Random_mobilityRating_green_wins.txt", 8);
+	ArrayList<double[][]> stoneRatings = dataReaderStones.readRatingsFromFile();
+	ArrayList<double[][]> mobilityRatings = dataReaderMobility.readRatingsFromFile();
 
 	@Override
 	public void initialize(int myColor, long timeLimit) {
@@ -63,8 +65,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 		noTimeLeft = false;
 	}
 
-	public void initializeDataWriter(String filename) {
-		dataWriter = new DataWriter(null, filename, false, 8);
+	public void initializeDataReader(String filename) {
+		dataReaderStones = new DataReader(filename, 8);
 	}
 
 	@Override
@@ -310,7 +312,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 		int currentOccupation;
 		double rating = 0;
 		int moveNumber = currentBoard.countStones(1) + currentBoard.countStones(2) - 4;
-		double[][] currentBoardRating = ratings.get(moveNumber);
+		double[][] currentStoneRating = stoneRatings.get(moveNumber);
+		double[][] currentMobilityRating = mobilityRatings.get(moveNumber);
 
 		try {
 			for (int x = 0; x < BOARDSIZE; x++) {
@@ -319,18 +322,18 @@ public class AB_rate4allStones implements ReversiPlayer {
 					currentOccupation = currentBoard.getOccupation(new Coordinates(y + 1, x + 1));
 				
 					if (currentOccupation == myColor) {
-						rating += currentBoardRating[x][y] / currentBoard.countStones(myColor);
+						rating += currentStoneRating[x][y] / currentBoard.countStones(myColor);
 					} else if(currentOccupation == -myColor + 3) {
-						rating -= currentBoardRating[x][y] / currentBoard.countStones(-myColor + 3);
+						rating -= currentStoneRating[x][y] / currentBoard.countStones(-myColor + 3);
 					}
 					
 					// TODO: do something if no player has this field?
 
-//					if(currentBoard.checkMove(-whoDidLastMove+3, new Coordinates(y+1, x+1))) {
-//						rating -= currentBoardRating[x][y];
-//						
-//						
-//					}
+					if(currentBoard.checkMove(-whoDidLastMove+3, new Coordinates(y+1, x+1))) {
+						rating -= currentMobilityRating[x][y]; // TODO: which player, which move?
+						
+						
+					}
 					
 				}
 			}
@@ -349,9 +352,9 @@ public class AB_rate4allStones implements ReversiPlayer {
 	 * 
 	 * @param boardRatings
 	 */
-	public void setRatings(ArrayList<double[][]> boardRatings) {
+	public void setRatings(ArrayList<double[][]> stoneRatings) {//, ArrayList<double[][]> mobilityRatings) {
 
-		ratings = boardRatings; // TODO: maybe unnecessary because pointer
+		this.stoneRatings = stoneRatings; // TODO: maybe unnecessary because pointer
 
 	}
 
