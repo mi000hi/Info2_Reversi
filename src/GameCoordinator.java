@@ -39,7 +39,7 @@ public class GameCoordinator {
 	private final int BOARD_SIZE = 8; // size of the gameboard
 	private final long MOVE_TIME; // time a player has to make its move; we trust the players here :)
 	private final int NUMBER_OF_GAMES = 0; // number of games to be played, set to 0 to play infinitely
-	private final static int RATING_METHOD = 1; // 0 for field possession, 1 for possible moves
+	private static int RATING_METHOD; // 0 for field possession, 1 for possible moves
 
 	/*
 	 * variables to analyze the games
@@ -56,40 +56,50 @@ public class GameCoordinator {
 	 */
 	public static void main(String[] args) {
 
+		// dont let program run without commandline arguments
+		if(args.length == 0) {
+			System.out.println("PLEASE USE COMMANDLINE ARGUMENTS: {ratingMethod} {filename} {trashOldFile}");
+			System.exit(0);
+		}
+		
 		// standard values
-		String filename = "boardRatings_RandomPlayer_vs_RandomPlayer.txt";
+		String filename = "boardRatings/RandomPlayer_vs_RandomPlayer.txt";
 		long moveTime = 100;
 		ReversiPlayer player01 = new RandomPlayer(), player02 = new RandomPlayer();
 
+		RATING_METHOD = Integer.parseInt(args[0]);
+		filename = args[1];
+		boolean trashOldFile = Boolean.parseBoolean(args[2]);
+		
 		// create new GameCoordinator
 		System.out.println("creating new GameCoordinator");
-		System.out.println("we have " + args.length + " arguments");
+		System.out.println("we have " + args.length + " arguments, looking good");
 
 		// read the players from args
 		// first argument is moveTime, second and third the two players
-		if (args.length > 0 && args[0] != "") {
-			moveTime = (long) Integer.parseInt(args[0]);
-		}
-		if (args.length > 1 && args[1].equals("DutyCalls")) {
-			player01 = new DutyCalls();
-			filename = "boardRatings_DutyCalls_vs_RandomPlayer.txt";
-		}
-		if (args.length > 2 && args[2].equals("DutyCalls")) {
-			player02 = new DutyCalls();
-			filename = "boardRatings_RandomPlayer_vs_DutyCalls.txt";
-
-			if (args[1] == "DutyCalls") {
-				System.out.println("do not use 2 times DutyCalls as player!");
-				System.exit(0);
-			}
-		}
+//		if (args.length > 0 && args[0] != "") {
+//			moveTime = (long) Integer.parseInt(args[0]);
+//		}
+//		if (args.length > 1 && args[1].equals("DutyCalls")) {
+//			player01 = new DutyCalls();
+//			filename = "boardRatings/DutyCalls_vs_RandomPlayer.txt";
+//		}
+//		if (args.length > 2 && args[2].equals("DutyCalls")) {
+//			player02 = new DutyCalls();
+//			filename = "boardRatings/RandomPlayer_vs_DutyCalls.txt";
+//
+//			if (args[1] == "DutyCalls") {
+//				System.out.println("do not use 2 times DutyCalls as player!");
+//				System.exit(0);
+//			}
+//		}
 		
 		// adjust filename if we rate possible moves
-		if(RATING_METHOD == 1) {
-			filename = filename.substring(0, filename.length() - 4) + "_ratingPossibleMoves.txt";
-		}
+//		if(RATING_METHOD == 1) {
+//			filename = filename.substring(0, filename.length() - 4) + "_ratingPossibleMoves.txt";
+//		}
 
-		GameCoordinator gameCoordinator = new GameCoordinator(player01, player02, filename, moveTime);
+		GameCoordinator gameCoordinator = new GameCoordinator(player01, player02, filename, moveTime, trashOldFile);
 
 		// play a game
 		long startTime = System.currentTimeMillis();
@@ -106,7 +116,7 @@ public class GameCoordinator {
 	 * @param player02
 	 */
 	public GameCoordinator(ReversiPlayer player01, ReversiPlayer player02, String boardRatingsDataFilename,
-			long moveTime) {
+			long moveTime, boolean trashOldFile) {
 
 		// initialize variables
 		players[1] = player01;
@@ -126,7 +136,7 @@ public class GameCoordinator {
 		System.out.println("filename = " + boardRatingsDataFilename);
 
 		// initialize data writer
-		dataWriter = new DataWriter(players, boardRatingsDataFilename, false, BOARD_SIZE);
+		dataWriter = new DataWriter(players, boardRatingsDataFilename, trashOldFile, BOARD_SIZE);
 
 		// initialize the terminator
 
@@ -284,7 +294,7 @@ public class GameCoordinator {
 		double[][] currentRatings; // saves the current board ratings for that move
 		int nrOfMovesMade = boards.size(); // the number of moves done that game
 //		System.out.println("nrOfMovesMade = " + nrOfMovesMade);
-		double weight = 1.0 / nrOfMovesMade; // weight that will be counted to the boardRatings
+		double weight = boards.get(boards.size() - 1).countStones(winner) - boards.get(boards.size() - 1).countStones(-winner + 3); // weight that will be counted to the boardRatings
 //		System.out.println("weight = " + weight);
 
 		try {
@@ -328,9 +338,9 @@ public class GameCoordinator {
 			// rate the field according to occupation: 1 for winners field, -1 for loosers
 			// field, 0 for unoccupied
 			if (occupation == winner) {
-				return 10.0 / board.countStones(winner); // winners field
+				return 1.0 / board.countStones(winner); // winners field
 			} else if (occupation == -winner + 3) {
-				return -10.0 / board.countStones(-winner + 3); // loosers field
+				return -1.0 / board.countStones(-winner + 3); // loosers field
 				// TODO: can divisor be 0?
 			}
 			return 0; // field unoccupied
@@ -341,9 +351,9 @@ public class GameCoordinator {
 			// for
 			if (board.checkMove(player, field)) {
 				if (player == winner) { // winner could pick this move
-					return 10.0 / board.mobility(player);
+					return 1.0 / board.mobility(player);
 				} else if (player == -player + 3) {
-					return -10.0 / board.mobility(player); // looser could pick this move
+					return -1.0 / board.mobility(player); // looser could pick this move
 				}// TODO: is this the right divisor?
 			}
 			return 0; // no player could pick this move
