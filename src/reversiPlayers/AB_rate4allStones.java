@@ -36,6 +36,11 @@ public class AB_rate4allStones implements ReversiPlayer {
 	 * ~100 / min (random vs random)
 	 * 
 	 * depth 8-9
+	 * 2000ms: depth 10-11
+	 * 1000ms: depth 9-10
+	 * 500ms: depth 9
+	 * 300ms: depth 8
+	 * 200ms: depth 7-8
 	 * 
 	 * min stones on board to rate game 40-50 set 50
 	 * 
@@ -52,7 +57,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 	private final static String FILENAME_DUTYCALLS_VS_RANDOM = "boardRatings_DutyCalls_vs_RandomPlayer.txt";
 	private final static String FILENAME_RANDOM_VS_DUTYCALLS = "boardRatings_RandomPlayer_vs_DutyCalls.txt";
 //	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_stoneLocationRating.txt", false, 8);
-	private DataWriter dataWriter = new DataWriter(null, "boardRatings/AB_rate4allStones_vs_AB_rate4allStones_stoneLocationRating.txt", false, 8);
+	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_stoneLocationRating_green_wins.txt", false, 8);
 	ArrayList<double[][]> ratings = dataWriter.readRatingsFromFile();
 
 	@Override
