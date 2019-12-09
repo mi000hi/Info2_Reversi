@@ -424,7 +424,7 @@ public class GameCoordinator {
 					for (int y = 0; y < BOARD_SIZE; y++) {
 
 						currentRatings[x][y] += weight
-								* rating(currentBoard, moveIndex, currentPlayer, winner, new Coordinates(y + 1, x + 1)) / nrOfFieldColorChange[x][y];
+								* rating(currentBoard, moveIndex, currentPlayer, winner, new Coordinates(y + 1, x + 1)) / Math.max(1, nrOfFieldColorChange[x][y]);
 
 					}
 				}
