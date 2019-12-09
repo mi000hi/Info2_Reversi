@@ -213,7 +213,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 			}
 		}
 
-		System.out.println("maximum depth was: " + depth);
+//		System.out.println("maximum depth was: " + depth);
 //		System.out.println("rating for this game is: " + bestRating);
 
 		return bestCoordinates;
