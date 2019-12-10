@@ -661,6 +661,7 @@ public class GameCoordinator {
 	 * @param values
 	 * @return
 	 */
+
 	private double[][] normalize(double[][] values) {
 
 		double maxValue = maxValue(values);
