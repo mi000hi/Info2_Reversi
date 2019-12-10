@@ -361,11 +361,12 @@ public class AB_rate4allStones implements ReversiPlayer {
 	 * 
 	 * @param boardRatings
 	 */
-	public void setRatings(ArrayList<double[][]> stoneRatings, ArrayList<double[][]> moveRatings, int[][] nrOfFieldColorChange) {//, ArrayList<double[][]> mobilityRatings) {
+	public void setRatings(ArrayList<double[][]> stoneRatings, ArrayList<double[][]> moveRatings, ArrayList<double[][]> mobilityRatings, int[][] nrOfFieldColorChange) {//, ArrayList<double[][]> mobilityRatings) {
 
 		this.stoneRatings = stoneRatings; // TODO: maybe unnecessary because pointer
 		this.moveRatings = moveRatings;
 		this.nrOfFieldColorChange = nrOfFieldColorChange;
+		this.mobilityRatings = mobilityRatings;
 
 	}
 
