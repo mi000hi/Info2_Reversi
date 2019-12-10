@@ -52,16 +52,17 @@ public class AB_rateallBoards implements ReversiPlayer {
 	private final static String FILENAME_DUTYCALLS_VS_RANDOM = "boardRatings_DutyCalls_vs_RandomPlayer.txt";
 	private final static String FILENAME_RANDOM_VS_DUTYCALLS = "boardRatings_RandomPlayer_vs_DutyCalls.txt";
 //	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_stoneLocationRating.txt", false, 8);
-	private DataReader dataReaderStonesGreenWins = new DataReader(
-			"boardRatings/Random_vs_Random_stoneLocationRatingToZero_green_wins.txt", 8);
-	private DataReader dataReaderStonesRedWins = new DataReader(
-			"boardRatings/Random_vs_Random_stoneLocationRatingToZero_red_wins.txt", 8);
+	private DataReader dataReaderStonesGreenWins = new DataReader(8);
+	private DataReader dataReaderStonesRedWins = new DataReader(8);
 
-	private DataReader dataReaderMobility = new DataReader(
-			"boardRatings/Random_vs_Random_mobilityRating_green_wins.txt", 8);
-	ArrayList<double[][]> stoneRatingsGreenWins = dataReaderStonesGreenWins.readRatingsFromFile();
-	ArrayList<double[][]> stoneRatingsRedWins = dataReaderStonesRedWins.readRatingsFromFile();
-	ArrayList<double[][]> mobilityRatings = dataReaderMobility.readRatingsFromFile();
+	private DataReader dataReaderMobility = new DataReader(8);
+
+	ArrayList<double[][]> stoneRatingsGreenWins = dataReaderStonesGreenWins
+			.readRatingsFromFile("boardRatings/Random_vs_Random_stoneLocationRatingToZero_green_wins.txt");
+	ArrayList<double[][]> stoneRatingsRedWins = dataReaderStonesRedWins
+			.readRatingsFromFile("boardRatings/Random_vs_Random_stoneLocationRatingToZero_red_wins.txt");
+	ArrayList<double[][]> mobilityRatings = dataReaderMobility
+			.readRatingsFromFile("boardRatings/Random_vs_Random_mobilityRating_green_wins.txt");
 
 	@Override
 	public void initialize(int myColor, long timeLimit) {
@@ -71,14 +72,15 @@ public class AB_rateallBoards implements ReversiPlayer {
 		noTimeLeft = false;
 	}
 
-	public void initializeDataReader(String filename) {
-		dataReaderStonesGreenWins = new DataReader(filename, 8);
-		dataReaderStonesRedWins = new DataReader(filename, 8);
-	}
+	/*
+	 * public void initializeDataReader(String filename) { dataReaderStonesGreenWins
+	 * = new DataReader(filename, 8); dataReaderStonesRedWins = new
+	 * DataReader(filename, 8); }
+	 */
 
 	@Override
 	public Coordinates nextMove(GameBoard gb) {
-		
+
 		actualBoard = gb;
 
 		// start timer to measure how long we needed for our move
@@ -102,7 +104,7 @@ public class AB_rateallBoards implements ReversiPlayer {
 
 			}
 		}
-		
+
 		// take corners in earlygame
 		if (freeFields > 50) {
 			for (int i = 0; i < 4; ++i) {
@@ -269,7 +271,8 @@ public class AB_rateallBoards implements ReversiPlayer {
 
 					if (System.currentTimeMillis() - startTime < timeToUse * timeLimit) {
 						currentRating = findRating(board.clone(), new Coordinates(y, x), depth - 1, Utils.other(player),
-								lastBestRating, startTime, ratingsum + rating(board.clone(), oldBoard.clone(), player, 0));
+								lastBestRating, startTime,
+								ratingsum + rating(board.clone(), oldBoard.clone(), player, 0));
 					} else {
 						throw new Exception("no time for calculation left!");
 					}
@@ -312,7 +315,7 @@ public class AB_rateallBoards implements ReversiPlayer {
 
 			if (System.currentTimeMillis() - startTime < timeToUse * timeLimit) {
 				lastBestRating = findRating(board.clone(), null, depth - 1, Utils.other(player), lastBestRating,
-						startTime,0);
+						startTime, 0);
 			} else {
 				throw new Exception("no time left!");
 			}

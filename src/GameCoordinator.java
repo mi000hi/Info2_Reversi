@@ -406,6 +406,7 @@ public class GameCoordinator {
 			 */
 			double[][] currentMoveRatings, currentMobilityRatings;
 			Coordinates currentMove, currentCoordinates;
+			GameBoard previousBoard = new BitBoard();
 			for (int moveIndex = 0; moveIndex < nrOfMovesMade; moveIndex++) {
 
 				currentBoard = boards.get(moveIndex);
@@ -431,7 +432,7 @@ public class GameCoordinator {
 								* stoneRating(currentBoard, moveIndex, lastPlayer, winner, currentCoordinates);
 
 						currentMobilityRatings[x][y] += weight
-								* mobilityRating(currentBoard, moveIndex, -lastPlayer + 3, winner, currentCoordinates);
+								* mobilityRating(previousBoard, moveIndex, -lastPlayer + 3, winner, currentCoordinates);
 
 					}
 				}
@@ -449,6 +450,8 @@ public class GameCoordinator {
 					moveRatings_green.set(moveIndex, currentMoveRatings);
 					mobilityRatings_green.set(moveIndex, currentMobilityRatings);
 				}
+				
+				previousBoard = currentBoard;
 
 			}
 		} catch (OutOfBoundsException o) {
