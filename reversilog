@@ -5229,3 +5229,15 @@ RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
 12:43:51: finished reds=47 greens=17
 12:43:51: REGULAR FINISH: GameState: RED wins (RED vs. GREEN = 47:17)
 CSV: RED,,47,17
+Java Classpath: /Users/moritzhusser/Documents/GitHub/Info2_Reversi/bin:/Users/moritzhusser/Documents/GitHub/Info2_Reversi/reversi.jar:/Users/moritzhusser/eclipse-workspace/Reversi/ElPulpo.jar
+ID = TestGame
+DATE = 10.12.19
+RED: reversiPlayers.AB_rateallBoards, GREEN: mottetb.ElPulpo
+22:47:10: Players initialized
+22:47:15: rating=32/32 RED AB_rateallBoards moves c6
+22:47:18: rating=32/31 GREEN ElPulpo moves e3
+22:47:26: rating=32/31 RED AB_rateallBoards moves f4
+22:47:30: rating=32/32 GREEN ElPulpo moves c5
+22:47:37: rating=32/32 RED AB_rateallBoards moves e2
+22:47:41: rating=32/32 GREEN ElPulpo moves f2
+22:47:48: rating=32/32 RED AB_rateallBoards moves g2
