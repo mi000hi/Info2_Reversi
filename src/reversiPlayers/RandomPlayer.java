@@ -30,7 +30,7 @@ public class RandomPlayer implements ReversiPlayer {
 			Coordinates where = new Coordinates(-1, -1);
 
 			// Read in coordinates until the user inputs a valid move
-			while (!gb.checkMove(color, where)) {
+			while (where.getCol() == -1 || !gb.checkMove(color, where)) {
 				where = new Coordinates((int) Math.abs(BOARDSIZE * Math.random()) + 1, (int) Math.abs(BOARDSIZE * Math.random()) + 1);
 
 				// Print an error message if the provided position is invalid
