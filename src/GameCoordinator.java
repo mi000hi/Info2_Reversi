@@ -19,7 +19,7 @@ public class GameCoordinator {
 	private int[] scores = new int[3]; // scores of the 2 players
 	private int winner; // winner of the last game
 	private long fileIntervalStartTime; // time of last data saving
-	private final long SAVE_TO_FILE_INTERVAL = 10000; // interval of saving the rating data to a file
+	private final long SAVE_TO_FILE_INTERVAL = 60000; // interval of saving the rating data to a file
 	private final int MAX_NUMBER_OF_GAMES = 0; // number of games to be played, set to 0 to play infinitely
 	private final static String DIRECTORYPATH = "boardRatings/"; // path to the ratings files
 	private DataWriter dataWriter; // writes the board rating data to a file for red
