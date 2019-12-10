@@ -57,7 +57,7 @@ public class GameCoordinator {
 	private ArrayList<double[][]> mobilityRatings_green = new ArrayList<>();
 	private int numberOfGames_red = 0; // number of games that counted to the ratings for red
 	private int numberOfGames_green = 0; // number of games that counted to the ratings for green
-	private int[][] nrOfFieldColorChange; // number of times a stone gets flipped during the game
+	private double[][] nrOfFieldColorChange; // number of times a stone gets flipped during the game
 
 	/**
 	 * creates the GameCoordinator, who can run reversi games
@@ -139,7 +139,7 @@ public class GameCoordinator {
 				moveRatings_green.add(new double[BOARD_SIZE][BOARD_SIZE]);
 				numberOfGames_red = 0;
 				numberOfGames_green = 0;
-				nrOfFieldColorChange = new int[BOARD_SIZE][BOARD_SIZE];
+				nrOfFieldColorChange = new double[BOARD_SIZE][BOARD_SIZE];
 				mobilityRatings_red.add(new double[BOARD_SIZE][BOARD_SIZE]);
 				mobilityRatings_green.add(new double[BOARD_SIZE][BOARD_SIZE]);
 			}
@@ -301,6 +301,8 @@ public class GameCoordinator {
 		printRatingsBoard(moveRatings_red, 60 - 1);
 		System.out.println("mobilityRating for board 58 is: (red wins)");
 		printRatingsBoard(mobilityRatings_red, 60 - 2);
+		System.out.println("nrOfFieldColorChange for the gameboard is: ");
+		printRatingsBoard(nrOfFieldColorChange);
 		
 	}
 
@@ -315,7 +317,7 @@ public class GameCoordinator {
 			ArrayList<double[][]> stoneRatings_green, int numberOfGames_red, int numberOfGames_green,
 			ArrayList<double[][]> moveRatings_red, ArrayList<double[][]> moveRatings_green,
 			ArrayList<double[][]> mobilityRatings_red, ArrayList<double[][]> mobilityRatings_green,
-			int[][] nrOfFieldColorChange) throws IOException {
+			double[][] nrOfFieldColorChange) throws IOException {
 
 		// writes title, date, names etc to the file, DELETES THE FILE CONTENT!
 		dataWriter.writeFileHeader(baseFilename + "_stoneRatings_red_wins.txt");
@@ -395,7 +397,7 @@ public class GameCoordinator {
 				for (int y = 0; y < 8; y++) {
 					for (int i = 0; i < boards.size(); i++) {
 						if (boards.get(i).getOccupation(new Coordinates(y + 1, x + 1)) != lastOccupation) {
-							nrOfFieldColorChange[x][y]++;
+							nrOfFieldColorChange[x][y] += 1.0 / 10000;
 							lastOccupation = boards.get(i).getOccupation(new Coordinates(y + 1, x + 1));
 						}
 					}
@@ -430,10 +432,10 @@ public class GameCoordinator {
 						currentCoordinates = new Coordinates(y + 1, x + 1);
 						
 						currentStoneRatings[x][y] += weight
-								* stoneRating(currentBoard, moveIndex, lastPlayer, winner, currentCoordinates);
+								* stoneRating(currentBoard, moveIndex, lastPlayer, winner, currentCoordinates) / 10000;
 
 						currentMobilityRatings[x][y] += weight
-								* mobilityRating(previousBoard, moveIndex, lastPlayer, winner, currentCoordinates);
+								* mobilityRating(previousBoard, moveIndex, lastPlayer, winner, currentCoordinates) / 10000;
 
 					}
 				}
