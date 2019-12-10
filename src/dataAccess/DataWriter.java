@@ -91,7 +91,7 @@ public class DataWriter {
 	 * @param append
 	 * @throws IOException
 	 */
-	public void writeRatingData(String filename, int[][] ratings, int numberOfGames)
+	public void writeRatingData(String filename, double[][] ratings, int numberOfGames)
 			throws IOException {
 
 		writeToFile(filename, "\n-- numberOfGames: " + numberOfGames + "\n\n", true);

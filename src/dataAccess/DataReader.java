@@ -90,9 +90,9 @@ public class DataReader {
 
 	}
 
-	public int[][] readRatingFromFile(String filename) {
+	public double[][] readRatingFromFile(String filename) {
 
-		int[][] rating = new int[BOARDSIZE][BOARDSIZE];
+		double[][] rating = new double[BOARDSIZE][BOARDSIZE];
 		boolean readingRatingsNow = false;
 		int currentY = 0;
 		String sCurrentLine;
@@ -118,7 +118,7 @@ public class DataReader {
 
 					// get the int values
 					for (int x = 0; x < rating.length; x++) {
-						rating[x][currentY] = Integer.parseInt(ratingsString[x]);
+						rating[x][currentY] = Double.parseDouble(ratingsString[x]);
 					}
 
 					currentY++;
