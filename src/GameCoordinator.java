@@ -8,6 +8,7 @@ import java.util.concurrent.TimeoutException;
 
 import reversi.*;
 import reversiPlayers.*;
+import dataAccess.DataReader;
 import dataAccess.DataWriter;
 
 public class GameCoordinator {
@@ -17,15 +18,16 @@ public class GameCoordinator {
 	 */
 	private int[] scores = new int[3]; // scores of the 2 players
 	private int winner; // winner of the last game
-	private final long SAVE_TO_FILE_INTERVAL = 60000; // interval of saving the rating data to a file
 	private long fileIntervalStartTime; // time of last data saving
-	private int[][] nrOfFieldColorChange;
-	
-	// name of the file where the ratings are stored
-	private DataWriter dataWriter01; // writes the board rating data to a file for red
-	private DataWriter dataWriter02; // writes the board rating data to a file for green
-	private DataWriter dataWriter03; // writes the board rating data to a file for both merged
+	private final long SAVE_TO_FILE_INTERVAL = 60000; // interval of saving the rating data to a file
+	private final int MAX_NUMBER_OF_GAMES = 0; // number of games to be played, set to 0 to play infinitely
+	private final static String DIRECTORYPATH = "boardRatings/"; // path to the ratings files
+	private DataWriter dataWriter; // writes the board rating data to a file for red
+	private DataReader dataReader; // reads data from files
 
+	/*
+	 * variables to terminate the infinite running program
+	 */
 	private Terminator terminator; // if we play until the user stops the program, the terminator will know when to
 									// terminate the program
 	private Thread terminatorThread; // thread that runs the terminator runnable
@@ -33,29 +35,29 @@ public class GameCoordinator {
 													// terminate the program
 
 	/*
-	 * the two reversi players
-	 */
-	ReversiPlayer[] players = new ReversiPlayer[3]; // those players will play against each other
-
-	/*
 	 * game variables
 	 */
+	private ReversiPlayer[] players = new ReversiPlayer[3]; // those players will play against each other
 	private final int BOARD_SIZE = 8; // size of the gameboard
 	private final long MOVE_TIME; // time a player has to make its move; we trust the players here :)
-	private final int NUMBER_OF_GAMES = 0; // number of games to be played, set to 0 to play infinitely
-	private static int RATING_METHOD; // 0 for field possession, 1 for possible moves
-	private final int MIN_STONES_ON_BOARD = 50; // min stones on board to add the game to the ratings
-	private final int MIN_STONE_DIFFERENCE = 30; // min stone difference to add the game to the ratings
+	private final int MIN_STONES_ON_BOARD = 58; // min stones on board to add the game to the ratings
+	private final int MIN_STONE_DIFFERENCE = 50; // min stone difference to add the game to the ratings
 
 	/*
 	 * variables to analyze the games
 	 */
-	private ArrayList<GameBoard> gameBoards = new ArrayList<>();
-	private ArrayList<Integer> moveWasMadeBy = new ArrayList<>();
-	private ArrayList<double[][]> boardRatings01 = new ArrayList<>(); // ratings for red wins
-	private ArrayList<double[][]> boardRatings02 = new ArrayList<>(); // ratings for green wins
-	private int numberOfGames01 = 0;
-	private int numberOfGames02 = 0;
+	private ArrayList<GameBoard> gameBoards = new ArrayList<>(); // saves the gameboards
+	private ArrayList<Coordinates> moves = new ArrayList<>(); // saves the move locations
+	private ArrayList<Integer> moveWasMadeBy = new ArrayList<>(); // saves the player who did the move
+	private ArrayList<double[][]> stoneRatings_red = new ArrayList<>(); // ratings for red wins
+	private ArrayList<double[][]> stoneRatings_green = new ArrayList<>(); // ratings for green wins
+	private ArrayList<double[][]> moveRatings_red = new ArrayList<>(); // ratings for one single field as a move
+	private ArrayList<double[][]> moveRatings_green = new ArrayList<>(); // ratings for one single field as a move
+	private ArrayList<double[][]> mobilityRatings_red = new ArrayList<>();
+	private ArrayList<double[][]> mobilityRatings_green = new ArrayList<>();
+	private int numberOfGames_red = 0; // number of games that counted to the ratings for red
+	private int numberOfGames_green = 0; // number of games that counted to the ratings for green
+	private int[][] nrOfFieldColorChange; // number of times a stone gets flipped during the game
 
 	/**
 	 * creates the GameCoordinator, who can run reversi games
@@ -71,55 +73,29 @@ public class GameCoordinator {
 		players.put("AB_rate4allStones02", new AB_rate4allStones());
 
 		// dont let program run without commandline arguments
-		if (args.length < 6) {
+		if (args.length < 5) {
 			System.out.println(
-					"PLEASE USE COMMANDLINE ARGUMENTS: {ratingMethod} {filename} {trashOldFile} {player01} {player02} {moveTime}");
+					"PLEASE USE COMMANDLINE ARGUMENTS: {filename} {trashOldFile} {player01} {player02} {moveTime}");
 			System.exit(0);
 		}
+		System.out.println("we have " + args.length + "/5 arguments, looking good so far");
 
-		// standard values
-		String filename = "boardRatings/" + args[3] + "_vs_" + args[4] + "_" + args[1] + ".txt";
-		System.out.println("filename: " + filename);
-		long moveTime = (long) Integer.parseInt(args[5]);
-
-		RATING_METHOD = Integer.parseInt(args[0]);
-		boolean trashOldFile = Boolean.parseBoolean(args[2]);
-		ReversiPlayer player01 = players.get(args[3] + "01");
-		ReversiPlayer player02 = players.get(args[4] + "02");
+		String filename = DIRECTORYPATH + args[0] + args[2] + "_vs_" + args[3]; // no file extension so far!
+		boolean trashOldFile = Boolean.parseBoolean(args[1]);
+		long timeToMove = (long) Integer.parseInt(args[4]);
+		ReversiPlayer player01 = players.get(args[2] + "01");
+		ReversiPlayer player02 = players.get(args[3] + "02");
 
 		// create new GameCoordinator
 		System.out.println("creating new GameCoordinator");
-		System.out.println("we have " + args.length + " arguments, looking good");
 
-		// read the players from args
-		// first argument is moveTime, second and third the two players
-//		if (args.length > 0 && args[0] != "") {
-//			moveTime = (long) Integer.parseInt(args[0]);
-//		}
-//		if (args.length > 1 && args[1].equals("DutyCalls")) {
-//			player01 = new DutyCalls();
-//			filename = "boardRatings/DutyCalls_vs_RandomPlayer.txt";
-//		}
-//		if (args.length > 2 && args[2].equals("DutyCalls")) {
-//			player02 = new DutyCalls();
-//			filename = "boardRatings/RandomPlayer_vs_DutyCalls.txt";
-//
-//			if (args[1] == "DutyCalls") {
-//				System.out.println("do not use 2 times DutyCalls as player!");
-//				System.exit(0);
-//			}
-//		}
-
-		// adjust filename if we rate possible moves
-//		if(RATING_METHOD == 1) {
-//			filename = filename.substring(0, filename.length() - 4) + "_ratingPossibleMoves.txt";
-//		}
-
-		GameCoordinator gameCoordinator = new GameCoordinator(player01, player02, filename, moveTime, trashOldFile);
+		GameCoordinator gameCoordinator = new GameCoordinator(player01, player02, filename, timeToMove, trashOldFile);
 
 		// play a game
 		long startTime = System.currentTimeMillis();
-		gameCoordinator.playGames();
+
+		gameCoordinator.playGames(filename);
+
 		System.out.println("playing those games took " + (System.currentTimeMillis() - startTime) + "ms");
 
 	}
@@ -131,50 +107,56 @@ public class GameCoordinator {
 	 * @param player01
 	 * @param player02
 	 */
-	public GameCoordinator(ReversiPlayer player01, ReversiPlayer player02, String boardRatingsDataFilename,
-			long moveTime, boolean trashOldFile) {
+	public GameCoordinator(ReversiPlayer player01, ReversiPlayer player02, String baseFilename, long timeToMove,
+			boolean trashOldFiles) {
 
 		// initialize variables
 		players[1] = player01;
 		players[2] = player02;
-		MOVE_TIME = moveTime;
+		MOVE_TIME = timeToMove;
 
 		if (players[1] instanceof AB_rate4allStones) {
-			((AB_rate4allStones) players[1]).initializeDataReader(
-					boardRatingsDataFilename.substring(0, boardRatingsDataFilename.length() - 4) + "_red_wins.txt");
+			((AB_rate4allStones) players[1]).readDataFromFiles(baseFilename);
 		}
 		if (players[2] instanceof AB_rate4allStones) {
-			((AB_rate4allStones) players[2]).initializeDataReader(
-					boardRatingsDataFilename.substring(0, boardRatingsDataFilename.length() - 4) + "_green_wins.txt");
+			((AB_rate4allStones) players[2]).readDataFromFiles(baseFilename);
 		}
 
 		// initialize players
 		players[1].initialize(GameBoard.RED, MOVE_TIME);
 		players[2].initialize(GameBoard.GREEN, MOVE_TIME);
 
-		// initialize boardRatings
-		for (int i = 0; i < 60; i++) {
-			boardRatings01.add(new double[8][8]);
-			boardRatings02.add(new double[8][8]);
+		// initialize data writer
+		dataWriter = new DataWriter(players, BOARD_SIZE);
+		dataReader = new DataReader(BOARD_SIZE);
+
+		// read data from files
+		if (trashOldFiles) {
+			for (int i = 0; i < 60; i++) {
+				stoneRatings_red.add(new double[BOARD_SIZE][BOARD_SIZE]);
+				stoneRatings_green.add(new double[BOARD_SIZE][BOARD_SIZE]);
+				moveRatings_red.add(new double[BOARD_SIZE][BOARD_SIZE]);
+				moveRatings_green.add(new double[BOARD_SIZE][BOARD_SIZE]);
+				numberOfGames_red = 0;
+				numberOfGames_green = 0;
+				nrOfFieldColorChange = new int[BOARD_SIZE][BOARD_SIZE];
+				mobilityRatings_red.add(new double[BOARD_SIZE][BOARD_SIZE]);
+				mobilityRatings_green.add(new double[BOARD_SIZE][BOARD_SIZE]);
+			}
+		} else {
+			stoneRatings_red = dataReader.readRatingsFromFile(baseFilename + "_stoneRatings_red_wins.txt");
+			stoneRatings_green = dataReader.readRatingsFromFile(baseFilename + "_stoneRatings_green_wins.txt");
+			moveRatings_red = dataReader.readRatingsFromFile(baseFilename + "_moveRatings_red_wins.txt");
+			moveRatings_green = dataReader.readRatingsFromFile(baseFilename + "_moveRatings_green_wins.txt");
+			numberOfGames_red = dataReader.readNumberOfGamesFromFile(baseFilename + "_stoneRatings_red_wins.txt");
+			numberOfGames_green = dataReader.readNumberOfGamesFromFile(baseFilename + "_stoneRatings_green_wins.txt");
+			nrOfFieldColorChange = dataReader.readRatingFromFile(baseFilename + "_colorChange.txt");
+			mobilityRatings_red = dataReader.readRatingsFromFile(baseFilename + "_mobilityRatings_red_wins.txt");
+			mobilityRatings_green = dataReader.readRatingsFromFile(baseFilename + "_mobilityRatings_green_wins.txt");
 		}
 
-		System.out.println("moveTime = " + MOVE_TIME);
-		System.out.println("filename = " + boardRatingsDataFilename);
-
-		// initialize data writer
-		dataWriter01 = new DataWriter(players,
-				boardRatingsDataFilename.substring(0, boardRatingsDataFilename.length() - 4) + "_red_wins.txt",
-				trashOldFile, BOARD_SIZE);
-		dataWriter02 = new DataWriter(players,
-				boardRatingsDataFilename.substring(0, boardRatingsDataFilename.length() - 4) + "_green_wins.txt",
-				trashOldFile, BOARD_SIZE);
-		dataWriter03 = new DataWriter(players,
-				boardRatingsDataFilename.substring(0, boardRatingsDataFilename.length() - 4) + "_merged.txt",
-				trashOldFile, BOARD_SIZE);
-
 		// initialize the terminator
-
-		if (NUMBER_OF_GAMES == 0) {
+		if (MAX_NUMBER_OF_GAMES == 0) {
 			terminator = new Terminator();
 			terminatorThread = new Thread(terminator);
 			terminatorThread.start();
@@ -185,41 +167,48 @@ public class GameCoordinator {
 	/**
 	 * plays a game between the redPlayer and the greenPlayer
 	 */
-	private void playGames() {
+	private void playGames(String baseFilename) {
 
 		// take time to save after SAVE_TO_FILE_INTERVAL
 		fileIntervalStartTime = System.currentTimeMillis();
 
-		int lastOccupation = 0;
-		for (int gameIndex = 0; gameIndex < NUMBER_OF_GAMES || !terminateProgram; gameIndex++) {
-			
-			// update data players data
+		for (int gameIndex = 0; gameIndex < MAX_NUMBER_OF_GAMES || !terminateProgram; gameIndex++) {
+
+			// give ratings data to players
 			if (players[1] instanceof AB_rate4allStones) {
-				((AB_rate4allStones) players[1]).setRatings(boardRatings01);
+				((AB_rate4allStones) players[1]).setRatings(stoneRatings_red, moveRatings_red, mobilityRatings_red,
+						nrOfFieldColorChange);
 			}
 			if (players[2] instanceof AB_rate4allStones) {
-				((AB_rate4allStones) players[2]).setRatings(boardRatings02);
+				((AB_rate4allStones) players[2]).setRatings(stoneRatings_green, moveRatings_green,
+						mobilityRatings_green, nrOfFieldColorChange);
 			}
 
 			// create the game board
 			GameBoard board = new BitBoard();
 			int currentPlayer = GameBoard.RED;
-			Coordinates move;
+			Coordinates currentMove;
 
+			// reset game state variables
 			gameBoards = new ArrayList<>();
 			moveWasMadeBy = new ArrayList<>();
+			moves = new ArrayList<>();
 
 			// play the game
 			while (board.isMoveAvailable(GameBoard.GREEN) || board.isMoveAvailable(GameBoard.RED)) {
 
 				// player makes a move
-				move = players[currentPlayer].nextMove(board.clone());
-				board.makeMove(currentPlayer, move);
+//				do {
+				currentMove = players[currentPlayer].nextMove(board.clone());
+//				} while(!board.checkMove(currentPlayer, currentMove));
+				board.makeMove(currentPlayer, currentMove);
 
 				// add the gameboard to the gameBoards
-				if (move != null) {
+				if (currentMove != null) {// && currentMove.getRow() != -1) {
 					gameBoards.add(board.clone());
 					moveWasMadeBy.add(currentPlayer);
+					moves.add(currentMove);
+//					System.out.println("add move " + moves.size() + ": " + currentMove.getCol() + "/" + currentMove.getRow());
 				}
 
 				// switch player
@@ -233,68 +222,59 @@ public class GameCoordinator {
 
 			winner = getWinner(board);
 
-			if (winner == GameBoard.EMPTY) { // if draw
+//			if (winner == GameBoard.EMPTY) { // if draw
 //				System.out.println("===== DRAW: " + scores[GameBoard.RED] + "(r) - " + scores[GameBoard.GREEN] + "(g)");
-			} else {
-
-				// regular win
+//			} else {
+//
+//				// regular win
 //				System.out.println("Player " + Utils.toString(winner) + " won the game: " + scores[GameBoard.RED]
 //						+ "(r) - " + scores[GameBoard.GREEN] + "(g)");
+//			}
 
-			}
+			// add this game to the ratings
 
-			// add this game to the boardRatings
-			if (Math.abs(board.countStones(1) - board.countStones(2)) > MIN_STONE_DIFFERENCE
-					&& board.countStones(1) + board.countStones(2) > MIN_STONES_ON_BOARD) {// && board.countStones(-winner+3) == 0) {
-				
-				addGameToBoardRatings(gameBoards, moveWasMadeBy, winner);
+			GameBoard lastBoard = gameBoards.get(gameBoards.size() - 1);
+			int stoneDifference = Math.abs(lastBoard.countStones(1) - lastBoard.countStones(2));
+			int stonesOnBoard = lastBoard.countStones(1) + lastBoard.countStones(2);
+
+			if (stoneDifference >= MIN_STONE_DIFFERENCE && stonesOnBoard >= MIN_STONES_ON_BOARD) {
+				addGameToRatings(gameBoards, moves, moveWasMadeBy, winner);
 				if (winner == 1) {
-					numberOfGames01++;
+					numberOfGames_red++;
 				} else {
-					numberOfGames02++;
+					numberOfGames_green++;
 				}
-				// printRatingsBoard(boardRatings, 60 - 1);
 			}
+
+			// printRatingsBoard(boardRatings, 60 - 1);
 
 			// save ratings data to file
 //			System.out.println((System.currentTimeMillis() - fileIntervalStartTime - SAVE_TO_FILE_INTERVAL));
 			if (System.currentTimeMillis() - fileIntervalStartTime - SAVE_TO_FILE_INTERVAL > 0) {
 
-				if (NUMBER_OF_GAMES == 0) {
-					System.out.println("===== SAVING DATA: \nGamesPlayed: " + (numberOfGames01 + numberOfGames02)
+				if (MAX_NUMBER_OF_GAMES == 0) {
+					System.out.println("===== SAVING DATA: \nGamesPlayed: " + (numberOfGames_red + numberOfGames_green)
 							+ " - playing to infinity");
 				} else {
-					System.out.println("===== SAVING DATA: \nGamesPlayed: " + (numberOfGames01 + numberOfGames02)
-							+ " out of " + NUMBER_OF_GAMES);
+					System.out.println("===== SAVING DATA: \nGamesPlayed: " + (numberOfGames_red + numberOfGames_green)
+							+ " out of " + MAX_NUMBER_OF_GAMES);
 				}
 
 				try {
-					saveData(boardRatings01, boardRatings02, numberOfGames01, numberOfGames02);
-					fileIntervalStartTime = System.currentTimeMillis();
+					saveData(baseFilename, stoneRatings_red, stoneRatings_green, numberOfGames_red, numberOfGames_green,
+							moveRatings_red, moveRatings_green, mobilityRatings_red, mobilityRatings_green, nrOfFieldColorChange);
 
-					// reset variables and arrays
-					numberOfGames01 = 0;
-					numberOfGames02 = 0;
-
-					boardRatings01 = new ArrayList<>();
-					boardRatings02 = new ArrayList<>();
-					
-					for (int i = 0; i < 60; i++) {
-						boardRatings01.add(new double[8][8]);
-						boardRatings02.add(new double[8][8]);
-					}
-
-					System.out.println("rating for all " + dataWriter01.getNumberOfGames()
-							+ " games for board 59 is now (red wins): ");
-					printRatingsBoard(dataWriter01.getBoardRating(60 - 1));
-					System.out.println("rating for all " + dataWriter02.getNumberOfGames()
-							+ " games for board 59 is now (green wins): ");
-					printRatingsBoard(dataWriter02.getBoardRating(60 - 1));
+					/**
+					 * TODO: here i resetted the ratings to 0, but that should be unnecessary
+					 */
 
 					// update the terminate message
 					if (terminator != null) {
 						terminator.printInputRequest();
 					}
+
+					// save current time and continue playing
+					fileIntervalStartTime = System.currentTimeMillis();
 
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -308,23 +288,21 @@ public class GameCoordinator {
 		System.out.println("===== SAVING DATA =====");
 
 		try {
-			saveData(boardRatings01, boardRatings02, numberOfGames01, numberOfGames02);
+			saveData(baseFilename, stoneRatings_red, stoneRatings_green, numberOfGames_red, numberOfGames_green,
+					moveRatings_red, moveRatings_green, mobilityRatings_red, mobilityRatings_green, nrOfFieldColorChange);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		System.out.println((numberOfGames01 + numberOfGames02)
-				+ " games finished, added to ratings and saved. rating for board 59:");
-		printRatingsBoard(boardRatings01, 60 - 1);
-		printRatingsBoard(boardRatings02, 60 - 1);
-
-		System.out.println(
-				"rating for all " + dataWriter01.readDataFromFile() + " games for board 59 is now (red wins): ");
-		printRatingsBoard(dataWriter01.readRatingsFromFile(), 60 - 1);
-		System.out.println(
-				"rating for all " + dataWriter02.readDataFromFile() + " games for board 59 is now (green wins): ");
-		printRatingsBoard(dataWriter02.readRatingsFromFile(), 60 - 1);
-
+		System.out.println((numberOfGames_red + numberOfGames_green) + " games finished, added to ratings and saved.");
+		System.out.println("stoneRating for board 59 is: (red wins)");
+		printRatingsBoard(stoneRatings_red, 60 - 1);
+		System.out.println("moveRating for board 59 is: (red wins)");
+		printRatingsBoard(moveRatings_red, 60 - 1);
+		System.out.println("mobilityRating for board 58 is: (red wins)");
+		printRatingsBoard(mobilityRatings_red, 60 - 2);
+		System.out.println("nrOfFieldColorChange is:");
+		
 	}
 
 	/**
@@ -334,106 +312,142 @@ public class GameCoordinator {
 	 * @param numberOfGames
 	 * @throws IOException
 	 */
-	private void saveData(ArrayList<double[][]> ratings01, ArrayList<double[][]> ratings02, int numberOfGames01,
-			int numberOfGames02) throws IOException {
+	private void saveData(String baseFilename, ArrayList<double[][]> stoneRatings_red,
+			ArrayList<double[][]> stoneRatings_green, int numberOfGames_red, int numberOfGames_green,
+			ArrayList<double[][]> moveRatings_red, ArrayList<double[][]> moveRatings_green,
+			ArrayList<double[][]> mobilityRatings_red, ArrayList<double[][]> mobilityRatings_green,
+			int[][] nrOfFieldColorChange) throws IOException {
 
 		// writes title, date, names etc to the file, DELETES THE FILE CONTENT!
-		dataWriter01.writeFileHeader(false);
-		dataWriter02.writeFileHeader(false);
-		dataWriter03.writeFileHeader(false);
+		dataWriter.writeFileHeader(baseFilename + "_stoneRatings_red_wins.txt");
+		dataWriter.writeFileHeader(baseFilename + "_stoneRatings_green_wins.txt");
+		dataWriter.writeFileHeader(baseFilename + "_moveRatings_red_wins.txt");
+		dataWriter.writeFileHeader(baseFilename + "_moveRatings_green_wins.txt");
+		dataWriter.writeFileHeader(baseFilename + "_colorChange.txt");
+		dataWriter.writeFileHeader(baseFilename + "_mobilityRatings_red_wins.txt");
+		dataWriter.writeFileHeader(baseFilename + "_mobilityRatings_green_wins.txt");
 
 		// write ratings data to file
-		dataWriter01.writeRatingsData(ratings01, numberOfGames01, true);
-		dataWriter02.writeRatingsData(ratings02, numberOfGames02, true);
-		dataWriter03.writeRatingsData(mergeRatings(ratings01, ratings02), numberOfGames01 + numberOfGames02, true);
+		dataWriter.writeRatingsData(baseFilename + "_stoneRatings", stoneRatings_red, stoneRatings_green,
+				numberOfGames_red, numberOfGames_green);
+		dataWriter.writeRatingsData(baseFilename + "_moveRatings", moveRatings_red, moveRatings_green,
+				numberOfGames_red, numberOfGames_green);
+		dataWriter.writeRatingsData(baseFilename + "_mobilityRatings", mobilityRatings_red, mobilityRatings_green,
+				numberOfGames_red, numberOfGames_green);
+		dataWriter.writeRatingData(baseFilename + "_colorChange.txt", nrOfFieldColorChange,
+				numberOfGames_red + numberOfGames_green);
 
 	}
 
-	private ArrayList<double[][]> mergeRatings(ArrayList<double[][]> ratings01, ArrayList<double[][]> ratings02) {
-
-		ArrayList<double[][]> result = new ArrayList<>();
-		double[][] currentRatings01, currentRatings02;
-
-		for (int i = 0; i < ratings01.size(); i++) {
-			
-			double[][] merged = new double[8][8];
-
-			currentRatings01 = ratings01.get(i);
-			currentRatings02 = ratings02.get(i);
-
-			for (int x = 0; x < 8; x++) {
-				for (int y = 0; y < 8; y++) {
-
-					merged[x][y] = currentRatings01[x][y] + currentRatings02[x][y];
-
-				}
-			}
-
-			result.add(merged);
-		}
-
-		return result;
-
-	}
+//	private ArrayList<double[][]> mergeRatings(ArrayList<double[][]> ratings01, ArrayList<double[][]> ratings02) {
+//
+//		ArrayList<double[][]> result = new ArrayList<>();
+//		double[][] currentRatings01, currentRatings02;
+//
+//		for (int i = 0; i < ratings01.size(); i++) {
+//
+//			double[][] merged = new double[8][8];
+//
+//			currentRatings01 = ratings01.get(i);
+//			currentRatings02 = ratings02.get(i);
+//
+//			for (int x = 0; x < 8; x++) {
+//				for (int y = 0; y < 8; y++) {
+//
+//					merged[x][y] = currentRatings01[x][y] + currentRatings02[x][y];
+//
+//				}
+//			}
+//
+//			result.add(merged);
+//		}
+//
+//		return result;
+//
+//	}
 
 	/**
 	 * adds the game saved in boards to the boardRatings
 	 * 
 	 * @param boards
 	 */
-	private void addGameToBoardRatings(ArrayList<GameBoard> boards, ArrayList<Integer> moveWasMadeBy, int winner) {
+	private void addGameToRatings(ArrayList<GameBoard> boards, ArrayList<Coordinates> moves,
+			ArrayList<Integer> moveWasMadeBy, int winner) {
 
 		GameBoard currentBoard; // saves the current board for that iteration
-		int currentPlayer; // saves the player who did the move resulting with this gameboard
-		double[][] currentRatings; // saves the current board ratings for that move
+		int lastPlayer; // saves the player who did the move resulting with this gameboard
+		double[][] currentStoneRatings; // saves the current board ratings for that move
 		int nrOfMovesMade = boards.size(); // the number of moves done that game
 //		System.out.println("nrOfMovesMade = " + nrOfMovesMade);
 		double weight = (boards.get(boards.size() - 1).countStones(winner)
-				- boards.get(boards.size() - 1).countStones(-winner + 3)) / 100.0; // weight that will be counted to the
-																			// boardRatings
+				- boards.get(boards.size() - 1).countStones(-winner + 3)); // weight that will be counted to the
+		// boardRatings
 //		System.out.println("weight = " + weight);
 
-		
-		
 		try {
-			
-			nrOfFieldColorChange = new int[8][8];
+
+			/*
+			 * for each field, do ... for each board
+			 */
 			int lastOccupation = 0;
-			for(int x = 0; x < 8; x++) {
-				for(int y = 0; y < 8; y++) {
-					for(int i = 0; i < boards.size(); i++) {
-						if(boards.get(i).getOccupation(new Coordinates(y+1, x+1)) != lastOccupation) {
-							nrOfFieldColorChange[x][y] ++;
-							lastOccupation = boards.get(i).getOccupation(new Coordinates(y+1, x+1));
+			for (int x = 0; x < 8; x++) {
+				for (int y = 0; y < 8; y++) {
+					for (int i = 0; i < boards.size(); i++) {
+						if (boards.get(i).getOccupation(new Coordinates(y + 1, x + 1)) != lastOccupation) {
+							nrOfFieldColorChange[x][y]++;
+							lastOccupation = boards.get(i).getOccupation(new Coordinates(y + 1, x + 1));
 						}
 					}
 				}
 			}
-			
+
+			/*
+			 * for each board, do ... for each field
+			 */
+			double[][] currentMoveRatings, currentMobilityRatings;
+			Coordinates currentMove, currentCoordinates;
 			for (int moveIndex = 0; moveIndex < nrOfMovesMade; moveIndex++) {
 
 				currentBoard = boards.get(moveIndex);
-				currentPlayer = moveWasMadeBy.get(moveIndex);
+				lastPlayer = moveWasMadeBy.get(moveIndex);
 				if (winner == 1) {
-					currentRatings = boardRatings01.get(moveIndex);
+					currentStoneRatings = stoneRatings_red.get(moveIndex);
+					currentMoveRatings = moveRatings_red.get(moveIndex);
+					currentMobilityRatings = mobilityRatings_red.get(moveIndex);
 				} else {
-					currentRatings = boardRatings02.get(moveIndex);
+					currentStoneRatings = stoneRatings_green.get(moveIndex);
+					currentMoveRatings = moveRatings_green.get(moveIndex);
+					currentMobilityRatings = mobilityRatings_green.get(moveIndex);
 				}
+				currentMove = moves.get(moveIndex);
+//				System.out.println("currentMove: " + currentMove.getCol() + "/" + currentMove.getRow());
 
 				for (int x = 0; x < BOARD_SIZE; x++) {
 					for (int y = 0; y < BOARD_SIZE; y++) {
 
-						currentRatings[x][y] += weight
-								* rating(currentBoard, moveIndex, currentPlayer, winner, new Coordinates(y + 1, x + 1)) / Math.max(1, nrOfFieldColorChange[x][y]);
+						currentCoordinates = new Coordinates(y + 1, x + 1);
+						
+						currentStoneRatings[x][y] += weight
+								* stoneRating(currentBoard, moveIndex, lastPlayer, winner, currentCoordinates);
+
+						currentMobilityRatings[x][y] += weight
+								* mobilityRating(currentBoard, moveIndex, -lastPlayer + 3, winner, currentCoordinates);
 
 					}
 				}
 
+				currentMoveRatings[currentMove.getCol() - 1][currentMove.getRow() - 1] += moveRating(lastPlayer,
+						winner); // TODO
+
 				// save the new boardRating
 				if (winner == 1) {
-					boardRatings01.set(moveIndex, currentRatings);
+					stoneRatings_red.set(moveIndex, currentStoneRatings);
+					moveRatings_red.set(moveIndex, currentMoveRatings);
+					mobilityRatings_red.set(moveIndex, currentMobilityRatings);
 				} else {
-					boardRatings02.set(moveIndex, currentRatings);
+					stoneRatings_green.set(moveIndex, currentStoneRatings);
+					moveRatings_green.set(moveIndex, currentMoveRatings);
+					mobilityRatings_green.set(moveIndex, currentMobilityRatings);
 				}
 
 			}
@@ -444,52 +458,73 @@ public class GameCoordinator {
 	}
 
 	/**
+	 * returns 1, -1 or 0 according to the move the player made
+	 * 
+	 * @param lastPlayer
+	 * @return
+	 */
+	private int moveRating(int lastPlayer, int winner) {
+
+		if (lastPlayer == winner) {
+			return 1;
+		} else if (lastPlayer == -winner + 3) {
+			return -1;
+		}
+		return 0;
+
+	}
+
+	/**
 	 * returns 1, 0 or -1 for a given coordinate on the gameboard
 	 * 
 	 * @return
 	 * @throws OutOfBoundsException
 	 */
-	private double rating(GameBoard board, int boardIndex, int player, int winner, Coordinates field)
+	private double stoneRating(GameBoard board, int boardIndex, int player, int winner, Coordinates field)
 			throws OutOfBoundsException {
 
 		int occupation = board.getOccupation(field); // saves the occupation of one field on the gameboard
 		player = -player + 3; // switch the player because now the other player can make a move
 
-		
-		
-		if (RATING_METHOD == 0) {
-			// rate the field according to occupation: 1 for winners field, -1 for loosers
-			// field, 0 for unoccupied
-			if (occupation == winner) {
-				return 1.0 /*(64 - boardIndex - 4.0)*/; //board.countStones(winner); // winners field
-			} else if (occupation == -winner + 3) {
-				return -1.0 /*(64 - boardIndex - 4.0)*/; //board.countStones(-winner + 3); // loosers field
-				// TODO: can divisor be 0?
-				// TODO: * freeFields is unnecessary becuase its just a constant
-			}
-			return 0; // field unoccupied
-
-		} else if (RATING_METHOD == 1) {
-
-			// rate the field according to possible moves: 1 for winners possible move, 1
-			// for
-			if (board.checkMove(player, field)) {
-				if (player == winner) { // winner could pick this move
-					return 1.0;// / board.mobility(player);
-				} else {
-					return 0;//-1.0;// / board.mobility(player); // looser could pick this move
-				} // TODO: is this the right divisor?, can it be 0?
-			}
-			return 0; // no player could pick this move
-
-			/*
-			 * TODO: is this thinking correct for the possible moves? becuase if it was the
-			 * looser his turn and he could move there, wouldnt that make it a good field?
-			 * maybe the first if looks out for this case? (line 337 - 11 = 326)
-			 */
+		// rate the field according to occupation: 1 for winners field, -1 for loosers
+		// field, 0 for unoccupied
+		if (occupation == winner) {
+			return 1.0; // board.countStones(winner); // winners field
+		} else if (occupation == -winner + 3) {
+			return -1.0; // board.countStones(-winner + 3); // loosers field
+			// TODO: can divisor be 0?
+			// TODO: * freeFields is unnecessary becuase its just a constant
 		}
-		System.out.println("NO RATING! SHOULD NOT BE HERE!");
-		return 0;
+		return 0; // field unoccupied
+
+	}
+
+	/**
+	 * returns 1, 0 or -1 for a given coordinate on the gameboard
+	 * 
+	 * @param player the player who can now make a move on the field board
+	 * @return
+	 * @throws OutOfBoundsException
+	 */
+	private double mobilityRating(GameBoard board, int boardIndex, int player, int winner, Coordinates field)
+			throws OutOfBoundsException {
+		
+		// rate the field according to possible moves: 1 for winners possible move
+		if (board.checkMove(player, field)) {
+			if (player == winner) { // winner could pick this move
+				return 1.0;// / board.mobility(player);
+			} else {
+				return 0;// -1.0;// / board.mobility(player); // looser could pick this move
+			} // TODO: is this the right divisor?, can it be 0?
+		}
+		return 0; // no player could pick this move
+
+		/*
+		 * TODO: is this thinking correct for the possible moves? becuase if it was the
+		 * looser his turn and he could move there, wouldnt that make it a good field?
+		 * maybe the first if looks out for this case? (line 337 - 11 = 326)
+		 */
+
 	}
 
 	/**

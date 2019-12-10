@@ -11,7 +11,7 @@ import reversi.OutOfBoundsException;
 import reversi.ReversiPlayer;
 import reversi.Utils;
 
-public class AB_rate4allStones implements ReversiPlayer {
+public class AB_rateallBoards implements ReversiPlayer {
 
 	int myColor; // color of this player
 	int BOARDSIZE; // size (= width = length) of the game board
@@ -52,11 +52,16 @@ public class AB_rate4allStones implements ReversiPlayer {
 	private final static String FILENAME_DUTYCALLS_VS_RANDOM = "boardRatings_DutyCalls_vs_RandomPlayer.txt";
 	private final static String FILENAME_RANDOM_VS_DUTYCALLS = "boardRatings_RandomPlayer_vs_DutyCalls.txt";
 //	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_stoneLocationRating.txt", false, 8);
-	private DataReader dataReader = new DataReader(8);
-	ArrayList<double[][]> stoneRatings;
-	ArrayList<double[][]> mobilityRatings;
-	ArrayList<double[][]> moveRatings;
-	int[][] nrOfFieldColorChange;
+	private DataReader dataReaderStonesGreenWins = new DataReader(
+			"boardRatings/Random_vs_Random_stoneLocationRatingToZero_green_wins.txt", 8);
+	private DataReader dataReaderStonesRedWins = new DataReader(
+			"boardRatings/Random_vs_Random_stoneLocationRatingToZero_red_wins.txt", 8);
+
+	private DataReader dataReaderMobility = new DataReader(
+			"boardRatings/Random_vs_Random_mobilityRating_green_wins.txt", 8);
+	ArrayList<double[][]> stoneRatingsGreenWins = dataReaderStonesGreenWins.readRatingsFromFile();
+	ArrayList<double[][]> stoneRatingsRedWins = dataReaderStonesRedWins.readRatingsFromFile();
+	ArrayList<double[][]> mobilityRatings = dataReaderMobility.readRatingsFromFile();
 
 	@Override
 	public void initialize(int myColor, long timeLimit) {
@@ -66,13 +71,14 @@ public class AB_rate4allStones implements ReversiPlayer {
 		noTimeLeft = false;
 	}
 
-	public void readDataFromFiles(String baseFilename) {
-		// TODO:
+	public void initializeDataReader(String filename) {
+		dataReaderStonesGreenWins = new DataReader(filename, 8);
+		dataReaderStonesRedWins = new DataReader(filename, 8);
 	}
 
 	@Override
 	public Coordinates nextMove(GameBoard gb) {
-
+		
 		actualBoard = gb;
 
 		// start timer to measure how long we needed for our move
@@ -94,6 +100,15 @@ public class AB_rate4allStones implements ReversiPlayer {
 					e.printStackTrace();
 				}
 
+			}
+		}
+		
+		// take corners in earlygame
+		if (freeFields > 50) {
+			for (int i = 0; i < 4; ++i) {
+				if (gb.checkMove(myColor, corners[i])) {
+					return corners[i];
+				}
 			}
 		}
 
@@ -163,7 +178,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 							// find rating for this move and save move if it has the better rating than all
 							// the moves tested before from this depth
 							currentRating = findRating(board.clone(), currentCoordinates, depth - 1, myColor,
-									currentDepthBestRating, startTime);
+									currentDepthBestRating, startTime, 0);
 
 							// System.out.println("rating for field " + (new Coordinates(y,
 							// x)).toMoveString() + " is: " + currentRating);
@@ -212,7 +227,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 		}
 
 //		System.out.println("maximum depth was: " + depth);
-		System.out.println("rating for this game is: " + bestRating);
+//		System.out.println("rating for this game is: " + bestRating);
 
 		return bestCoordinates;
 
@@ -231,7 +246,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 	 * @return
 	 */
 	private double findRating(GameBoard board, Coordinates move, int depth, int player, double referenceRating,
-			long startTime) throws Exception {
+			long startTime, double ratingsum) throws Exception {
 
 		double lastBestRating = NOT_INITIALIZED; // best rating we got so far
 		double currentRating; // rating for the move from the current iteration
@@ -242,7 +257,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 		// recursion termination clause
 		if (depth <= 0 || board.isFull()) {
-			return rating(board, oldBoard, player);
+			return rating(board, oldBoard, player, 0);
 		}
 
 		// iterate over each field
@@ -254,7 +269,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 					if (System.currentTimeMillis() - startTime < timeToUse * timeLimit) {
 						currentRating = findRating(board.clone(), new Coordinates(y, x), depth - 1, Utils.other(player),
-								lastBestRating, startTime);
+								lastBestRating, startTime, ratingsum + rating(board.clone(), oldBoard.clone(), player, 0));
 					} else {
 						throw new Exception("no time for calculation left!");
 					}
@@ -297,7 +312,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 			if (System.currentTimeMillis() - startTime < timeToUse * timeLimit) {
 				lastBestRating = findRating(board.clone(), null, depth - 1, Utils.other(player), lastBestRating,
-						startTime);
+						startTime,0);
 			} else {
 				throw new Exception("no time left!");
 			}
@@ -308,12 +323,17 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 	}
 
-	private double rating(GameBoard currentBoard, GameBoard previousBoard, int whoDidLastMove) {
+	private double rating(GameBoard currentBoard, GameBoard previousBoard, int whoDidLastMove, double ratingsum) {
 
 		int currentOccupation;
 		double rating = 0;
 		int moveNumber = currentBoard.countStones(1) + currentBoard.countStones(2) - 4;
-		double[][] currentStoneRating = stoneRatings.get(moveNumber);
+		double[][] currentStoneRating;
+		if (myColor == GameBoard.RED) {
+			currentStoneRating = stoneRatingsRedWins.get(moveNumber);
+		} else {
+			currentStoneRating = stoneRatingsGreenWins.get(moveNumber);
+		}
 		double[][] currentMobilityRating = mobilityRatings.get(moveNumber);
 
 		try {
@@ -321,37 +341,27 @@ public class AB_rate4allStones implements ReversiPlayer {
 				for (int y = 0; y < BOARDSIZE; y++) {
 
 					currentOccupation = currentBoard.getOccupation(new Coordinates(y + 1, x + 1));
-				
+
 					if (currentOccupation == myColor) {
-						rating += currentStoneRating[x][y] / currentBoard.countStones(myColor) / 5000 / Math.max(1, (60 - moveNumber));
-					} else if(currentOccupation == -myColor + 3) {
-						rating -= currentStoneRating[x][y] / currentBoard.countStones(-myColor + 3) / 5000 / Math.max(1, (60 - moveNumber));
+						rating += currentStoneRating[x][y] / currentBoard.countStones(myColor);
+					} else if (currentOccupation == -myColor + 3) {
+						rating -= currentStoneRating[x][y] / currentBoard.countStones(-myColor + 3);
 					}
-					
+
 					// TODO: do something if no player has this field?
 
-//					if(currentBoard.checkMove(-whoDidLastMove+3, new Coordinates(y+1, x+1))) {
-//						if(whoDidLastMove == myColor) {
-//							rating += 90 / moveNumber * currentMobilityRating[x][y]; // TODO: which player, which move?
-//						} else {
-//							rating -= 90 / moveNumber * currentMobilityRating[x][y];
-//						}
-//						
-//						
-//					}
-					
+					if (currentBoard.checkMove(-whoDidLastMove + 3, new Coordinates(y + 1, x + 1))) {
+						rating -= currentMobilityRating[x][y]; // TODO: which player, which move?
+					}
+
 				}
 			}
 		} catch (OutOfBoundsException e) {
 			e.printStackTrace();
 		}
 
-		if(myColor != whoDidLastMove) {
-			rating *= currentBoard.mobility(whoDidLastMove) * currentBoard.mobility(whoDidLastMove); // TODO
-		} else {
-			rating /= currentBoard.mobility(whoDidLastMove) * currentBoard.mobility(whoDidLastMove); // TODO
-		}
-		
+//		rating *= currentBoard.mobility(-whoDidLastMove + 3); // TODO
+		rating += ratingsum; // take rating of all moves
 		return rating;
 
 	}
@@ -361,13 +371,12 @@ public class AB_rate4allStones implements ReversiPlayer {
 	 * 
 	 * @param boardRatings
 	 */
-	public void setRatings(ArrayList<double[][]> stoneRatings, ArrayList<double[][]> moveRatings, ArrayList<double[][]> mobilityRatings, int[][] nrOfFieldColorChange) {//, ArrayList<double[][]> mobilityRatings) {
-
-		this.stoneRatings = stoneRatings; // TODO: maybe unnecessary because pointer
-		this.moveRatings = moveRatings;
-		this.nrOfFieldColorChange = nrOfFieldColorChange;
-		this.mobilityRatings = mobilityRatings;
-
-	}
-
+	/*
+	 * public void setRatings(ArrayList<double[][]> stoneRatings) {//,
+	 * ArrayList<double[][]> mobilityRatings) {
+	 * 
+	 * this.stoneRatings = stoneRatings; // TODO: maybe unnecessary because pointer
+	 * 
+	 * }
+	 */
 }
