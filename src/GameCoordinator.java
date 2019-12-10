@@ -19,7 +19,7 @@ public class GameCoordinator {
 	private int[] scores = new int[3]; // scores of the 2 players
 	private int winner; // winner of the last game
 	private long fileIntervalStartTime; // time of last data saving
-	private final long SAVE_TO_FILE_INTERVAL = 60000; // interval of saving the rating data to a file
+	private final long SAVE_TO_FILE_INTERVAL = 10000; // interval of saving the rating data to a file
 	private final int MAX_NUMBER_OF_GAMES = 0; // number of games to be played, set to 0 to play infinitely
 	private final static String DIRECTORYPATH = "boardRatings/"; // path to the ratings files
 	private DataWriter dataWriter; // writes the board rating data to a file for red
@@ -41,7 +41,7 @@ public class GameCoordinator {
 	private final int BOARD_SIZE = 8; // size of the gameboard
 	private final long MOVE_TIME; // time a player has to make its move; we trust the players here :)
 	private final int MIN_STONES_ON_BOARD = 58; // min stones on board to add the game to the ratings
-	private final int MIN_STONE_DIFFERENCE = 50; // min stone difference to add the game to the ratings
+	private final int MIN_STONE_DIFFERENCE = 30; // min stone difference to add the game to the ratings
 
 	/*
 	 * variables to analyze the games
@@ -301,7 +301,6 @@ public class GameCoordinator {
 		printRatingsBoard(moveRatings_red, 60 - 1);
 		System.out.println("mobilityRating for board 58 is: (red wins)");
 		printRatingsBoard(mobilityRatings_red, 60 - 2);
-		System.out.println("nrOfFieldColorChange is:");
 		
 	}
 
@@ -374,6 +373,8 @@ public class GameCoordinator {
 	private void addGameToRatings(ArrayList<GameBoard> boards, ArrayList<Coordinates> moves,
 			ArrayList<Integer> moveWasMadeBy, int winner) {
 
+//		System.out.println("adding game to ratings");
+		
 		GameBoard currentBoard; // saves the current board for that iteration
 		int lastPlayer; // saves the player who did the move resulting with this gameboard
 		double[][] currentStoneRatings; // saves the current board ratings for that move
@@ -432,7 +433,7 @@ public class GameCoordinator {
 								* stoneRating(currentBoard, moveIndex, lastPlayer, winner, currentCoordinates);
 
 						currentMobilityRatings[x][y] += weight
-								* mobilityRating(previousBoard, moveIndex, -lastPlayer + 3, winner, currentCoordinates);
+								* mobilityRating(previousBoard, moveIndex, lastPlayer, winner, currentCoordinates);
 
 					}
 				}
@@ -451,6 +452,8 @@ public class GameCoordinator {
 					mobilityRatings_green.set(moveIndex, currentMobilityRatings);
 				}
 				
+//				System.out.println("previous Board was:");
+//				printBoard(previousBoard);
 				previousBoard = currentBoard;
 
 			}
@@ -664,6 +667,7 @@ public class GameCoordinator {
 	 * @param values
 	 * @return
 	 */
+
 	private double[][] normalize(double[][] values) {
 
 		double maxValue = maxValue(values);

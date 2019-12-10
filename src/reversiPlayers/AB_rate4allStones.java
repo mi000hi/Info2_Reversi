@@ -355,7 +355,26 @@ public class AB_rate4allStones implements ReversiPlayer {
 		return rating;
 
 	}
-
+	
+	
+	/**
+	 * normalizes the ratings
+	 * 
+	 */
+	/*
+	private ArrayList<double[][]> normalize (ArrayList<double[][]> ratingboard) {
+		ArrayList<double[][]> normboard = ratingboard;
+		for (int i = 0; i < 60; ++i) {
+		double max = Double.MIN_VALUE;
+		for (int x = 0; x < 8; ++x) {
+			for (int y = 0; y < 8; ++y) {
+				max = Math.max(max, ratingboard.get[x][y]);
+			}
+		}
+		return normboard;
+	}
+	*/
+	
 	/**
 	 * sets the ratings
 	 * 
