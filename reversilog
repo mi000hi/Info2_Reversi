@@ -5375,3 +5375,73 @@ RED: reversiPlayers.AB_rateallBoards, GREEN: mottetb.ElPulpo
 22:57:58: finished reds=11 greens=53
 22:57:58: REGULAR FINISH: GameState: GREEN wins (RED vs. GREEN = 11:53)
 CSV: GREEN,,11,53
+Java Classpath: /Users/moritzhusser/Documents/GitHub/Info2_Reversi/bin:/Users/moritzhusser/Documents/GitHub/Info2_Reversi/reversi.jar:/Users/moritzhusser/Documents/GitHub/Info2_Reversi/ElPulpo.jar
+ID = TestGame
+DATE = 11.12.19
+RED: reversiPlayers.AB_rate4allStones, GREEN: mottetb.ElPulpo
+00:30:20: Players initialized
+00:30:20: rating=32/32 RED AB_rate4allStones moves c6
+00:30:24: rating=32/32 GREEN ElPulpo moves e3
+00:30:26: rating=32/32 RED AB_rate4allStones moves f2
+00:30:31: rating=32/32 GREEN ElPulpo moves c3
+00:30:33: rating=32/32 RED AB_rate4allStones moves d3
+00:30:40: rating=31/32 GREEN ElPulpo moves c4
+00:30:43: rating=31/33 RED AB_rate4allStones moves b3
+00:30:50: rating=31/32 GREEN ElPulpo moves d2
+00:30:50: rating=30/34 RED AB_rate4allStones moves c1
+00:30:54: rating=29/35 GREEN ElPulpo moves e2
+00:30:55: rating=29/35 RED AB_rate4allStones moves f1
+00:30:58: rating=28/35 GREEN ElPulpo moves c2
+00:30:58: rating=28/35 RED AB_rate4allStones moves d1
+00:31:01: rating=28/35 GREEN ElPulpo moves e1
+00:31:01: rating=28/36 RED AB_rate4allStones moves f3
+00:31:05: rating=27/36 GREEN ElPulpo moves c5
+00:31:05: rating=28/36 RED AB_rate4allStones moves b6
+00:31:10: rating=27/37 GREEN ElPulpo moves b4
+00:31:10: rating=26/38 RED AB_rate4allStones moves b2
+00:31:12: rating=26/37 GREEN ElPulpo moves d6
+00:31:12: rating=23/40 RED AB_rate4allStones moves a4
+00:31:15: rating=20/44 GREEN ElPulpo moves f4
+00:31:15: rating=20/44 RED AB_rate4allStones moves g4
+00:31:18: rating=20/43 GREEN ElPulpo moves a3
+00:31:18: rating=20/43 RED AB_rate4allStones moves a2
+00:31:19: rating=19/44 GREEN ElPulpo moves a1
+00:31:19: rating=19/45 RED AB_rate4allStones moves b1
+00:31:20: rating=19/45 GREEN ElPulpo moves a5
+00:31:20: rating=19/45 RED AB_rate4allStones moves b5
+00:31:21: rating=21/43 GREEN ElPulpo moves f5
+00:31:21: rating=22/41 RED AB_rate4allStones moves g5
+00:31:23: rating=22/41 GREEN ElPulpo moves e6
+00:31:23: rating=18/45 RED AB_rate4allStones moves f6
+00:31:24: rating=13/50 GREEN ElPulpo moves a6
+00:31:24: rating=11/52 RED AB_rate4allStones passes.
+00:31:27: rating=9/55 GREEN ElPulpo moves a7
+00:31:28: rating=8/56 RED AB_rate4allStones moves b7
+00:31:30: rating=10/54 GREEN ElPulpo moves g2
+00:31:31: rating=11/52 RED AB_rate4allStones moves g1
+00:31:33: rating=14/49 GREEN ElPulpo moves h1
+00:31:34: rating=14/50 RED AB_rate4allStones moves h2
+00:31:34: rating=10/53 GREEN ElPulpo moves h4
+00:31:34: rating=9/54 RED AB_rate4allStones moves g3
+00:31:35: rating=9/54 GREEN ElPulpo moves h3
+00:31:35: rating=12/51 RED AB_rate4allStones passes.
+00:31:35: rating=14/50 GREEN ElPulpo moves a8
+00:31:35: rating=14/50 RED AB_rate4allStones moves c7
+00:31:35: rating=15/49 GREEN ElPulpo moves d8
+00:31:35: rating=14/50 RED AB_rate4allStones moves b8
+00:31:35: rating=12/51 GREEN ElPulpo moves h6
+00:31:36: rating=12/51 RED AB_rate4allStones moves h5
+00:31:36: rating=12/51 GREEN ElPulpo moves c8
+00:31:36: rating=13/51 RED AB_rate4allStones moves d7
+00:31:36: rating=12/52 GREEN ElPulpo moves e8
+00:31:36: rating=11/53 RED AB_rate4allStones moves h7
+00:31:36: rating=11/53 GREEN ElPulpo moves g6
+00:31:36: rating=11/53 RED AB_rate4allStones moves e7
+00:31:36: rating=11/53 GREEN ElPulpo moves f8
+00:31:36: rating=10/53 RED AB_rate4allStones moves f7
+00:31:36: rating=10/54 GREEN ElPulpo moves g7
+00:31:36: rating=10/54 RED AB_rate4allStones moves g8
+00:31:36: rating=14/49 GREEN ElPulpo moves h8
+00:31:36: finished reds=12 greens=52
+00:31:36: REGULAR FINISH: GameState: GREEN wins (RED vs. GREEN = 12:52)
+CSV: GREEN,,12,52
