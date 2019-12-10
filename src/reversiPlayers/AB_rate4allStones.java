@@ -52,10 +52,11 @@ public class AB_rate4allStones implements ReversiPlayer {
 	private final static String FILENAME_DUTYCALLS_VS_RANDOM = "boardRatings_DutyCalls_vs_RandomPlayer.txt";
 	private final static String FILENAME_RANDOM_VS_DUTYCALLS = "boardRatings_RandomPlayer_vs_DutyCalls.txt";
 //	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_stoneLocationRating.txt", false, 8);
-	private DataReader dataReaderStones = new DataReader("boardRatings/Random_vs_Random_stoneLocationRating_fieldColorChange_green_wins.txt", 8);
-	private DataReader dataReaderMobility = new DataReader("boardRatings/Random_vs_Random_mobilityRating_green_wins.txt", 8);
-	ArrayList<double[][]> stoneRatings = dataReaderStones.readRatingsFromFile();
-	ArrayList<double[][]> mobilityRatings = dataReaderMobility.readRatingsFromFile();
+	private DataReader dataReader = new DataReader(8);
+	ArrayList<double[][]> stoneRatings;
+	ArrayList<double[][]> mobilityRatings;
+	ArrayList<double[][]> moveRatings;
+	int[][] nrOfFieldColorChange;
 
 	@Override
 	public void initialize(int myColor, long timeLimit) {
@@ -65,8 +66,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 		noTimeLeft = false;
 	}
 
-	public void initializeDataReader(String filename) {
-		dataReaderStones = new DataReader(filename, 8);
+	public void readDataFromFiles(String baseFilename) {
+		// TODO:
 	}
 
 	@Override
@@ -360,9 +361,11 @@ public class AB_rate4allStones implements ReversiPlayer {
 	 * 
 	 * @param boardRatings
 	 */
-	public void setRatings(ArrayList<double[][]> stoneRatings) {//, ArrayList<double[][]> mobilityRatings) {
+	public void setRatings(ArrayList<double[][]> stoneRatings, ArrayList<double[][]> moveRatings, int[][] nrOfFieldColorChange) {//, ArrayList<double[][]> mobilityRatings) {
 
 		this.stoneRatings = stoneRatings; // TODO: maybe unnecessary because pointer
+		this.moveRatings = moveRatings;
+		this.nrOfFieldColorChange = nrOfFieldColorChange;
 
 	}
 
