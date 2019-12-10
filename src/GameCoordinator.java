@@ -73,7 +73,7 @@ public class GameCoordinator {
 		players.put("AB_rate4allStones02", new AB_rate4allStones());
 
 		// dont let program run without commandline arguments
-		if (args.length < 6) {
+		if (args.length < 5) {
 			System.out.println(
 					"PLEASE USE COMMANDLINE ARGUMENTS: {filename} {trashOldFile} {player01} {player02} {moveTime}");
 			System.exit(0);
@@ -83,8 +83,8 @@ public class GameCoordinator {
 		String filename = DIRECTORYPATH + args[0] + args[2] + "_vs_" + args[3]; // no file extension so far!
 		boolean trashOldFile = Boolean.parseBoolean(args[1]);
 		long timeToMove = (long) Integer.parseInt(args[4]);
-		ReversiPlayer player01 = players.get(args[3] + "01");
-		ReversiPlayer player02 = players.get(args[4] + "02");
+		ReversiPlayer player01 = players.get(args[2] + "01");
+		ReversiPlayer player02 = players.get(args[3] + "02");
 
 		// create new GameCoordinator
 		System.out.println("creating new GameCoordinator");
@@ -198,14 +198,17 @@ public class GameCoordinator {
 			while (board.isMoveAvailable(GameBoard.GREEN) || board.isMoveAvailable(GameBoard.RED)) {
 
 				// player makes a move
+//				do {
 				currentMove = players[currentPlayer].nextMove(board.clone());
+//				} while(!board.checkMove(currentPlayer, currentMove));
 				board.makeMove(currentPlayer, currentMove);
 
 				// add the gameboard to the gameBoards
-				if (currentMove != null) {
+				if (currentMove != null) {// && currentMove.getRow() != -1) {
 					gameBoards.add(board.clone());
 					moveWasMadeBy.add(currentPlayer);
 					moves.add(currentMove);
+//					System.out.println("add move " + moves.size() + ": " + currentMove.getCol() + "/" + currentMove.getRow());
 				}
 
 				// switch player
@@ -417,6 +420,7 @@ public class GameCoordinator {
 					currentMobilityRatings = mobilityRatings_green.get(moveIndex);
 				}
 				currentMove = moves.get(moveIndex);
+//				System.out.println("currentMove: " + currentMove.getCol() + "/" + currentMove.getRow());
 
 				for (int x = 0; x < BOARD_SIZE; x++) {
 					for (int y = 0; y < BOARD_SIZE; y++) {
