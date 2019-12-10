@@ -7,6 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="reversi.jar"/>
-	<classpathentry kind="lib" path="/Users/moritzhusser/eclipse-workspace/Reversi/ElPulpo.jar"/>
+	<classpathentry kind="lib" path="/Users/moritzhusser/Documents/GitHub/Info2_Reversi/ElPulpo.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
