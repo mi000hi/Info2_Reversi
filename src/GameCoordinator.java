@@ -373,7 +373,7 @@ public class GameCoordinator {
 	private void addGameToRatings(ArrayList<GameBoard> boards, ArrayList<Coordinates> moves,
 			ArrayList<Integer> moveWasMadeBy, int winner) {
 
-		System.out.println("adding game to ratings");
+//		System.out.println("adding game to ratings");
 		
 		GameBoard currentBoard; // saves the current board for that iteration
 		int lastPlayer; // saves the player who did the move resulting with this gameboard
@@ -452,8 +452,8 @@ public class GameCoordinator {
 					mobilityRatings_green.set(moveIndex, currentMobilityRatings);
 				}
 				
-				System.out.println("previous Board was:");
-				printBoard(previousBoard);
+//				System.out.println("previous Board was:");
+//				printBoard(previousBoard);
 				previousBoard = currentBoard;
 
 			}
