@@ -19,7 +19,7 @@ public class GameCoordinator {
 	private int[] scores = new int[3]; // scores of the 2 players
 	private int winner; // winner of the last game
 	private long fileIntervalStartTime; // time of last data saving
-	private final long SAVE_TO_FILE_INTERVAL = 10000; // interval of saving the rating data to a file
+	private final long SAVE_TO_FILE_INTERVAL = 60000; // interval of saving the rating data to a file
 	private final int MAX_NUMBER_OF_GAMES = 0; // number of games to be played, set to 0 to play infinitely
 	private final static String DIRECTORYPATH = "boardRatings/"; // path to the ratings files
 	private DataWriter dataWriter; // writes the board rating data to a file for red
@@ -57,7 +57,7 @@ public class GameCoordinator {
 	private ArrayList<double[][]> mobilityRatings_green = new ArrayList<>();
 	private int numberOfGames_red = 0; // number of games that counted to the ratings for red
 	private int numberOfGames_green = 0; // number of games that counted to the ratings for green
-	private int[][] nrOfFieldColorChange; // number of times a stone gets flipped during the game
+	private double[][] nrOfFieldColorChange; // number of times a stone gets flipped during the game
 
 	/**
 	 * creates the GameCoordinator, who can run reversi games
@@ -139,7 +139,7 @@ public class GameCoordinator {
 				moveRatings_green.add(new double[BOARD_SIZE][BOARD_SIZE]);
 				numberOfGames_red = 0;
 				numberOfGames_green = 0;
-				nrOfFieldColorChange = new int[BOARD_SIZE][BOARD_SIZE];
+				nrOfFieldColorChange = new double[BOARD_SIZE][BOARD_SIZE];
 				mobilityRatings_red.add(new double[BOARD_SIZE][BOARD_SIZE]);
 				mobilityRatings_green.add(new double[BOARD_SIZE][BOARD_SIZE]);
 			}
@@ -301,6 +301,8 @@ public class GameCoordinator {
 		printRatingsBoard(moveRatings_red, 60 - 1);
 		System.out.println("mobilityRating for board 58 is: (red wins)");
 		printRatingsBoard(mobilityRatings_red, 60 - 2);
+		System.out.println("nrOfFieldColorChange for the gameboard is: ");
+		printRatingsBoard(nrOfFieldColorChange);
 		
 	}
 
@@ -315,7 +317,7 @@ public class GameCoordinator {
 			ArrayList<double[][]> stoneRatings_green, int numberOfGames_red, int numberOfGames_green,
 			ArrayList<double[][]> moveRatings_red, ArrayList<double[][]> moveRatings_green,
 			ArrayList<double[][]> mobilityRatings_red, ArrayList<double[][]> mobilityRatings_green,
-			int[][] nrOfFieldColorChange) throws IOException {
+			double[][] nrOfFieldColorChange) throws IOException {
 
 		// writes title, date, names etc to the file, DELETES THE FILE CONTENT!
 		dataWriter.writeFileHeader(baseFilename + "_stoneRatings_red_wins.txt");
@@ -373,7 +375,7 @@ public class GameCoordinator {
 	private void addGameToRatings(ArrayList<GameBoard> boards, ArrayList<Coordinates> moves,
 			ArrayList<Integer> moveWasMadeBy, int winner) {
 
-		System.out.println("adding game to ratings");
+//		System.out.println("adding game to ratings");
 		
 		GameBoard currentBoard; // saves the current board for that iteration
 		int lastPlayer; // saves the player who did the move resulting with this gameboard
@@ -395,7 +397,7 @@ public class GameCoordinator {
 				for (int y = 0; y < 8; y++) {
 					for (int i = 0; i < boards.size(); i++) {
 						if (boards.get(i).getOccupation(new Coordinates(y + 1, x + 1)) != lastOccupation) {
-							nrOfFieldColorChange[x][y]++;
+							nrOfFieldColorChange[x][y] += 1.0 / 10000;
 							lastOccupation = boards.get(i).getOccupation(new Coordinates(y + 1, x + 1));
 						}
 					}
@@ -430,10 +432,10 @@ public class GameCoordinator {
 						currentCoordinates = new Coordinates(y + 1, x + 1);
 						
 						currentStoneRatings[x][y] += weight
-								* stoneRating(currentBoard, moveIndex, lastPlayer, winner, currentCoordinates);
+								* stoneRating(currentBoard, moveIndex, lastPlayer, winner, currentCoordinates) / 10000;
 
 						currentMobilityRatings[x][y] += weight
-								* mobilityRating(previousBoard, moveIndex, lastPlayer, winner, currentCoordinates);
+								* mobilityRating(previousBoard, moveIndex, lastPlayer, winner, currentCoordinates) / 10000;
 
 					}
 				}
@@ -452,8 +454,8 @@ public class GameCoordinator {
 					mobilityRatings_green.set(moveIndex, currentMobilityRatings);
 				}
 				
-				System.out.println("previous Board was:");
-				printBoard(previousBoard);
+//				System.out.println("previous Board was:");
+//				printBoard(previousBoard);
 				previousBoard = currentBoard;
 
 			}

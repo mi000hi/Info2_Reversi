@@ -56,7 +56,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 	ArrayList<double[][]> stoneRatings;
 	ArrayList<double[][]> mobilityRatings;
 	ArrayList<double[][]> moveRatings;
-	int[][] nrOfFieldColorChange;
+	double[][] nrOfFieldColorChange;
 
 	@Override
 	public void initialize(int myColor, long timeLimit) {
@@ -389,9 +389,13 @@ public class AB_rate4allStones implements ReversiPlayer {
 	 * 
 	 * @param boardRatings
 	 */
+<<<<<<< HEAD
 	public void setRatings(ArrayList<double[][]> stoneRatings, ArrayList<double[][]> moveRatings,
 			ArrayList<double[][]> mobilityRatings, int[][] nrOfFieldColorChange) {// , ArrayList<double[][]>
 																					// mobilityRatings) {
+=======
+	public void setRatings(ArrayList<double[][]> stoneRatings, ArrayList<double[][]> moveRatings, ArrayList<double[][]> mobilityRatings, double[][] nrOfFieldColorChange) {//, ArrayList<double[][]> mobilityRatings) {
+>>>>>>> 887a85ff79931b319933ede0fe739154431dccee
 
 		this.stoneRatings = stoneRatings; // TODO: maybe unnecessary because pointer
 		this.moveRatings = moveRatings;
