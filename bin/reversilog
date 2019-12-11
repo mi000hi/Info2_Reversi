@@ -7457,3 +7457,4 @@ DATE = 11.12.19
 RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
 22:53:45: Players initialized
 22:53:46: rating=32/32 RED DutyCalls moves d6
+22:53:48: rating=32/32 GREEN AB_rate4allStones moves c3
