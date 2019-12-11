@@ -280,11 +280,37 @@ public class AB_rate4allStones implements ReversiPlayer {
 		double[][] currentStoneRating = stoneRatings.get(moveNumber);
 		double[][] currentMobilityRating = mobilityRatings.get(moveNumber);
 		double[][] currentMoveRating = moveRatings.get(moveNumber);
-		// TODO: currect ratings indexes?
+		// TODO: correct ratings indexes?
 
 		/*
 		 * TODO: something fancy here
 		 */
+
+		// add up ratings
+		double stoneRatingSum = 0;
+		double mobilityRatingSum = 0;
+		double moveRatingSum = 0;
+
+		for (int x = 0; x < BOARDSIZE; ++x) {
+			for (int y = 0; y < BOARDSIZE; ++y) {
+				try {
+					if (currentBoard.getOccupation(new Coordinates(y, x)) == myColor) {
+						stoneRatingSum += currentStoneRating[x][y];
+						mobilityRatingSum += currentMobilityRating[x][y];
+						moveRatingSum += currentMoveRating[x][y];
+					} else if (currentBoard.getOccupation(new Coordinates(y, x)) == Utils.other(myColor)) {
+						stoneRatingSum -= 5 * currentStoneRating[x][y];
+						mobilityRatingSum -= 5 * currentMobilityRating[x][y];
+						moveRatingSum -= currentMoveRating[x][y];
+					}
+				} catch (OutOfBoundsException e) {
+				}
+			}
+		}
+
+		// put different ratings together
+		rating = stoneRatingSum + 2 * moveRatingSum + mobilityRatingSum * 2;
+		System.out.println(rating);
 
 		return rating;
 
@@ -296,8 +322,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 	 * @param boardRatings
 	 */
 	public void setRatings(ArrayList<double[][]> stoneRatings, ArrayList<double[][]> moveRatings,
-			ArrayList<double[][]> mobilityRatings, double[][] nrOfFieldColorChange) {// , ArrayList<double[][]>
-																						// mobilityRatings) {
+			ArrayList<double[][]> mobilityRatings, double[][] nrOfFieldColorChange) {
 
 		this.stoneRatings = normalize(stoneRatings); // TODO: maybe unnecessary because pointer
 		this.moveRatings = normalize(moveRatings);
@@ -309,7 +334,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 	/**
 	 * normalizes the ratings to interval [-1,1]
 	 * 
-	 * TODO: maybe even round the ratings or make a threshold that neglects the values close to 0
+	 * TODO: maybe even round the ratings or make a threshold that neglects the
+	 * values close to 0
 	 * 
 	 * (change perhaps interval, if absolute value of ratings is too high)
 	 */
