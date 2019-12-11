@@ -64,6 +64,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 		// readDataFromFiles(BASE_FILENAME);
 
 		// initialize rating boards
+		// myColor begins
 		if (myColor == GameBoard.RED) {
 			stoneRatings = normalize(dataReader
 					.readRatingsFromFile("boardRatings/11122019_0030Random_vs_Random_stoneRatings_red_wins.txt"));
@@ -71,7 +72,9 @@ public class AB_rate4allStones implements ReversiPlayer {
 					.readRatingsFromFile("boardRatings/11122019_0030Random_vs_Random_mobilityRatings_red_wins.txt"));
 			moveRatings = normalize(dataReader
 					.readRatingsFromFile("boardRatings/11122019_0030Random_vs_Random_moveRatings_red_wins.txt"));
-		} else {
+		}
+		// myColor is second player
+		else {
 			stoneRatings = normalize(dataReader
 					.readRatingsFromFile("boardRatings/11122019_0030Random_vs_Random_stoneRatings_green_wins.txt"));
 			mobilityRatings = normalize(dataReader
@@ -343,8 +346,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 		}
 
 		// put different ratings together
-		rating = stoneRatingSum + 3 * moveRatingSum + mobilityRatingSum * 5;
-
+		rating = stoneRatingSum + 3 * moveRatingSum + mobilityRatingSum * 10;
+		System.out.println("Rating: " + rating);
 		return rating;
 
 	}
@@ -401,7 +404,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 			for (int x = 0; x < currentRatings.length; x++) {
 				for (int y = 0; y < currentRatings.length; y++) {
 
-					currentNormalizedRatings[x][y] = currentRatings[x][y] / maximumValue;
+					currentNormalizedRatings[x][y] = currentRatings[x][y] / Math.max(1, maximumValue);
 
 				}
 			}
@@ -442,7 +445,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 		for (int x = 0; x < ratings.length; x++) {
 			for (int y = 0; y < ratings.length; y++) {
 
-				normalized[x][y] = ratings[x][y] / maximumValue;
+				normalized[x][y] = ratings[x][y] / Math.max(1, maximumValue);
 
 			}
 		}
