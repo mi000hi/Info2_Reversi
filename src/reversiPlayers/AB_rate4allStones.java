@@ -321,13 +321,15 @@ public class AB_rate4allStones implements ReversiPlayer {
 				for (int y = 0; y < BOARDSIZE; y++) {
 
 					currentOccupation = currentBoard.getOccupation(new Coordinates(y + 1, x + 1));
-				
+
 					if (currentOccupation == myColor) {
-						rating += currentStoneRating[x][y] / currentBoard.countStones(myColor) / 5000 / Math.max(1, (60 - moveNumber));
-					} else if(currentOccupation == -myColor + 3) {
-						rating -= currentStoneRating[x][y] / currentBoard.countStones(-myColor + 3) / 5000 / Math.max(1, (60 - moveNumber));
+						rating += currentStoneRating[x][y] / currentBoard.countStones(myColor) / 5000
+								/ Math.max(1, (60 - moveNumber));
+					} else if (currentOccupation == -myColor + 3) {
+						rating -= currentStoneRating[x][y] / currentBoard.countStones(-myColor + 3) / 5000
+								/ Math.max(1, (60 - moveNumber));
 					}
-					
+
 					// TODO: do something if no player has this field?
 
 //					if(currentBoard.checkMove(-whoDidLastMove+3, new Coordinates(y+1, x+1))) {
@@ -339,48 +341,58 @@ public class AB_rate4allStones implements ReversiPlayer {
 //						
 //						
 //					}
-					
+
 				}
 			}
 		} catch (OutOfBoundsException e) {
 			e.printStackTrace();
 		}
 
-		if(myColor != whoDidLastMove) {
+		if (myColor != whoDidLastMove) {
 			rating *= currentBoard.mobility(whoDidLastMove) * currentBoard.mobility(whoDidLastMove); // TODO
 		} else {
 			rating /= currentBoard.mobility(whoDidLastMove) * currentBoard.mobility(whoDidLastMove); // TODO
 		}
-		
+
 		return rating;
 
 	}
-	
-	
+
 	/**
-	 * normalizes the ratings
+	 * normalizes the ratings (0,1)
 	 * 
+	 * (change perhaps interval, if absolute value of ratings is too high)
 	 */
-	/*
-	private ArrayList<double[][]> normalize (ArrayList<double[][]> ratingboard) {
+	private ArrayList<double[][]> normalize(ArrayList<double[][]> ratingboard) {
 		ArrayList<double[][]> normboard = ratingboard;
 		for (int i = 0; i < 60; ++i) {
-		double max = Double.MIN_VALUE;
-		for (int x = 0; x < 8; ++x) {
-			for (int y = 0; y < 8; ++y) {
-				max = Math.max(max, ratingboard.get[x][y]);
+			double max = Double.MIN_VALUE;
+			double min = Double.MAX_VALUE;
+			for (int x = 0; x < 8; ++x) {
+				for (int y = 0; y < 8; ++y) {
+					max = Math.max(max, ratingboard.get(i)[x][y]);
+					min = Math.min(min, ratingboard.get(i)[x][y]);
+				}
+			}
+			for (int x = 0; x < 8; ++x) {
+				for (int y = 0; y < 8; ++y) {
+					ratingboard.get(i)[x][y] -= min;
+					ratingboard.get(i)[x][y] /= (max - min);
+				}
 			}
 		}
 		return normboard;
 	}
-	*/
-	
+
 	/**
 	 * sets the ratings
 	 * 
 	 * @param boardRatings
 	 */
-	public void setRatings(ArrayList<double[][]> stoneRatings, ArrayList<double[][]> moveRatings, ArrayList<double[][]> mobilityRatings, double[][] nrOfFieldColorChange) {//, ArrayList<double[][]> mobilityRatings) {
+
+	public void setRatings(ArrayList<double[][]> stoneRatings, ArrayList<double[][]> moveRatings,
+			ArrayList<double[][]> mobilityRatings, double[][] nrOfFieldColorChange) {// , ArrayList<double[][]>
+																						// mobilityRatings) {
 
 		this.stoneRatings = stoneRatings; // TODO: maybe unnecessary because pointer
 		this.moveRatings = moveRatings;
