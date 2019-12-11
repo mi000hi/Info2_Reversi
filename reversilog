@@ -5375,3 +5375,80 @@ RED: reversiPlayers.AB_rateallBoards, GREEN: mottetb.ElPulpo
 22:57:58: finished reds=11 greens=53
 22:57:58: REGULAR FINISH: GameState: GREEN wins (RED vs. GREEN = 11:53)
 CSV: GREEN,,11,53
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar
+ID = TestGame
+DATE = 11.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rateallBoards
+00:42:08: Players initialized
+00:42:09: rating=32/32 RED DutyCalls moves d6
+00:42:12: rating=32/32 GREEN AB_rateallBoards moves c5
+00:42:15: rating=32/31 RED DutyCalls moves e6
+00:42:16: rating=33/30 GREEN AB_rateallBoards moves f5
+00:42:17: rating=33/31 RED DutyCalls moves c6
+00:42:18: rating=32/32 GREEN AB_rateallBoards moves e7
+00:42:19: rating=32/32 RED DutyCalls moves c4
+00:42:20: rating=32/32 GREEN AB_rateallBoards moves c3
+00:42:22: rating=32/32 RED DutyCalls moves d3
+00:42:23: rating=33/31 GREEN AB_rateallBoards moves b4
+00:42:24: rating=34/30 RED DutyCalls moves a4
+00:42:25: rating=34/30 GREEN AB_rateallBoards moves d2
+00:42:26: rating=33/31 RED DutyCalls moves e2
+00:42:27: rating=33/31 GREEN AB_rateallBoards moves e3
+00:42:28: rating=33/30 RED DutyCalls moves f7
+00:42:30: rating=33/31 GREEN AB_rateallBoards moves b7
+00:42:31: rating=32/31 RED DutyCalls moves f4
+00:42:32: rating=35/28 GREEN AB_rateallBoards moves a5
+00:42:33: rating=39/24 RED DutyCalls moves a8
+00:42:34: rating=41/23 GREEN AB_rateallBoards moves a3
+00:42:35: rating=41/22 RED DutyCalls moves f6
+00:42:36: rating=40/24 GREEN AB_rateallBoards moves e1
+00:42:38: rating=39/24 RED DutyCalls moves f1
+00:42:39: rating=40/23 GREEN AB_rateallBoards moves g1
+00:42:40: rating=40/23 RED DutyCalls moves b5
+00:42:41: rating=40/23 GREEN AB_rateallBoards moves a6
+00:42:42: rating=40/24 RED DutyCalls moves c2
+00:42:43: rating=40/23 GREEN AB_rateallBoards moves b6
+00:42:44: rating=41/23 RED DutyCalls moves f3
+00:42:46: rating=40/23 GREEN AB_rateallBoards moves g6
+00:42:47: rating=41/22 RED DutyCalls moves d1
+00:42:48: rating=43/21 GREEN AB_rateallBoards moves b3
+00:42:49: rating=43/20 RED DutyCalls moves h1
+00:42:50: rating=44/20 GREEN AB_rateallBoards moves e8
+00:42:51: rating=45/19 RED DutyCalls moves a7
+00:42:52: rating=46/17 GREEN AB_rateallBoards moves b2
+00:42:54: rating=47/16 RED DutyCalls moves d7
+00:42:55: rating=48/15 GREEN AB_rateallBoards moves g4
+00:42:56: rating=50/14 RED DutyCalls moves f8
+00:42:57: rating=50/13 GREEN AB_rateallBoards moves g8
+00:42:58: rating=48/15 RED DutyCalls moves a1
+00:42:59: rating=47/16 GREEN AB_rateallBoards moves g5
+00:43:00: rating=49/15 RED DutyCalls moves g3
+00:43:02: rating=48/15 GREEN AB_rateallBoards moves c7
+00:43:03: rating=47/16 RED DutyCalls moves d8
+00:43:04: rating=48/15 GREEN AB_rateallBoards moves f2
+00:43:05: rating=50/14 RED DutyCalls moves h8
+00:43:06: rating=50/14 GREEN AB_rateallBoards moves b8
+00:43:07: rating=47/16 RED DutyCalls moves c8
+00:43:08: rating=46/17 GREEN AB_rateallBoards moves h2
+00:43:10: rating=48/16 RED DutyCalls moves g2
+00:43:10: rating=47/17 GREEN AB_rateallBoards moves c1
+00:43:11: rating=46/18 RED DutyCalls moves b1
+00:43:11: rating=46/18 GREEN AB_rateallBoards moves a2
+00:43:12: rating=46/18 RED DutyCalls moves h3
+00:43:13: rating=46/18 GREEN AB_rateallBoards moves h4
+00:43:13: rating=46/18 RED DutyCalls moves h6
+00:43:14: rating=46/18 GREEN AB_rateallBoards moves g7
+00:43:14: rating=46/18 RED DutyCalls moves h7
+00:43:15: rating=48/15 GREEN AB_rateallBoards passes.
+00:43:15: rating=51/13 RED DutyCalls moves h5
+00:43:15: rating=51/13 GREEN AB_rateallBoards passes.
+00:43:15: finished reds=51 greens=13
+00:43:15: REGULAR FINISH: GameState: RED wins (RED vs. GREEN = 51:13)
+CSV: RED,,51,13
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar
+ID = TestGame
+DATE = 11.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rateallBoards
+11:27:13: Players initialized
+11:27:14: rating=32/32 RED DutyCalls moves d6
+11:27:17: rating=32/32 GREEN AB_rateallBoards moves c5
