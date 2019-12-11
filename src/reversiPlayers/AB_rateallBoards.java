@@ -359,8 +359,9 @@ public class AB_rateallBoards implements ReversiPlayer {
 
 				}
 			}
+
 		} catch (OutOfBoundsException e) {
-			e.printStackTrace();
+			 e.printStackTrace();
 		}
 
 //		rating *= currentBoard.mobility(-whoDidLastMove + 3); // TODO

@@ -11,6 +11,22 @@ import reversi.OutOfBoundsException;
 import reversi.ReversiPlayer;
 import reversi.Utils;
 
+/*
+ * 
+ * add to ratings if stone difference is bigger than 10-20 set 20 evt gewichtung
+ * freefields egal ~100 / min (random vs random)
+ * 
+ * depth 8-9 2000ms: depth 10-11 1000ms: depth 9-10 500ms: depth 9 300ms: depth
+ * 8 200ms: depth 7-8
+ * 
+ * min stones on board to rate game 40-50 set 50
+ * 
+ * rating *= mobility
+ * 
+ * 
+ * 
+ */
+
 public class AB_rate4allStones implements ReversiPlayer {
 
 	int myColor; // color of this player
@@ -19,8 +35,6 @@ public class AB_rate4allStones implements ReversiPlayer {
 	final int NOT_INITIALIZED = -12345; // fixed value to have uninitialized integers
 
 	long timeLimit; // time for our player to make a move
-	long bestMoveCalculationTime; // total time we used to make our move
-
 	double timeToUse; // amount of available time, that we will use for calculation (percentage)
 
 	boolean noTimeLeft; // is put on true if we need to cancel our calculation
@@ -28,30 +42,10 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 	Coordinates[] corners = { new Coordinates(1, 1), new Coordinates(1, 8), new Coordinates(8, 1),
 			new Coordinates(8, 8) };
-
-	/*
-	 * 
-	 * add to ratings if stone difference is bigger than 10-20 set 20 evt gewichtung
-	 * freefields egal ~100 / min (random vs random)
-	 * 
-	 * depth 8-9 2000ms: depth 10-11 1000ms: depth 9-10 500ms: depth 9 300ms: depth
-	 * 8 200ms: depth 7-8
-	 * 
-	 * min stones on board to rate game 40-50 set 50
-	 * 
-	 * rating *= mobility
-	 * 
-	 * 
-	 * 
-	 */
-
 	GameBoard actualBoard;
 
 	// name of the file where the ratings are stored
-	private final static String FILENAME_RANDOM_VS_RANDOM = "boardRatings_RandomPlayer_vs_RandomPlayer.txt";
-	private final static String FILENAME_DUTYCALLS_VS_RANDOM = "boardRatings_DutyCalls_vs_RandomPlayer.txt";
-	private final static String FILENAME_RANDOM_VS_DUTYCALLS = "boardRatings_RandomPlayer_vs_DutyCalls.txt";
-//	private DataWriter dataWriter = new DataWriter(null, "boardRatings/Random_vs_Random_stoneLocationRating.txt", false, 8);
+	private final static String BASE_FILENAME = "boardRatings/11122019_0030Random_vs_Random.txt";
 	private DataReader dataReader = new DataReader(8);
 	ArrayList<double[][]> stoneRatings;
 	ArrayList<double[][]> mobilityRatings;
@@ -64,6 +58,11 @@ public class AB_rate4allStones implements ReversiPlayer {
 		this.timeLimit = timeLimit;
 		timeToUse = 0.999;
 		noTimeLeft = false;
+
+		// do not use this if the gamecoordinator plays the game. he will give the
+		// ratings to the player
+		// readDataFromFiles(BASE_FILENAME);
+
 	}
 
 	public void readDataFromFiles(String baseFilename) {
@@ -81,44 +80,18 @@ public class AB_rate4allStones implements ReversiPlayer {
 		BOARDSIZE = gb.getSize(); // or hardcode this to 8
 
 		// count empty fields
-		freeFields = 0;
-		for (int y = 1; y <= BOARDSIZE; y++) {
-			for (int x = 1; x <= BOARDSIZE; x++) {
-
-				try {
-					if (gb.getOccupation(new Coordinates(y, x)) == GameBoard.EMPTY) {
-						freeFields++;
-					}
-				} catch (OutOfBoundsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-		}
+		freeFields = BOARDSIZE * BOARDSIZE - gb.countStones(1) - gb.countStones(2);
 
 		// Check if the player has any legal moves
 		if (gb.isMoveAvailable(myColor)) {
-
-//			System.out
-//					.print(String.format("DutyCalls %s is calculating a pretty good move.\n", Utils.toString(myColor)));
 
 			// The Coordinates that our player chooses
 			Coordinates bestMove = new Coordinates(-1, -1);
 			bestMove = findBestMove(gb.clone(), startTime);
 
-			bestMoveCalculationTime = System.currentTimeMillis() - startTime;
-
-//			System.out.println(
-//					String.format("DutyCalls %s needed " + bestMoveCalculationTime + " ms to calculate the move.",
-//							Utils.toString(myColor)));
-//			System.out
-//					.println(String.format("DutyCalls %s moves: %s", Utils.toString(myColor), bestMove.toMoveString()));
-
 			return bestMove;
 
 		} else {
-//			System.out.println(String.format("DutyCalls %s has no legal moves, passes.", Utils.toString(myColor)));
 			return null;
 		}
 
@@ -148,8 +121,6 @@ public class AB_rate4allStones implements ReversiPlayer {
 				// the calculation
 			while (depth <= freeFields || bestCoordinates.getCol() == -1) {
 
-				// System.out.println("=== now calculating with depth " + depth);
-
 				currentDepthBestRating = NOT_INITIALIZED;
 				currentDepthBestCoordinates = new Coordinates(-1, -1);
 
@@ -165,14 +136,9 @@ public class AB_rate4allStones implements ReversiPlayer {
 							currentRating = findRating(board.clone(), currentCoordinates, depth - 1, myColor,
 									currentDepthBestRating, startTime);
 
-							// System.out.println("rating for field " + (new Coordinates(y,
-							// x)).toMoveString() + " is: " + currentRating);
-
 							// searching the maximum rating
 							if (currentDepthBestRating == NOT_INITIALIZED || currentRating > currentDepthBestRating) {
 								currentDepthBestRating = currentRating;
-								// System.out.println("rating for the move " + (new Coordinates(y,
-								// x)).toMoveString() + " is: " + currentDepthBestRating);
 								currentDepthBestCoordinates = currentCoordinates;
 							}
 
@@ -193,11 +159,9 @@ public class AB_rate4allStones implements ReversiPlayer {
 		} catch (Exception e) {
 			// do not update bestCoordinates, just return the best ones so far
 
-//			System.out.println("got the exception!");
+			// if no best move found, return the first possible one
 			if (bestCoordinates.getCol() == -1) {
 				if (currentDepthBestCoordinates.getCol() == -1) {
-
-//					System.out.println("need to find possible move, take first one, should not be here");
 					for (int y = 1; y <= board.getSize(); y++) {
 						for (int x = 1; x <= board.getSize(); x++) {
 							if (board.checkMove(myColor, new Coordinates(y, x))) {
@@ -211,7 +175,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 			}
 		}
 
-//		System.out.println("maximum depth was: " + depth);
+		System.out.println("maximum depth was: " + depth);
 		System.out.println("rating for this game is: " + bestRating);
 
 		return bestCoordinates;
@@ -293,8 +257,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 		}
 
 		if (lastBestRating == NOT_INITIALIZED) {
-			// dont cancel recursion if we need to pass!
 
+			// dont cancel recursion if we need to pass!
 			if (System.currentTimeMillis() - startTime < timeToUse * timeLimit) {
 				lastBestRating = findRating(board.clone(), null, depth - 1, Utils.other(player), lastBestRating,
 						startTime);
@@ -315,73 +279,15 @@ public class AB_rate4allStones implements ReversiPlayer {
 		int moveNumber = currentBoard.countStones(1) + currentBoard.countStones(2) - 4;
 		double[][] currentStoneRating = stoneRatings.get(moveNumber);
 		double[][] currentMobilityRating = mobilityRatings.get(moveNumber);
+		double[][] currentMoveRating = moveRatings.get(moveNumber);
+		// TODO: currect ratings indexes?
 
-		try {
-			for (int x = 0; x < BOARDSIZE; x++) {
-				for (int y = 0; y < BOARDSIZE; y++) {
-
-					currentOccupation = currentBoard.getOccupation(new Coordinates(y + 1, x + 1));
-
-					if (currentOccupation == myColor) {
-						rating += currentStoneRating[x][y] / currentBoard.countStones(myColor) / 5000
-								/ Math.max(1, (60 - moveNumber));
-					} else if (currentOccupation == -myColor + 3) {
-						rating -= currentStoneRating[x][y] / currentBoard.countStones(-myColor + 3) / 5000
-								/ Math.max(1, (60 - moveNumber));
-					}
-
-					// TODO: do something if no player has this field?
-
-//					if(currentBoard.checkMove(-whoDidLastMove+3, new Coordinates(y+1, x+1))) {
-//						if(whoDidLastMove == myColor) {
-//							rating += 90 / moveNumber * currentMobilityRating[x][y]; // TODO: which player, which move?
-//						} else {
-//							rating -= 90 / moveNumber * currentMobilityRating[x][y];
-//						}
-//						
-//						
-//					}
-
-				}
-			}
-		} catch (OutOfBoundsException e) {
-			e.printStackTrace();
-		}
-
-		if (myColor != whoDidLastMove) {
-			rating *= currentBoard.mobility(whoDidLastMove) * currentBoard.mobility(whoDidLastMove); // TODO
-		} else {
-			rating /= currentBoard.mobility(whoDidLastMove) * currentBoard.mobility(whoDidLastMove); // TODO
-		}
+		/*
+		 * TODO: something fancy here
+		 */
 
 		return rating;
 
-	}
-
-	/**
-	 * normalizes the ratings (0,1)
-	 * 
-	 * (change perhaps interval, if absolute value of ratings is too high)
-	 */
-	private ArrayList<double[][]> normalize(ArrayList<double[][]> ratingboard) {
-		ArrayList<double[][]> normboard = ratingboard;
-		for (int i = 0; i < 60; ++i) {
-			double max = Double.MIN_VALUE;
-			double min = Double.MAX_VALUE;
-			for (int x = 0; x < 8; ++x) {
-				for (int y = 0; y < 8; ++y) {
-					max = Math.max(max, ratingboard.get(i)[x][y]);
-					min = Math.min(min, ratingboard.get(i)[x][y]);
-				}
-			}
-			for (int x = 0; x < 8; ++x) {
-				for (int y = 0; y < 8; ++y) {
-					ratingboard.get(i)[x][y] -= min;
-					ratingboard.get(i)[x][y] /= (max - min);
-				}
-			}
-		}
-		return normboard;
 	}
 
 	/**
@@ -389,15 +295,100 @@ public class AB_rate4allStones implements ReversiPlayer {
 	 * 
 	 * @param boardRatings
 	 */
-
 	public void setRatings(ArrayList<double[][]> stoneRatings, ArrayList<double[][]> moveRatings,
 			ArrayList<double[][]> mobilityRatings, double[][] nrOfFieldColorChange) {// , ArrayList<double[][]>
 																						// mobilityRatings) {
 
-		this.stoneRatings = stoneRatings; // TODO: maybe unnecessary because pointer
-		this.moveRatings = moveRatings;
-		this.nrOfFieldColorChange = nrOfFieldColorChange;
-		this.mobilityRatings = mobilityRatings;
+		this.stoneRatings = normalize(stoneRatings); // TODO: maybe unnecessary because pointer
+		this.moveRatings = normalize(moveRatings);
+		this.nrOfFieldColorChange = normalize(nrOfFieldColorChange);
+		this.mobilityRatings = normalize(mobilityRatings);
+
+	}
+
+	/**
+	 * normalizes the ratings to interval [-1,1]
+	 * 
+	 * TODO: maybe even round the ratings or make a threshold that neglects the values close to 0
+	 * 
+	 * (change perhaps interval, if absolute value of ratings is too high)
+	 */
+	private ArrayList<double[][]> normalize(ArrayList<double[][]> ratings) {
+
+		ArrayList<double[][]> normalized = new ArrayList<>();
+		double maximumValue;
+		double[][] currentRatings;
+		double[][] currentNormalizedRatings; // copying all values so we dont destroy them (because pointer)
+
+		// find the maximum value per move and divide the ratings from this move by that
+		// value
+		for (int i = 0; i < ratings.size(); i++) {
+
+			// find maximum value
+			currentRatings = ratings.get(i);
+			maximumValue = currentRatings[0][0];
+			for (int x = 0; x < currentRatings.length; x++) {
+				for (int y = 0; y < currentRatings.length; y++) {
+
+					if (currentRatings[x][y] > maximumValue) {
+						maximumValue = currentRatings[x][y];
+					}
+
+				}
+			}
+
+			// divide all values by maximum value
+			currentNormalizedRatings = new double[currentRatings.length][currentRatings.length];
+			for (int x = 0; x < currentRatings.length; x++) {
+				for (int y = 0; y < currentRatings.length; y++) {
+
+					currentNormalizedRatings[x][y] = currentRatings[x][y] / maximumValue;
+
+				}
+			}
+			normalized.add(currentNormalizedRatings);
+
+		}
+
+		return normalized;
+
+	}
+
+	/**
+	 * normalizes the ratings to interval [-1,1]
+	 * 
+	 * (change perhaps interval, if absolute value of ratings is too high)
+	 */
+	private double[][] normalize(double[][] ratings) {
+
+		double[][] normalized = new double[ratings.length][ratings.length];
+		double maximumValue;
+
+		// find the maximum value per move and divide the ratings from this move by that
+		// value
+
+		// find maximum value
+		maximumValue = ratings[0][0];
+		for (int x = 0; x < ratings.length; x++) {
+			for (int y = 0; y < ratings.length; y++) {
+
+				if (ratings[x][y] > maximumValue) {
+					maximumValue = ratings[x][y];
+				}
+
+			}
+		}
+
+		// divide all values by maximum value
+		for (int x = 0; x < ratings.length; x++) {
+			for (int y = 0; y < ratings.length; y++) {
+
+				normalized[x][y] = ratings[x][y] / maximumValue;
+
+			}
+		}
+
+		return normalized;
 
 	}
 
