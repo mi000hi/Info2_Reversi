@@ -347,6 +347,13 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 		// put different ratings together
 		rating = stoneRatingSum + 3 * moveRatingSum + mobilityRatingSum * 10;
+		/*
+		if (moveNumber > 35) {
+			rating = (stoneRatingSum + moveRatingSum * 2) * 2 * mobilityRatingSum;
+		} else {
+			rating = (stoneRatingSum + moveRatingSum * 2) * mobilityRatingSum * 3;
+		}
+		*/
 		System.out.println("Rating: " + rating);
 		return rating;
 
