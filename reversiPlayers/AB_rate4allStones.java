@@ -73,7 +73,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 	public Coordinates nextMove(GameBoard gb) {
 
 		System.out.println("hello world!");
-		
+
 		actualBoard = gb;
 
 		// start timer to measure how long we needed for our move
@@ -208,7 +208,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 		// recursion termination clause
 		if (depth <= 0 || board.isFull()) {
-			return rating(board, oldBoard, player);
+			double rating = rating(board, oldBoard, player);
+			return rating;
 		}
 
 		// iterate over each field
@@ -312,7 +313,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 		// put different ratings together
 		rating = stoneRatingSum + 2 * moveRatingSum + mobilityRatingSum * 2;
-		System.out.println(rating);
+		System.out.println("rating: " + rating);
 
 		return rating;
 
