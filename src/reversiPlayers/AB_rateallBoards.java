@@ -106,7 +106,7 @@ public class AB_rateallBoards implements ReversiPlayer {
 		}
 
 		// take corners in earlygame
-		if (freeFields > 50) {
+		if (freeFields > 15) {
 			for (int i = 0; i < 4; ++i) {
 				if (gb.checkMove(myColor, corners[i])) {
 					return corners[i];
