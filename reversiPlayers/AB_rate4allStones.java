@@ -73,7 +73,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 	public Coordinates nextMove(GameBoard gb) {
 
 		System.out.println("hello world!");
-		
+
 		actualBoard = gb;
 
 		// start timer to measure how long we needed for our move
@@ -86,7 +86,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 		// Check if the player has any legal moves
 		if (gb.isMoveAvailable(myColor)) {
-
+			
+			System.out.println("calculating move");
 			// The Coordinates that our player chooses
 			Coordinates bestMove = new Coordinates(-1, -1);
 			bestMove = findBestMove(gb.clone(), startTime);
@@ -123,6 +124,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 				// the calculation
 			while (depth <= freeFields || bestCoordinates.getCol() == -1) {
 
+				System.out.println("depth = " + depth);
+				
 				currentDepthBestRating = NOT_INITIALIZED;
 				currentDepthBestCoordinates = new Coordinates(-1, -1);
 
@@ -131,13 +134,17 @@ public class AB_rate4allStones implements ReversiPlayer {
 					for (int x = 1; x <= board.getSize(); x++) {
 
 						currentCoordinates = new Coordinates(y, x);
+						System.out.println("checking move " + x + "/" + y);
 						if (board.checkMove(myColor, currentCoordinates)) {
 
+							System.out.println("last checked move is available");
 							// find rating for this move and save move if it has the better rating than all
 							// the moves tested before from this depth
 							currentRating = findRating(board.clone(), currentCoordinates, depth - 1, myColor,
 									currentDepthBestRating, startTime);
 
+							System.out.println("currentRating = " + currentRating);
+							
 							// searching the maximum rating
 							if (currentDepthBestRating == NOT_INITIALIZED || currentRating > currentDepthBestRating) {
 								currentDepthBestRating = currentRating;
@@ -163,6 +170,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 			// if no best move found, return the first possible one
 			if (bestCoordinates.getCol() == -1) {
+				
+				System.out.println("no coordinates!");
 				if (currentDepthBestCoordinates.getCol() == -1) {
 					for (int y = 1; y <= board.getSize(); y++) {
 						for (int x = 1; x <= board.getSize(); x++) {
@@ -199,6 +208,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 	private double findRating(GameBoard board, Coordinates move, int depth, int player, double referenceRating,
 			long startTime) throws Exception {
 
+		System.out.println("finding rating");
+		
 		double lastBestRating = NOT_INITIALIZED; // best rating we got so far
 		double currentRating; // rating for the move from the current iteration
 
@@ -208,7 +219,10 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 		// recursion termination clause
 		if (depth <= 0 || board.isFull()) {
-			return rating(board, oldBoard, player);
+			System.out.println("getting rating");
+			double rating = rating(board, oldBoard, player);
+			System.out.println("returning rating");
+			return rating;
 		}
 
 		// iterate over each field
@@ -276,12 +290,16 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 	private double rating(GameBoard currentBoard, GameBoard previousBoard, int whoDidLastMove) {
 
+		System.out.println("in ratings function");
+		
 		int currentOccupation;
 		double rating = 0;
 		int moveNumber = currentBoard.countStones(1) + currentBoard.countStones(2) - 4;
 		double[][] currentStoneRating = stoneRatings.get(moveNumber);
 		double[][] currentMobilityRating = mobilityRatings.get(moveNumber);
 		double[][] currentMoveRating = moveRatings.get(moveNumber);
+		
+		System.out.println("got all current datas");
 		// TODO: correct ratings indexes?
 
 		/*
@@ -312,7 +330,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 		// put different ratings together
 		rating = stoneRatingSum + 2 * moveRatingSum + mobilityRatingSum * 2;
-		System.out.println(rating);
+		System.out.println("rating: " + rating);
 
 		return rating;
 
