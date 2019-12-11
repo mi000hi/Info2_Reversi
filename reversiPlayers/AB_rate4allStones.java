@@ -72,6 +72,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 	@Override
 	public Coordinates nextMove(GameBoard gb) {
 
+		System.out.println("hello world!");
+		
 		actualBoard = gb;
 
 		// start timer to measure how long we needed for our move
