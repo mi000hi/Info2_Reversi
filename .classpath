@@ -7,6 +7,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="reversi.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="/Users/moritzhusser/Documents/GitHub/Info2_Reversi/ElPulpo.jar"/>
+=======
+	<classpathentry kind="lib" path="ElPulpo.jar"/>
+>>>>>>> 80c57375d7138a689ac246be1af57f8907b82a50
 	<classpathentry kind="output" path="bin"/>
 </classpath>
