@@ -53,6 +53,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 	ArrayList<double[][]> moveRatings;
 	double[][] nrOfFieldColorChange;
 	ArrayList<Coordinates> hypotheticalMoves;
+	ArrayList<GameBoard> hypotheticalBoards;
 
 	@Override
 	public void initialize(int myColor, long timeLimit) {
@@ -65,8 +66,10 @@ public class AB_rate4allStones implements ReversiPlayer {
 		// initialize hypotheticalMoves with 15 coordinates, so that we will not have a
 		// out of bounds index error
 		hypotheticalMoves = new ArrayList<>();
+		hypotheticalBoards = new ArrayList<>();
 		for (int i = 0; i < 15; i++) {
 			hypotheticalMoves.add(null);
+			hypotheticalBoards.add(null);
 		}
 
 		// do not use this if the gamecoordinator plays the game. he will give the
@@ -115,12 +118,14 @@ public class AB_rate4allStones implements ReversiPlayer {
 		freeFields = BOARDSIZE * BOARDSIZE - gb.countStones(1) - gb.countStones(2);
 
 		// print ratings for current move
-		System.out.println("stoneRatings(" + (60 - freeFields) + "):");
-		dataReader.printRatingsBoard(stoneRatings, 60 - freeFields);
-		System.out.println("mobilityRatings(" + (60 - freeFields) + "):");
-		dataReader.printRatingsBoard(mobilityRatings, 60 - freeFields);
-		System.out.println("moveRatings(" + (60 - freeFields) + "):");
-		dataReader.printRatingsBoard(moveRatings, 60 - freeFields);
+		if (freeFields != 0) {
+			System.out.println("stoneRatings(" + (60 - freeFields) + "):");
+			dataReader.printRatingsBoard(stoneRatings, 60 - freeFields);
+			System.out.println("mobilityRatings(" + (60 - freeFields) + "):");
+			dataReader.printRatingsBoard(mobilityRatings, 60 - freeFields);
+			System.out.println("moveRatings(" + (60 - freeFields) + "):");
+			dataReader.printRatingsBoard(moveRatings, 60 - freeFields);
+		}
 
 		// Check if the player has any legal moves
 		if (gb.isMoveAvailable(myColor)) {
@@ -157,6 +162,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 		Coordinates currentDepthBestCoordinates = new Coordinates(-1, -1);
 		Coordinates bestCoordinates = new Coordinates(-1, -1);
 		Coordinates currentCoordinates;
+		
+		hypotheticalBoards.set(0, board.clone());
 
 		// calculate ratings for increasing depths while the depth does not reach the
 		// full game board
@@ -211,7 +218,9 @@ public class AB_rate4allStones implements ReversiPlayer {
 			// do not update bestCoordinates, just return the best ones so far
 			System.out.println("got the exception");
 
-			e.printStackTrace();
+			if (e.getMessage() != null && !e.getMessage().equals("no time for calculation left!")) {
+				e.printStackTrace();
+			}
 
 			// if no best move found, return the first possible one
 			if (bestCoordinates.getCol() == -1) {
@@ -262,6 +271,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 		// make the move, save old board
 		GameBoard oldBoard = board.clone();
 		board.makeMove(player, move);
+		
+		hypotheticalBoards.set(calculationDepth - depth, board.clone());
 
 		// recursion termination clause
 		if (depth <= 0 || board.isFull()) {
@@ -277,6 +288,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 				currentCoordinates = new Coordinates(y, x);
 				hypotheticalMoves.set(calculationDepth - depth, currentCoordinates);
+				
 				// if move is possible, calculate rating
 				if (board.checkMove(Utils.other(player), currentCoordinates)) {
 
@@ -360,38 +372,50 @@ public class AB_rate4allStones implements ReversiPlayer {
 		double mobilityRatingSum = 0;
 		double moveRatingSum = 0;
 		Coordinates currentCoordinates;
-
+		GameBoard hypotheticalBoard;
+	
 		for (int x = 0; x < BOARDSIZE; ++x) {
 			for (int y = 0; y < BOARDSIZE; ++y) {
 				try {
 
 					currentCoordinates = new Coordinates(y, x);
 
-					// rate for possession of the field
-					if (currentBoard.getOccupation(currentCoordinates) == myColor) {
-						stoneRatingSum += currentStoneRating[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.001);
-//						mobilityRatingSum += currentMobilityRating[x][y];
-//						moveRatingSum += currentMoveRating[x][y];
-					} else if (currentBoard.getOccupation(currentCoordinates) == Utils.other(myColor)) {
-						stoneRatingSum -= 2 * currentStoneRating[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.001);
-//						mobilityRatingSum -= 2 * currentMobilityRating[x][y];
-//						moveRatingSum -= currentMoveRating[x][y];
-					} else {
+					// rate for possession of the field for all hypothetical fields
+					for (int i = calculationDepth; i > 0; i--) {
+						
+						hypotheticalBoard = hypotheticalBoards.get(i - 1);
+						if (hypotheticalBoard.getOccupation(currentCoordinates) == myColor) {
+							stoneRatingSum += stoneRatings.get(moveNumber + i - calculationDepth)[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.01);
+	//						mobilityRatingSum += currentMobilityRating[x][y];
+	//						moveRatingSum += currentMoveRating[x][y];
+						} else if (hypotheticalBoard.getOccupation(currentCoordinates) == Utils.other(myColor)) {
+							stoneRatingSum -= stoneRatings.get(moveNumber + i - calculationDepth)[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.01);
+	//						mobilityRatingSum -= 2 * currentMobilityRating[x][y];
+	//						moveRatingSum -= currentMoveRating[x][y];
+						}
+//						System.out.println("looking the hypothetical boards");
+					}
+						
+					if(currentBoard.getOccupation(currentCoordinates) == 0) {
 
 						// no one has this field => it could be a possible move
 						if (whoDidLastMove == Utils.other(myColor)) {
 							// test for our possible move
 							if (currentBoard.checkMove(myColor, currentCoordinates)) {
-								mobilityRatingSum += currentMobilityRating[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.001);
+								mobilityRatingSum += currentMobilityRating[x][y]
+										/ Math.max(nrOfFieldColorChange[x][y], 0.01);
 							} else if (previousBoard.checkMove(Utils.other(myColor), currentCoordinates)) {
-								mobilityRatingSum -= currentMobilityRating[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.001);
+								mobilityRatingSum -= currentMobilityRating[x][y]
+										/ Math.max(nrOfFieldColorChange[x][y], 0.01);
 							}
 						} else {
 							// test for enemys possible move
 							if (currentBoard.checkMove(Utils.other(myColor), currentCoordinates)) {
-								mobilityRatingSum -= currentMobilityRating[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.001);
+								mobilityRatingSum -= currentMobilityRating[x][y]
+										/ Math.max(nrOfFieldColorChange[x][y], 0.01);
 							} else if (previousBoard.checkMove(myColor, currentCoordinates)) {
-								mobilityRatingSum += currentMobilityRating[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.001);
+								mobilityRatingSum += currentMobilityRating[x][y]
+										/ Math.max(nrOfFieldColorChange[x][y], 0.01);
 							}
 						}
 					}
@@ -418,6 +442,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 							- 1][currentMove.getRow() - 1];
 				}
 			}
+			
 		}
 
 //		System.out.println("stoneRatingSum = " + stoneRatingSum);
@@ -426,8 +451,8 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 		// put different ratings together
 		rating = stoneRatingSum + moveRatingSum + mobilityRatingSum;
-		rating /= nrOfFieldColorChange[hypotheticalMoves.get(calculationDepth - 1).getCol() - 1][hypotheticalMoves
-				.get(calculationDepth - 1).getRow() - 1];
+		rating /= Math.max(0.1, nrOfFieldColorChange[hypotheticalMoves.get(calculationDepth - 1).getCol()
+				- 1][hypotheticalMoves.get(calculationDepth - 1).getRow() - 1]);
 		/*
 		 * if (moveNumber > 35) { rating = (stoneRatingSum + moveRatingSum * 2) * 2 *
 		 * mobilityRatingSum; } else { rating = (stoneRatingSum + moveRatingSum * 2) *
