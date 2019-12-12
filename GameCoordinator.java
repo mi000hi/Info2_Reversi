@@ -391,9 +391,12 @@ public class GameCoordinator {
 			int lastOccupation = 0;
 			for (int x = 0; x < 8; x++) {
 				for (int y = 0; y < 8; y++) {
+					lastOccupation = 0;
 					for (int i = 0; i < boards.size(); i++) {
 						if (boards.get(i).getOccupation(new Coordinates(y + 1, x + 1)) != lastOccupation) {
-							nrOfFieldColorChange[x][y] += 1.0 / 10000;
+							if(lastOccupation != 0) {
+								nrOfFieldColorChange[x][y] += 1.0 / 10000;
+							}
 							lastOccupation = boards.get(i).getOccupation(new Coordinates(y + 1, x + 1));
 						}
 					}

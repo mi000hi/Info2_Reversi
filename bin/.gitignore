@@ -27,6 +27,4 @@ DutyCalls.java
 
 # the ratings files
 #*.txt
-/src/
-/dataAccess/
-/reversiPlayers/
+/boardRatings/
