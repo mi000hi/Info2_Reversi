@@ -2,11 +2,11 @@
          |   BOARD RATING DATA for our reversi player   |
          +==============================================+
 
-    reversiPlayers.RandomPlayer vs reversiPlayers.RandomPlayer
+    reversiPlayers.AB_prettyGood vs reversiPlayers.AB_prettyGood
 
 +================================================================+
 +================================================================+
-last saved at: 13.12.2019, 00:06:952
+last saved at: 13.12.2019, 00:36:129
 +================================================================+
 +================================================================+
 
