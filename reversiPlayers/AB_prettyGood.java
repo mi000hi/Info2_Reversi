@@ -118,14 +118,14 @@ public class AB_prettyGood implements ReversiPlayer {
 		freeFields = BOARDSIZE * BOARDSIZE - gb.countStones(1) - gb.countStones(2);
 
 		// print ratings for current move
-		if (freeFields != 0) {
-			System.out.println("stoneRatings(" + (60 - freeFields) + "):");
-			dataReader.printRatingsBoard(stoneRatings, 60 - freeFields);
-			System.out.println("mobilityRatings(" + (60 - freeFields) + "):");
-			dataReader.printRatingsBoard(mobilityRatings, 60 - freeFields);
-			System.out.println("moveRatings(" + (60 - freeFields) + "):");
-			dataReader.printRatingsBoard(moveRatings, 60 - freeFields);
-		}
+//		if (freeFields != 0) {
+//			System.out.println("stoneRatings(" + (60 - freeFields) + "):");
+//			dataReader.printRatingsBoard(stoneRatings, 60 - freeFields);
+//			System.out.println("mobilityRatings(" + (60 - freeFields) + "):");
+//			dataReader.printRatingsBoard(mobilityRatings, 60 - freeFields);
+//			System.out.println("moveRatings(" + (60 - freeFields) + "):");
+//			dataReader.printRatingsBoard(moveRatings, 60 - freeFields);
+//		}
 
 		// Check if the player has any legal moves
 		if (gb.isMoveAvailable(myColor)) {
@@ -135,7 +135,7 @@ public class AB_prettyGood implements ReversiPlayer {
 			Coordinates bestMove = new Coordinates(-1, -1);
 			bestMove = findBestMove(gb.clone(), startTime);
 
-			System.out.println("took us " + (System.currentTimeMillis() - startTime) + "ms to find a move");
+//			System.out.println("took us " + (System.currentTimeMillis() - startTime) + "ms to find a move");
 
 			return bestMove;
 
@@ -240,8 +240,8 @@ public class AB_prettyGood implements ReversiPlayer {
 			}
 		}
 
-		System.out.println("maximum depth was: " + calculationDepth);
-		System.out.println("rating for this game is: " + bestRating);
+//		System.out.println("maximum depth was: " + calculationDepth);
+//		System.out.println("rating for this game is: " + bestRating);
 
 		return bestCoordinates;
 
