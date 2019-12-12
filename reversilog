@@ -9457,3 +9457,973 @@ RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
 13:22:51: rating=54/10 RED DutyCalls moves a1
 13:22:53: rating=56/8 GREEN AB_rate4allStones passes.
 13:22:53: rating=56/8 RED DutyCalls moves a2
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.RandomPlayer, GREEN: reversiPlayers.AB_rate4allStones
+13:49:47: Players initialized
+13:49:47: rating=32/32 RED RandomPlayer moves d6
+13:49:49: rating=32/32 GREEN AB_rate4allStones moves c3
+13:49:52: rating=32/31 RED RandomPlayer moves c4
+13:49:55: rating=33/31 GREEN AB_rate4allStones moves c5
+13:49:57: rating=32/31 RED RandomPlayer moves b4
+13:50:00: rating=32/32 GREEN AB_rate4allStones moves e3
+13:50:02: rating=30/33 RED RandomPlayer moves c2
+13:50:05: rating=31/33 GREEN AB_rate4allStones moves d3
+13:50:08: rating=31/32 RED RandomPlayer moves d2
+13:50:11: rating=30/34 GREEN AB_rate4allStones moves c7
+13:50:13: rating=29/34 RED RandomPlayer moves f3
+13:50:16: rating=30/33 GREEN AB_rate4allStones moves b2
+13:50:18: rating=31/32 RED RandomPlayer moves f5
+13:50:21: rating=35/29 GREEN AB_rate4allStones moves c6
+13:50:24: rating=38/25 RED RandomPlayer moves e7
+13:50:27: rating=38/26 GREEN AB_rate4allStones moves d7
+13:50:29: rating=36/28 RED RandomPlayer moves c8
+13:50:32: rating=35/29 GREEN AB_rate4allStones moves c1
+13:50:34: rating=34/29 RED RandomPlayer moves b3
+13:50:37: rating=35/29 GREEN AB_rate4allStones moves e2
+13:50:40: rating=37/27 RED RandomPlayer moves e1
+13:50:43: rating=37/26 GREEN AB_rate4allStones moves f1
+13:50:45: rating=36/28 RED RandomPlayer moves d1
+13:50:48: rating=35/29 GREEN AB_rate4allStones moves b1
+13:50:50: rating=35/28 RED RandomPlayer moves e8
+13:50:53: rating=35/29 GREEN AB_rate4allStones moves f2
+13:50:56: rating=33/30 RED RandomPlayer moves g1
+13:50:59: rating=32/31 GREEN AB_rate4allStones moves e6
+13:51:01: rating=26/38 RED RandomPlayer moves a1
+13:51:04: rating=25/38 GREEN AB_rate4allStones moves b6
+13:51:06: rating=31/32 RED RandomPlayer moves b5
+13:51:09: rating=32/32 GREEN AB_rate4allStones moves b7
+13:51:12: rating=32/31 RED RandomPlayer moves a6
+13:51:15: rating=33/31 GREEN AB_rate4allStones moves a2
+13:51:17: rating=28/36 RED RandomPlayer moves f4
+13:51:20: rating=24/39 GREEN AB_rate4allStones moves a3
+13:51:23: rating=26/37 RED RandomPlayer moves a4
+13:51:25: rating=26/37 GREEN AB_rate4allStones moves g3
+13:51:26: rating=27/37 RED RandomPlayer moves h4
+13:51:27: rating=29/35 GREEN AB_rate4allStones moves h2
+13:51:28: rating=29/35 RED RandomPlayer moves a7
+13:51:28: rating=29/34 GREEN AB_rate4allStones moves a5
+13:51:29: rating=30/33 RED RandomPlayer moves g4
+13:51:30: rating=30/33 GREEN AB_rate4allStones moves a8
+13:51:30: rating=31/32 RED RandomPlayer moves f6
+13:51:31: rating=31/32 GREEN AB_rate4allStones moves f7
+13:51:32: rating=32/32 RED RandomPlayer moves g8
+13:51:33: rating=34/30 GREEN AB_rate4allStones moves g2
+13:51:33: rating=35/28 RED RandomPlayer moves b8
+13:51:34: rating=35/29 GREEN AB_rate4allStones moves g7
+13:51:35: rating=33/30 RED RandomPlayer moves h1
+13:51:35: rating=36/27 GREEN AB_rate4allStones moves d8
+13:51:36: rating=36/27 RED RandomPlayer moves h8
+13:51:36: rating=32/32 GREEN AB_rate4allStones moves g5
+13:51:37: rating=32/32 RED RandomPlayer moves h3
+13:51:37: rating=33/30 GREEN AB_rate4allStones moves h5
+13:51:38: rating=34/29 RED RandomPlayer moves g6
+13:51:39: rating=34/29 GREEN AB_rate4allStones moves h7
+13:51:39: rating=34/29 RED RandomPlayer moves h6
+13:51:40: rating=34/29 GREEN AB_rate4allStones moves f8
+13:51:40: finished reds=35 greens=29
+13:51:40: REGULAR FINISH: GameState: RED wins (RED vs. GREEN = 35:29)
+CSV: RED,,35,29
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.RandomPlayer, GREEN: reversiPlayers.AB_rate4allStones
+15:01:19: Players initialized
+15:01:19: rating=32/32 RED RandomPlayer moves d6
+15:01:22: rating=32/32 GREEN AB_rate4allStones moves c5
+15:01:24: rating=32/31 RED RandomPlayer moves f6
+15:01:26: rating=33/30 GREEN AB_rate4allStones moves d7
+15:01:26: rating=33/31 RED RandomPlayer moves b5
+15:01:27: rating=32/32 GREEN AB_rate4allStones moves f4
+15:01:28: rating=32/32 RED RandomPlayer moves d8
+15:01:29: rating=32/32 GREEN AB_rate4allStones moves e3
+15:01:30: rating=31/33 RED RandomPlayer moves f5
+15:01:31: rating=30/34 GREEN AB_rate4allStones moves e6
+15:01:31: rating=28/35 RED RandomPlayer moves g3
+15:01:33: rating=27/36 GREEN AB_rate4allStones moves c4
+15:01:33: rating=27/36 RED RandomPlayer moves c3
+15:01:34: rating=27/37 GREEN AB_rate4allStones moves b6
+15:01:35: rating=25/38 RED RandomPlayer moves d2
+15:01:36: rating=27/37 GREEN AB_rate4allStones moves c6
+15:01:37: rating=28/35 RED RandomPlayer moves e7
+15:01:38: rating=26/37 GREEN AB_rate4allStones moves a5
+15:01:38: rating=26/38 RED RandomPlayer moves d3
+15:01:39: rating=26/38 GREEN AB_rate4allStones moves f3
+15:01:40: rating=25/38 RED RandomPlayer moves a7
+15:01:41: rating=25/39 GREEN AB_rate4allStones moves e8
+15:01:42: rating=23/40 RED RandomPlayer moves f7
+15:01:43: rating=22/41 GREEN AB_rate4allStones moves c7
+15:01:44: rating=23/41 RED RandomPlayer moves b8
+15:01:45: rating=24/39 GREEN AB_rate4allStones moves b4
+15:01:45: rating=24/40 RED RandomPlayer moves g2
+15:01:46: rating=23/41 GREEN AB_rate4allStones moves h1
+15:01:47: rating=19/44 RED RandomPlayer moves g1
+15:01:48: rating=16/48 GREEN AB_rate4allStones moves f1
+15:01:49: rating=15/48 RED RandomPlayer moves f8
+15:01:50: rating=15/49 GREEN AB_rate4allStones moves h3
+15:01:51: rating=12/52 RED RandomPlayer moves a6
+15:01:52: rating=16/48 GREEN AB_rate4allStones moves a8
+15:01:52: rating=18/46 RED RandomPlayer moves a4
+15:01:53: rating=13/51 GREEN AB_rate4allStones moves f2
+15:01:54: rating=13/51 RED RandomPlayer moves c8
+15:01:55: rating=12/51 GREEN AB_rate4allStones moves b7
+15:01:56: rating=12/52 RED RandomPlayer moves e2
+15:01:57: rating=12/51 GREEN AB_rate4allStones moves d1
+15:01:57: rating=14/50 RED RandomPlayer moves e1
+15:01:59: rating=17/47 GREEN AB_rate4allStones moves c2
+15:01:59: rating=19/45 RED RandomPlayer moves c1
+15:02:00: rating=18/45 GREEN AB_rate4allStones moves g7
+15:02:01: rating=17/46 RED RandomPlayer moves h4
+15:02:02: rating=18/45 GREEN AB_rate4allStones moves h2
+15:02:03: rating=17/47 RED RandomPlayer moves g8
+15:02:04: rating=14/50 GREEN AB_rate4allStones moves g6
+15:02:04: rating=12/52 RED RandomPlayer moves h8
+15:02:05: rating=16/48 GREEN AB_rate4allStones moves b1
+15:02:06: rating=22/41 RED RandomPlayer moves h5
+15:02:06: rating=22/42 GREEN AB_rate4allStones moves a3
+15:02:07: rating=22/42 RED RandomPlayer moves b3
+15:02:08: rating=23/40 GREEN AB_rate4allStones moves b2
+15:02:08: rating=23/41 RED RandomPlayer moves a2
+15:02:09: rating=21/43 GREEN AB_rate4allStones moves a1
+15:02:09: rating=21/43 RED RandomPlayer moves g5
+15:02:10: rating=22/42 GREEN AB_rate4allStones moves h7
+15:02:10: rating=22/42 RED RandomPlayer moves h6
+15:02:11: rating=24/39 GREEN AB_rate4allStones moves g4
+15:02:11: finished reds=28 greens=36
+15:02:11: REGULAR FINISH: GameState: GREEN wins (RED vs. GREEN = 28:36)
+CSV: GREEN,,28,36
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.RandomPlayer, GREEN: reversiPlayers.AB_rate4allStones
+20:33:04: Players initialized
+20:33:04: rating=32/32 RED RandomPlayer moves d6
+20:33:07: rating=32/32 GREEN AB_rate4allStones moves c3
+20:33:10: rating=32/31 RED RandomPlayer moves d3
+20:33:12: rating=33/31 GREEN AB_rate4allStones moves e3
+20:33:15: rating=32/31 RED RandomPlayer moves f5
+20:33:18: rating=31/32 GREEN AB_rate4allStones moves e6
+20:33:20: rating=30/33 RED RandomPlayer moves f3
+20:33:23: rating=31/33 GREEN AB_rate4allStones moves g3
+20:33:26: rating=32/32 RED RandomPlayer moves c2
+20:33:28: rating=33/31 GREEN AB_rate4allStones moves g4
+20:33:31: rating=33/31 RED RandomPlayer moves f6
+20:33:34: rating=32/31 GREEN AB_rate4allStones moves g7
+20:33:36: rating=33/31 RED RandomPlayer moves g2
+20:33:39: rating=37/27 GREEN AB_rate4allStones moves c7
+20:33:42: rating=35/28 RED RandomPlayer moves e2
+20:33:45: rating=31/33 GREEN AB_rate4allStones moves f2
+20:33:47: rating=32/32 RED RandomPlayer moves f1
+20:33:50: rating=32/32 GREEN AB_rate4allStones moves b1
+20:33:52: rating=31/32 RED RandomPlayer moves d2
+20:33:55: rating=35/29 GREEN AB_rate4allStones moves c5
+20:33:58: rating=38/26 RED RandomPlayer moves c6
+20:34:01: rating=37/27 GREEN AB_rate4allStones moves b6
+20:34:03: rating=37/27 RED RandomPlayer moves f4
+20:34:06: rating=39/25 GREEN AB_rate4allStones moves d1
+20:34:08: rating=41/23 RED RandomPlayer moves e1
+20:34:11: rating=44/19 GREEN AB_rate4allStones moves g1
+20:34:13: rating=45/18 RED RandomPlayer moves h1
+20:34:16: rating=53/11 GREEN AB_rate4allStones moves h2
+20:34:18: rating=63/0 RED RandomPlayer moves b5
+20:34:21: rating=64/0 GREEN AB_rate4allStones moves c4
+20:34:23: rating=64/0 RED RandomPlayer moves b7
+20:34:26: rating=64/0 GREEN AB_rate4allStones moves a5
+20:34:28: rating=57/7 RED RandomPlayer moves b2
+20:34:31: rating=52/12 GREEN AB_rate4allStones moves a1
+20:34:34: rating=50/14 RED RandomPlayer moves b3
+20:34:37: rating=46/18 GREEN AB_rate4allStones moves c1
+20:34:39: rating=41/23 RED RandomPlayer moves g5
+20:34:42: rating=36/28 GREEN AB_rate4allStones moves a2
+20:34:44: rating=34/30 RED RandomPlayer moves b8
+20:34:47: rating=32/31 GREEN AB_rate4allStones moves h4
+20:34:50: rating=31/32 RED RandomPlayer moves h3
+20:34:53: rating=31/33 GREEN AB_rate4allStones moves g6
+20:34:55: rating=30/33 RED RandomPlayer moves e7
+20:34:58: rating=29/35 GREEN AB_rate4allStones moves d8
+20:35:00: rating=29/35 RED RandomPlayer moves d7
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.RandomPlayer, GREEN: reversiPlayers.AB_rate4allStones
+20:35:07: Players initialized
+20:35:07: rating=32/32 RED RandomPlayer moves d6
+20:35:10: rating=32/32 GREEN AB_rate4allStones moves c3
+20:35:12: rating=32/31 RED RandomPlayer moves c4
+20:35:15: rating=33/31 GREEN AB_rate4allStones moves c5
+20:35:17: rating=32/31 RED RandomPlayer moves b6
+20:35:20: rating=32/32 GREEN AB_rate4allStones moves c6
+20:35:23: rating=31/33 RED RandomPlayer moves b2
+20:35:26: rating=30/33 GREEN AB_rate4allStones moves a6
+20:35:28: rating=25/38 RED RandomPlayer moves b7
+20:35:31: rating=21/43 GREEN AB_rate4allStones moves c2
+20:35:33: rating=17/46 RED RandomPlayer moves a7
+20:35:36: rating=13/50 GREEN AB_rate4allStones moves e3
+20:35:39: rating=13/51 RED RandomPlayer moves c1
+20:35:42: rating=13/50 GREEN AB_rate4allStones moves b4
+20:35:44: rating=14/49 RED RandomPlayer moves f5
+20:35:47: GREEN failed: NullPointerException: null
+java.lang.NullPointerException
+	at reversiPlayers.AB_rate4allStones.findBestMove(AB_rate4allStones.java:214)
+	at reversiPlayers.AB_rate4allStones.nextMove(AB_rate4allStones.java:131)
+	at reversi.PlayerManager.run(PlayerManager.java:24)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.RandomPlayer, GREEN: reversiPlayers.AB_rate4allStones
+20:36:36: Players initialized
+20:36:36: rating=32/32 RED RandomPlayer moves d6
+20:36:39: rating=32/32 GREEN AB_rate4allStones moves c3
+20:36:41: rating=32/31 RED RandomPlayer moves f4
+20:36:44: rating=33/31 GREEN AB_rate4allStones moves g4
+20:36:46: rating=33/31 RED RandomPlayer moves d3
+20:36:49: rating=33/30 GREEN AB_rate4allStones moves e6
+20:36:52: rating=33/31 RED RandomPlayer moves f3
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.RandomPlayer, GREEN: reversiPlayers.AB_rate4allStones
+20:37:00: Players initialized
+20:37:00: rating=32/32 RED RandomPlayer moves d6
+20:37:03: rating=32/32 GREEN AB_rate4allStones moves c3
+20:37:05: rating=32/32 RED RandomPlayer moves f5
+20:37:08: rating=32/31 GREEN AB_rate4allStones moves f4
+20:37:11: rating=33/31 RED RandomPlayer moves e3
+20:37:14: rating=33/31 GREEN AB_rate4allStones moves f2
+20:37:16: rating=33/31 RED RandomPlayer moves b2
+20:37:19: rating=33/30 GREEN AB_rate4allStones moves e6
+20:37:21: rating=28/36 RED RandomPlayer moves f7
+20:37:24: rating=23/41 GREEN AB_rate4allStones moves f6
+20:37:27: rating=22/41 RED RandomPlayer moves g7
+20:37:30: rating=21/43 GREEN AB_rate4allStones moves c4
+20:37:32: rating=17/47 RED RandomPlayer moves b3
+20:37:35: rating=13/50 GREEN AB_rate4allStones moves a1
+20:37:37: rating=13/51 RED RandomPlayer moves g3
+20:37:40: rating=13/51 GREEN AB_rate4allStones moves a3
+20:37:43: rating=13/51 RED RandomPlayer moves f3
+20:37:46: rating=14/50 GREEN AB_rate4allStones moves d3
+20:37:48: rating=15/48 RED RandomPlayer moves e1
+20:37:51: rating=14/49 GREEN AB_rate4allStones moves f1
+20:37:53: rating=13/50 RED RandomPlayer moves g2
+20:37:56: rating=15/48 GREEN AB_rate4allStones moves d1
+20:37:59: rating=15/48 RED RandomPlayer moves g6
+20:38:02: rating=13/51 GREEN AB_rate4allStones moves h2
+20:38:04: rating=12/51 RED RandomPlayer moves h3
+20:38:07: rating=20/43 GREEN AB_rate4allStones moves b4
+20:38:09: rating=28/36 RED RandomPlayer moves h1
+20:38:12: rating=28/35 GREEN AB_rate4allStones moves h4
+20:38:15: rating=30/34 RED RandomPlayer moves a2
+20:38:18: rating=31/33 GREEN AB_rate4allStones moves g1
+20:38:20: rating=31/32 RED RandomPlayer moves c1
+20:38:23: rating=32/31 GREEN AB_rate4allStones moves b5
+20:38:26: rating=34/30 RED RandomPlayer moves b6
+20:38:28: rating=35/29 GREEN AB_rate4allStones moves a4
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.RandomPlayer, GREEN: reversiPlayers.AB_rate4allStones
+20:39:47: Players initialized
+20:39:47: rating=32/32 RED RandomPlayer moves e6
+20:39:50: rating=32/32 GREEN AB_rate4allStones moves f3
+20:39:53: rating=32/31 RED RandomPlayer moves f4
+20:39:55: rating=33/31 GREEN AB_rate4allStones moves f5
+20:39:58: rating=32/31 RED RandomPlayer moves g2
+20:40:01: rating=32/32 GREEN AB_rate4allStones moves d7
+20:40:03: rating=26/37 RED RandomPlayer moves g6
+20:40:06: rating=22/42 GREEN AB_rate4allStones moves f2
+20:40:09: rating=21/42 RED RandomPlayer moves c8
+20:40:11: rating=20/43 GREEN AB_rate4allStones moves g5
+20:40:14: rating=20/44 RED RandomPlayer moves f6
+20:40:17: rating=20/44 GREEN AB_rate4allStones moves d6
+20:40:19: rating=20/43 RED RandomPlayer moves g4
+20:40:22: rating=20/44 GREEN AB_rate4allStones moves h1
+20:40:24: rating=19/44 RED RandomPlayer moves c6
+20:40:27: rating=20/43 GREEN AB_rate4allStones moves g3
+20:40:30: rating=19/44 RED RandomPlayer moves f1
+20:40:32: rating=17/46 GREEN AB_rate4allStones moves h5
+20:40:35: rating=15/48 RED RandomPlayer moves h6
+20:40:38: rating=12/51 GREEN AB_rate4allStones moves g7
+20:40:40: rating=12/52 RED RandomPlayer moves f8
+20:40:43: rating=19/45 GREEN AB_rate4allStones moves e1
+20:40:45: rating=17/47 RED RandomPlayer moves h2
+20:40:48: rating=10/53 GREEN AB_rate4allStones moves h7
+20:40:51: rating=11/53 RED RandomPlayer moves d1
+20:40:54: rating=11/53 GREEN AB_rate4allStones moves e2
+20:40:56: rating=11/52 RED RandomPlayer moves h3
+20:40:59: rating=10/53 GREEN AB_rate4allStones moves d3
+20:41:01: rating=8/55 RED RandomPlayer moves c4
+20:41:04: rating=9/55 GREEN AB_rate4allStones moves g1
+20:41:06: rating=7/57 RED RandomPlayer moves f7
+20:41:09: rating=7/56 GREEN AB_rate4allStones moves e3
+20:41:11: rating=7/57 RED RandomPlayer moves h4
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.RandomPlayer, GREEN: reversiPlayers.AB_rate4allStones
+20:41:18: Players initialized
+20:41:18: rating=32/32 RED RandomPlayer moves f6
+20:41:21: rating=32/32 GREEN AB_rate4allStones moves f5
+20:41:23: rating=32/32 RED RandomPlayer moves d6
+20:41:26: rating=33/31 GREEN AB_rate4allStones moves g7
+20:41:28: rating=32/32 RED RandomPlayer moves f4
+20:41:31: rating=35/28 GREEN AB_rate4allStones moves f3
+20:41:34: rating=41/23 RED RandomPlayer moves g2
+20:41:37: rating=41/23 GREEN AB_rate4allStones moves f2
+20:41:39: rating=36/27 RED RandomPlayer moves h8
+20:41:42: rating=32/32 GREEN AB_rate4allStones moves c4
+20:41:44: rating=30/34 RED RandomPlayer moves e2
+20:41:47: rating=29/34 GREEN AB_rate4allStones moves c5
+20:41:50: rating=30/33 RED RandomPlayer moves c3
+20:41:52: rating=30/34 GREEN AB_rate4allStones moves d1
+20:41:55: rating=28/35 RED RandomPlayer moves g3
+20:41:58: rating=28/35 GREEN AB_rate4allStones moves e6
+20:42:00: rating=29/35 RED RandomPlayer moves b4
+20:42:03: rating=29/35 GREEN AB_rate4allStones moves h2
+20:42:06: rating=28/36 RED RandomPlayer moves g5
+20:42:08: rating=36/28 GREEN AB_rate4allStones moves b3
+20:42:11: rating=46/18 RED RandomPlayer moves a3
+20:42:14: rating=47/17 GREEN AB_rate4allStones moves h5
+20:42:16: rating=45/18 RED RandomPlayer moves h4
+20:42:19: rating=43/20 GREEN AB_rate4allStones moves h6
+20:42:22: rating=41/22 RED RandomPlayer moves f1
+20:42:25: rating=40/23 GREEN AB_rate4allStones moves f8
+20:42:27: rating=40/24 RED RandomPlayer moves d2
+20:42:30: rating=40/24 GREEN AB_rate4allStones moves h3
+20:42:32: rating=40/23 RED RandomPlayer moves f7
+20:42:35: rating=39/25 GREEN AB_rate4allStones moves c6
+20:42:38: rating=38/26 RED RandomPlayer moves e3
+20:42:41: rating=37/27 GREEN AB_rate4allStones moves d3
+20:42:43: rating=37/27 RED RandomPlayer moves c7
+20:42:46: rating=39/24 GREEN AB_rate4allStones moves b7
+20:42:48: rating=38/25 RED RandomPlayer moves e1
+20:42:51: rating=38/25 GREEN AB_rate4allStones moves c8
+20:42:54: rating=41/22 RED RandomPlayer moves g4
+20:42:57: rating=41/22 GREEN AB_rate4allStones moves g8
+20:42:59: rating=42/22 RED RandomPlayer moves b8
+20:43:02: rating=41/22 GREEN AB_rate4allStones moves d7
+20:43:04: rating=36/27 RED RandomPlayer moves e7
+20:43:07: rating=36/27 GREEN AB_rate4allStones moves d8
+20:43:10: rating=36/27 RED RandomPlayer moves g6
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.RandomPlayer, GREEN: reversiPlayers.AB_rate4allStones
+20:43:44: Players initialized
+20:43:44: rating=32/32 RED RandomPlayer moves e6
+20:43:47: rating=32/32 GREEN AB_rate4allStones moves f5
+20:43:49: rating=32/31 RED RandomPlayer moves f6
+20:43:52: rating=33/30 GREEN AB_rate4allStones moves d7
+20:43:55: rating=33/30 RED RandomPlayer moves c5
+20:43:58: rating=33/30 GREEN AB_rate4allStones moves g6
+20:44:00: rating=33/31 RED RandomPlayer moves g5
+20:44:03: rating=32/32 GREEN AB_rate4allStones moves h4
+20:44:06: rating=31/32 RED RandomPlayer moves h5
+20:44:08: rating=31/33 GREEN AB_rate4allStones moves h6
+20:44:11: rating=30/34 RED RandomPlayer moves f7
+20:44:14: rating=29/35 GREEN AB_rate4allStones moves d6
+20:44:16: rating=28/36 RED RandomPlayer moves e7
+20:44:19: rating=27/36 GREEN AB_rate4allStones moves g4
+20:44:22: rating=27/37 RED RandomPlayer moves f4
+20:44:24: rating=28/36 GREEN AB_rate4allStones moves c6
+20:44:27: rating=29/34 RED RandomPlayer moves h3
+20:44:30: rating=29/34 GREEN AB_rate4allStones moves h2
+20:44:32: rating=29/35 RED RandomPlayer moves c7
+20:44:35: rating=28/35 GREEN AB_rate4allStones moves g3
+20:44:38: rating=18/46 RED RandomPlayer moves h7
+20:44:40: rating=5/59 GREEN AB_rate4allStones moves h8
+20:44:43: rating=3/61 RED RandomPlayer moves g2
+20:44:45: rating=3/61 GREEN AB_rate4allStones moves f1
+20:44:48: rating=3/61 RED RandomPlayer moves g1
+20:44:50: rating=2/62 GREEN AB_rate4allStones moves h1
+20:44:53: rating=1/63 RED RandomPlayer passes.
+20:44:53: rating=2/61 GREEN AB_rate4allStones moves g7
+20:44:55: rating=4/60 RED RandomPlayer passes.
+20:44:56: rating=4/59 GREEN AB_rate4allStones moves g8
+20:44:58: rating=4/59 RED RandomPlayer moves f8
+20:45:01: rating=2/62 GREEN AB_rate4allStones moves c3
+20:45:03: rating=0/64 RED RandomPlayer moves c4
+20:45:05: rating=1/62 GREEN AB_rate4allStones moves e8
+20:45:08: rating=3/61 RED RandomPlayer moves c2
+20:45:10: rating=3/61 GREEN AB_rate4allStones moves b7
+20:45:13: rating=3/60 RED RandomPlayer moves c8
+20:45:15: rating=9/54 GREEN AB_rate4allStones moves b6
+20:45:18: rating=11/53 RED RandomPlayer moves a5
+20:45:20: rating=8/56 GREEN AB_rate4allStones moves d8
+20:45:23: rating=6/58 RED RandomPlayer moves b8
+20:45:25: rating=5/58 GREEN AB_rate4allStones moves a8
+20:45:28: rating=4/60 RED RandomPlayer moves a7
+20:45:30: rating=3/60 GREEN AB_rate4allStones moves a6
+20:45:32: rating=7/57 RED RandomPlayer passes.
+20:45:33: rating=7/57 GREEN AB_rate4allStones moves f3
+20:45:35: rating=7/57 RED RandomPlayer passes.
+20:45:35: rating=6/58 GREEN AB_rate4allStones moves b5
+20:45:38: rating=5/59 RED RandomPlayer passes.
+20:45:38: rating=4/59 GREEN AB_rate4allStones moves b4
+20:45:40: rating=4/60 RED RandomPlayer passes.
+20:45:40: rating=3/60 GREEN AB_rate4allStones moves b2
+20:45:43: rating=3/61 RED RandomPlayer moves d2
+20:45:45: rating=2/61 GREEN AB_rate4allStones moves c1
+20:45:48: rating=2/62 RED RandomPlayer moves a2
+20:45:50: rating=1/62 GREEN AB_rate4allStones moves a1
+20:45:52: rating=1/63 RED RandomPlayer passes.
+20:45:52: rating=1/62 GREEN AB_rate4allStones moves a4
+20:45:55: rating=2/62 RED RandomPlayer passes.
+20:45:55: rating=2/62 GREEN AB_rate4allStones moves e2
+20:45:57: rating=2/62 RED RandomPlayer moves f2
+20:46:00: rating=2/62 GREEN AB_rate4allStones moves a3
+20:46:02: rating=2/62 RED RandomPlayer passes.
+20:46:02: rating=2/61 GREEN AB_rate4allStones moves e3
+20:46:04: rating=3/61 RED RandomPlayer passes.
+20:46:04: rating=3/61 GREEN AB_rate4allStones moves d3
+20:46:07: rating=3/61 RED RandomPlayer passes.
+20:46:07: rating=2/60 GREEN AB_rate4allStones moves b1
+20:46:09: rating=1/59 RED RandomPlayer passes.
+20:46:09: rating=16/45 GREEN AB_rate4allStones passes.
+20:46:09: Vorzeitiges Ende
+20:46:09: no moves left
+20:46:09: finished reds=1 greens=60
+20:46:09: REGULAR FINISH: GameState: GREEN wins (RED vs. GREEN = 1:60)
+CSV: GREEN,,1,60
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+20:46:52: Players initialized
+20:46:53: rating=32/32 RED DutyCalls moves c6
+20:46:55: rating=32/32 GREEN AB_rate4allStones moves c3
+20:46:58: rating=32/32 RED DutyCalls moves f5
+20:47:01: rating=32/32 GREEN AB_rate4allStones moves f4
+20:47:04: rating=32/32 RED DutyCalls moves g3
+20:47:07: rating=32/31 GREEN AB_rate4allStones moves g4
+20:47:10: rating=31/32 RED DutyCalls moves f3
+20:47:13: rating=31/33 GREEN AB_rate4allStones moves e6
+20:47:16: rating=32/32 RED DutyCalls moves c4
+20:47:19: rating=32/32 GREEN AB_rate4allStones moves f2
+20:47:22: rating=32/32 RED DutyCalls moves h4
+20:47:25: rating=32/32 GREEN AB_rate4allStones moves f6
+20:47:28: rating=32/32 RED DutyCalls moves d3
+20:47:31: rating=32/32 GREEN AB_rate4allStones moves h2
+20:47:34: rating=32/32 RED DutyCalls moves g5
+20:47:36: rating=33/31 GREEN AB_rate4allStones moves c5
+20:47:39: rating=34/29 RED DutyCalls moves e3
+20:47:42: rating=37/27 GREEN AB_rate4allStones moves d6
+20:47:45: rating=38/25 RED DutyCalls moves h3
+20:47:48: rating=38/26 GREEN AB_rate4allStones moves h5
+20:47:51: rating=36/27 RED DutyCalls moves h6
+20:47:54: rating=35/28 GREEN AB_rate4allStones moves h7
+20:47:57: rating=34/29 RED DutyCalls moves f1
+20:48:00: rating=33/31 GREEN AB_rate4allStones moves e1
+20:48:03: rating=32/31 RED DutyCalls moves d1
+20:48:06: rating=33/31 GREEN AB_rate4allStones moves g6
+20:48:09: rating=34/29 RED DutyCalls moves c7
+20:48:11: rating=35/29 GREEN AB_rate4allStones moves e7
+20:48:14: rating=35/29 RED DutyCalls moves g1
+20:48:17: rating=34/29 GREEN AB_rate4allStones moves b6
+20:48:20: rating=34/30 RED DutyCalls moves d7
+20:48:23: rating=35/29 GREEN AB_rate4allStones moves b8
+20:48:26: rating=35/29 RED DutyCalls moves e8
+20:48:29: rating=35/28 GREEN AB_rate4allStones moves f8
+20:48:32: rating=36/28 RED DutyCalls moves a6
+20:48:33: rating=36/28 GREEN AB_rate4allStones moves d8
+20:48:34: rating=34/29 RED DutyCalls moves c8
+20:48:35: rating=34/29 GREEN AB_rate4allStones moves d2
+20:48:36: rating=36/27 RED DutyCalls moves e2
+20:48:37: rating=38/25 GREEN AB_rate4allStones moves f7
+20:48:39: rating=40/23 RED DutyCalls moves a8
+20:48:40: rating=41/23 GREEN AB_rate4allStones moves b5
+20:48:41: rating=42/21 RED DutyCalls moves g8
+20:48:42: rating=44/20 GREEN AB_rate4allStones moves a7
+20:48:43: rating=44/20 RED DutyCalls moves b7
+20:48:43: rating=43/21 GREEN AB_rate4allStones moves a5
+20:48:44: rating=45/19 RED DutyCalls moves a4
+20:48:45: rating=46/17 GREEN AB_rate4allStones moves b4
+20:48:46: rating=52/11 RED DutyCalls moves a3
+20:48:47: rating=51/13 GREEN AB_rate4allStones moves b3
+20:48:47: rating=47/17 RED DutyCalls moves a2
+20:48:48: rating=48/15 GREEN AB_rate4allStones moves b2
+20:48:49: rating=48/15 RED DutyCalls moves a1
+20:48:49: rating=51/13 GREEN AB_rate4allStones moves b1
+20:48:50: rating=51/13 RED DutyCalls moves c1
+20:48:50: rating=51/13 GREEN AB_rate4allStones passes.
+20:48:50: rating=50/13 RED DutyCalls moves c2
+20:48:51: rating=50/14 GREEN AB_rate4allStones passes.
+20:48:51: rating=50/14 RED DutyCalls moves g7
+20:48:51: rating=50/14 GREEN AB_rate4allStones passes.
+20:48:51: rating=49/13 RED DutyCalls moves g2
+20:48:52: rating=49/13 GREEN AB_rate4allStones passes.
+20:48:52: rating=40/22 RED DutyCalls passes.
+20:48:52: rating=32/32 GREEN AB_rate4allStones passes.
+20:48:52: Vorzeitiges Ende
+20:48:52: no moves left
+20:48:52: finished reds=49 greens=13
+20:48:52: REGULAR FINISH: GameState: RED wins (RED vs. GREEN = 49:13)
+CSV: RED,,49,13
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+20:49:20: Players initialized
+20:49:21: rating=32/32 RED DutyCalls moves d6
+20:49:24: rating=32/32 GREEN AB_rate4allStones moves c5
+20:49:26: rating=32/31 RED DutyCalls moves e6
+20:49:29: rating=33/30 GREEN AB_rate4allStones moves d7
+20:49:31: rating=33/31 RED DutyCalls moves d8
+20:49:32: rating=32/32 GREEN AB_rate4allStones moves e3
+20:49:33: rating=31/33 RED DutyCalls moves d3
+20:49:34: rating=30/33 GREEN AB_rate4allStones moves c3
+20:49:35: rating=31/33 RED DutyCalls moves c2
+20:49:36: rating=31/32 GREEN AB_rate4allStones moves c1
+20:49:37: rating=31/33 RED DutyCalls moves b5
+20:49:38: rating=31/33 GREEN AB_rate4allStones moves b6
+20:49:39: rating=32/32 RED DutyCalls moves b4
+20:49:41: rating=32/31 GREEN AB_rate4allStones moves d2
+20:49:42: rating=32/32 RED DutyCalls moves a7
+20:49:43: rating=31/33 GREEN AB_rate4allStones moves f4
+20:49:44: rating=28/35 RED DutyCalls moves f3
+20:49:45: rating=27/37 GREEN AB_rate4allStones moves f5
+20:49:46: rating=27/36 RED DutyCalls moves g3
+20:49:47: rating=27/36 GREEN AB_rate4allStones moves a5
+20:49:48: rating=27/36 RED DutyCalls moves c6
+20:49:49: rating=29/34 GREEN AB_rate4allStones moves c8
+20:49:51: rating=32/31 RED DutyCalls moves e7
+20:49:52: rating=33/30 GREEN AB_rate4allStones moves e8
+20:49:53: rating=34/29 RED DutyCalls moves f7
+20:49:54: rating=35/29 GREEN AB_rate4allStones moves g7
+20:49:55: rating=35/29 RED DutyCalls moves c4
+20:49:56: rating=39/25 GREEN AB_rate4allStones moves b3
+20:49:57: rating=43/21 RED DutyCalls moves f6
+20:49:58: rating=43/20 GREEN AB_rate4allStones moves g4
+20:50:00: rating=44/19 RED DutyCalls moves h8
+20:50:01: rating=44/19 GREEN AB_rate4allStones moves h7
+20:50:02: rating=44/20 RED DutyCalls moves h6
+20:50:03: rating=45/19 GREEN AB_rate4allStones moves h2
+20:50:04: rating=45/18 RED DutyCalls moves h3
+20:50:05: rating=47/16 GREEN AB_rate4allStones moves h4
+20:50:06: rating=51/13 RED DutyCalls moves h5
+20:50:07: rating=51/13 GREEN AB_rate4allStones moves g5
+20:50:08: rating=50/14 RED DutyCalls moves g6
+20:50:09: rating=51/12 GREEN AB_rate4allStones moves g2
+20:50:10: rating=53/11 RED DutyCalls moves a3
+20:50:11: rating=53/11 GREEN AB_rate4allStones moves a4
+20:50:12: rating=53/11 RED DutyCalls moves a6
+20:50:13: rating=54/10 GREEN AB_rate4allStones moves c7
+20:50:14: rating=55/9 RED DutyCalls moves h1
+20:50:15: rating=56/8 GREEN AB_rate4allStones moves b7
+20:50:16: rating=57/7 RED DutyCalls moves a2
+20:50:17: rating=57/7 GREEN AB_rate4allStones moves b2
+20:50:18: rating=56/7 RED DutyCalls moves g8
+20:50:18: rating=56/7 GREEN AB_rate4allStones moves f8
+20:50:19: rating=55/9 RED DutyCalls moves a1
+20:50:20: rating=54/10 GREEN AB_rate4allStones moves b1
+20:50:21: rating=53/10 RED DutyCalls moves f1
+20:50:21: rating=52/12 GREEN AB_rate4allStones moves g1
+20:50:22: rating=52/12 RED DutyCalls moves f2
+20:50:22: rating=52/12 GREEN AB_rate4allStones moves e2
+20:50:23: rating=52/12 RED DutyCalls moves b8
+20:50:23: rating=52/12 GREEN AB_rate4allStones moves e1
+20:50:24: rating=52/12 RED DutyCalls moves d1
+20:50:24: rating=52/12 GREEN AB_rate4allStones passes.
+20:50:24: rating=52/12 RED DutyCalls moves a8
+20:50:25: GREEN failed: IndexOutOfBoundsException: Index 60 out of bounds for length 60
+java.lang.IndexOutOfBoundsException: Index 60 out of bounds for length 60
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:248)
+	at java.base/java.util.Objects.checkIndex(Objects.java:372)
+	at java.base/java.util.ArrayList.get(ArrayList.java:458)
+	at dataAccess.DataReader.printRatingsBoard(DataReader.java:181)
+	at reversiPlayers.AB_rate4allStones.nextMove(AB_rate4allStones.java:119)
+	at reversi.PlayerManager.run(PlayerManager.java:24)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+20:51:10: Players initialized
+20:51:11: rating=32/32 RED DutyCalls moves d6
+20:51:13: rating=32/32 GREEN AB_rate4allStones moves c3
+20:51:15: rating=32/31 RED DutyCalls moves f4
+20:51:16: rating=33/31 GREEN AB_rate4allStones moves g4
+20:51:17: rating=33/31 RED DutyCalls moves e3
+20:51:18: rating=33/30 GREEN AB_rate4allStones moves f6
+20:51:19: rating=34/29 RED DutyCalls moves g3
+20:51:20: rating=35/29 GREEN AB_rate4allStones moves g2
+20:51:21: rating=34/29 RED DutyCalls moves h4
+20:51:22: rating=38/25 GREEN AB_rate4allStones moves g5
+20:51:23: rating=42/21 RED DutyCalls moves h2
+20:51:24: rating=42/22 GREEN AB_rate4allStones moves f2
+20:51:26: rating=41/22 RED DutyCalls moves h6
+20:51:27: rating=41/22 GREEN AB_rate4allStones moves g6
+20:51:28: rating=40/23 RED DutyCalls moves e6
+20:51:29: rating=40/23 GREEN AB_rate4allStones moves d7
+20:51:30: rating=42/22 RED DutyCalls moves c5
+20:51:31: rating=42/22 GREEN AB_rate4allStones moves b6
+20:51:32: rating=41/22 RED DutyCalls moves c8
+20:51:33: rating=41/22 GREEN AB_rate4allStones moves f5
+20:51:34: rating=41/22 RED DutyCalls moves h3
+20:51:36: rating=41/22 GREEN AB_rate4allStones moves f3
+20:51:37: rating=41/22 RED DutyCalls moves h5
+20:51:38: rating=41/22 GREEN AB_rate4allStones moves e7
+20:51:39: rating=42/21 RED DutyCalls moves c6
+20:51:40: rating=43/20 GREEN AB_rate4allStones moves h7
+20:51:41: rating=43/20 RED DutyCalls moves h8
+20:51:42: rating=47/17 GREEN AB_rate4allStones moves f7
+20:51:43: rating=51/13 RED DutyCalls moves f8
+20:51:44: rating=51/12 GREEN AB_rate4allStones moves b7
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+20:51:52: Players initialized
+20:51:53: rating=32/32 RED DutyCalls moves d6
+20:51:56: rating=32/32 GREEN AB_rate4allStones moves c3
+20:51:57: rating=32/31 RED DutyCalls moves f4
+20:51:58: rating=33/31 GREEN AB_rate4allStones moves g4
+20:51:59: rating=33/31 RED DutyCalls moves e3
+20:52:00: rating=33/30 GREEN AB_rate4allStones moves f6
+20:52:01: rating=34/30 RED DutyCalls moves g3
+20:52:02: rating=34/29 GREEN AB_rate4allStones moves g2
+20:52:03: rating=34/29 RED DutyCalls moves h4
+20:52:04: rating=38/25 GREEN AB_rate4allStones moves g5
+20:52:06: rating=42/21 RED DutyCalls moves h2
+20:52:07: rating=42/22 GREEN AB_rate4allStones moves f2
+20:52:08: rating=41/22 RED DutyCalls moves h6
+20:52:09: rating=41/22 GREEN AB_rate4allStones moves g6
+20:52:10: rating=40/23 RED DutyCalls moves e6
+20:52:11: rating=40/23 GREEN AB_rate4allStones moves d7
+20:52:12: rating=41/22 RED DutyCalls moves c5
+20:52:13: rating=41/22 GREEN AB_rate4allStones moves b6
+20:52:15: rating=41/22 RED DutyCalls moves c8
+20:52:16: rating=41/22 GREEN AB_rate4allStones moves f5
+20:52:17: rating=41/22 RED DutyCalls moves h3
+20:52:18: rating=41/22 GREEN AB_rate4allStones moves f3
+20:52:19: rating=41/22 RED DutyCalls moves h5
+20:52:20: rating=41/22 GREEN AB_rate4allStones moves e7
+20:52:21: rating=42/21 RED DutyCalls moves c6
+20:52:22: rating=43/20 GREEN AB_rate4allStones moves h7
+20:52:23: rating=43/20 RED DutyCalls moves h8
+20:52:25: rating=47/17 GREEN AB_rate4allStones moves d8
+20:52:26: rating=51/13 RED DutyCalls moves e8
+20:52:26: rating=51/12 GREEN AB_rate4allStones moves f8
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+20:54:28: Players initialized
+20:54:28: rating=32/32 RED DutyCalls moves d6
+20:54:31: rating=32/32 GREEN AB_rate4allStones moves c5
+20:54:32: rating=32/31 RED DutyCalls moves e6
+20:54:33: rating=33/30 GREEN AB_rate4allStones moves d7
+20:54:35: rating=33/31 RED DutyCalls moves d8
+20:54:36: rating=32/32 GREEN AB_rate4allStones moves e3
+20:54:37: rating=31/33 RED DutyCalls moves d3
+20:54:38: rating=30/33 GREEN AB_rate4allStones moves c3
+20:54:39: rating=31/33 RED DutyCalls moves c2
+20:54:40: rating=31/32 GREEN AB_rate4allStones moves f6
+20:54:41: rating=31/33 RED DutyCalls moves b5
+20:54:42: rating=30/33 GREEN AB_rate4allStones moves f4
+20:54:43: rating=30/34 RED DutyCalls moves e2
+20:54:45: rating=29/35 GREEN AB_rate4allStones moves f2
+20:54:46: rating=28/36 RED DutyCalls moves f3
+20:54:47: rating=28/35 GREEN AB_rate4allStones moves g3
+20:54:48: rating=29/34 RED DutyCalls moves d2
+20:54:49: rating=29/35 GREEN AB_rate4allStones moves c4
+20:54:50: rating=30/34 RED DutyCalls moves g1
+20:54:51: rating=30/34 GREEN AB_rate4allStones moves d1
+20:54:52: rating=27/36 RED DutyCalls moves e1
+20:54:54: rating=27/36 GREEN AB_rate4allStones moves c1
+20:54:55: rating=28/35 RED DutyCalls moves b4
+20:54:56: rating=28/36 GREEN AB_rate4allStones moves b2
+20:54:57: rating=27/36 RED DutyCalls moves g4
+20:54:58: rating=29/34 GREEN AB_rate4allStones moves f1
+20:54:59: rating=32/32 RED DutyCalls moves b1
+20:55:00: rating=34/29 GREEN AB_rate4allStones moves g5
+20:55:01: rating=36/27 RED DutyCalls moves a1
+20:55:02: rating=37/27 GREEN AB_rate4allStones moves b3
+20:55:04: rating=37/26 RED DutyCalls moves a3
+20:55:05: rating=38/26 GREEN AB_rate4allStones moves a4
+20:55:06: rating=37/26 RED DutyCalls moves f5
+20:55:07: rating=37/26 GREEN AB_rate4allStones moves f7
+20:55:08: rating=39/25 RED DutyCalls moves c6
+20:55:09: rating=40/24 GREEN AB_rate4allStones moves e7
+20:55:10: rating=41/23 RED DutyCalls moves a5
+20:55:11: rating=41/23 GREEN AB_rate4allStones moves a2
+20:55:13: rating=39/25 RED DutyCalls moves b6
+20:55:14: rating=40/24 GREEN AB_rate4allStones moves c8
+20:55:15: rating=43/21 RED DutyCalls moves b8
+20:55:16: rating=43/21 GREEN AB_rate4allStones moves c7
+20:55:17: rating=42/21 RED DutyCalls moves e8
+20:55:18: rating=42/22 GREEN AB_rate4allStones moves f8
+20:55:19: rating=41/23 RED DutyCalls moves g8
+20:55:20: rating=40/24 GREEN AB_rate4allStones moves g2
+20:55:21: rating=39/25 RED DutyCalls moves h1
+20:55:23: rating=38/26 GREEN AB_rate4allStones moves h2
+20:55:24: rating=38/26 RED DutyCalls moves h5
+20:55:24: rating=38/26 GREEN AB_rate4allStones moves h4
+20:55:25: rating=38/26 RED DutyCalls moves h6
+20:55:26: rating=37/27 GREEN AB_rate4allStones moves h7
+20:55:26: rating=36/28 RED DutyCalls moves g6
+20:55:27: rating=41/23 GREEN AB_rate4allStones moves a7
+20:55:28: rating=46/18 RED DutyCalls moves h3
+20:55:28: rating=46/18 GREEN AB_rate4allStones moves a6
+20:55:29: rating=44/20 RED DutyCalls moves a8
+20:55:29: rating=42/22 GREEN AB_rate4allStones moves b7
+20:55:30: rating=42/22 RED DutyCalls moves h8
+20:55:30: rating=42/22 GREEN AB_rate4allStones moves g7
+20:55:31: finished reds=42 greens=22
+20:55:31: REGULAR FINISH: GameState: RED wins (RED vs. GREEN = 42:22)
+CSV: RED,,42,22
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+20:58:37: Players initialized
+20:58:38: rating=32/32 RED DutyCalls moves d6
+20:58:41: rating=32/31 GREEN AB_rate4allStones moves c5
+20:58:43: rating=33/31 RED DutyCalls moves e6
+20:58:46: rating=33/30 GREEN AB_rate4allStones moves d7
+20:58:49: rating=33/31 RED DutyCalls moves d8
+20:58:52: rating=32/32 GREEN AB_rate4allStones moves e3
+20:58:55: rating=31/33 RED DutyCalls moves d3
+20:58:58: rating=30/33 GREEN AB_rate4allStones moves e7
+20:59:01: rating=31/32 RED DutyCalls moves f5
+20:59:04: rating=32/32 GREEN AB_rate4allStones moves f4
+20:59:07: rating=31/32 RED DutyCalls moves f3
+20:59:10: rating=31/32 GREEN AB_rate4allStones moves c3
+20:59:13: rating=30/34 RED DutyCalls moves c4
+20:59:16: rating=30/34 GREEN AB_rate4allStones moves d2
+20:59:19: rating=30/33 RED DutyCalls moves d1
+20:59:21: rating=30/34 GREEN AB_rate4allStones moves f2
+20:59:24: rating=28/35 RED DutyCalls moves f1
+20:59:27: rating=28/36 GREEN AB_rate4allStones moves b4
+20:59:30: rating=29/35 RED DutyCalls moves a4
+20:59:31: rating=28/35 GREEN AB_rate4allStones moves a3
+20:59:32: rating=28/36 RED DutyCalls moves a2
+20:59:34: rating=28/36 GREEN AB_rate4allStones moves e1
+20:59:35: rating=29/35 RED DutyCalls moves e2
+20:59:36: rating=29/34 GREEN AB_rate4allStones moves g2
+20:59:37: rating=29/34 RED DutyCalls moves h1
+20:59:38: rating=31/32 GREEN AB_rate4allStones moves g1
+20:59:39: rating=34/30 RED DutyCalls moves c2
+20:59:40: rating=34/29 GREEN AB_rate4allStones moves b5
+20:59:41: rating=33/30 RED DutyCalls moves b3
+20:59:42: rating=32/32 GREEN AB_rate4allStones moves b2
+20:59:44: rating=32/32 RED DutyCalls moves f6
+20:59:45: rating=36/28 GREEN AB_rate4allStones moves c7
+20:59:46: rating=40/23 RED DutyCalls moves a1
+20:59:47: rating=40/23 GREEN AB_rate4allStones moves h2
+20:59:48: rating=40/24 RED DutyCalls moves h3
+20:59:48: rating=40/24 GREEN AB_rate4allStones moves e8
+20:59:50: rating=40/24 RED DutyCalls moves b8
+20:59:51: rating=39/24 GREEN AB_rate4allStones moves c6
+20:59:52: rating=39/25 RED DutyCalls moves f7
+20:59:53: rating=39/25 GREEN AB_rate4allStones moves g8
+20:59:54: rating=39/25 RED DutyCalls moves f8
+20:59:55: rating=40/23 GREEN AB_rate4allStones moves g3
+20:59:56: rating=41/22 RED DutyCalls moves g4
+20:59:57: rating=41/23 GREEN AB_rate4allStones moves h4
+20:59:58: rating=41/23 RED DutyCalls moves b1
+21:00:00: rating=40/23 GREEN AB_rate4allStones moves c8
+21:00:01: rating=40/23 RED DutyCalls moves h8
+21:00:02: rating=41/22 GREEN AB_rate4allStones moves c1
+21:00:03: rating=42/22 RED DutyCalls moves h5
+21:00:03: rating=43/21 GREEN AB_rate4allStones moves g5
+21:00:04: rating=39/24 RED DutyCalls moves g6
+21:00:05: rating=35/29 GREEN AB_rate4allStones moves h7
+21:00:05: rating=35/29 RED DutyCalls moves h6
+21:00:06: rating=36/28 GREEN AB_rate4allStones moves g7
+21:00:06: rating=37/27 RED DutyCalls moves a5
+21:00:07: rating=37/27 GREEN AB_rate4allStones moves b6
+21:00:08: rating=37/27 RED DutyCalls moves a6
+21:00:08: rating=38/26 GREEN AB_rate4allStones moves a7
+21:00:09: rating=39/25 RED DutyCalls moves b7
+21:00:09: rating=39/24 GREEN AB_rate4allStones moves a8
+21:00:10: finished reds=40 greens=24
+21:00:10: REGULAR FINISH: GameState: RED wins (RED vs. GREEN = 40:24)
+CSV: RED,,40,24
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+21:01:25: Players initialized
+21:01:25: rating=32/32 RED DutyCalls moves d6
+21:01:28: rating=32/32 GREEN AB_rate4allStones moves c5
+21:01:31: rating=32/31 RED DutyCalls moves e6
+21:01:34: rating=33/30 GREEN AB_rate4allStones moves d7
+21:01:37: rating=33/31 RED DutyCalls moves d8
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+21:13:10: Players initialized
+21:13:11: rating=32/32 RED DutyCalls moves d6
+21:13:14: rating=32/32 GREEN AB_rate4allStones moves c5
+21:13:17: rating=32/31 RED DutyCalls moves e6
+21:13:20: rating=32/31 GREEN AB_rate4allStones moves d7
+21:13:23: rating=32/32 RED DutyCalls moves d8
+21:13:26: rating=32/32 GREEN AB_rate4allStones moves e3
+21:13:29: rating=31/33 RED DutyCalls moves d3
+21:13:31: rating=30/33 GREEN AB_rate4allStones moves e7
+21:13:34: rating=31/33 RED DutyCalls moves f5
+21:13:37: rating=31/32 GREEN AB_rate4allStones moves f4
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+21:13:43: Players initialized
+21:13:43: rating=32/32 RED DutyCalls moves d6
+21:13:46: rating=32/32 GREEN AB_rate4allStones moves c7
+21:13:49: rating=32/32 RED DutyCalls moves f5
+21:13:52: rating=33/31 GREEN AB_rate4allStones moves f4
+21:13:55: rating=34/30 RED DutyCalls moves f6
+21:13:58: rating=34/29 GREEN AB_rate4allStones moves c4
+21:14:01: rating=35/29 RED DutyCalls moves d3
+21:14:04: rating=35/29 GREEN AB_rate4allStones moves f7
+21:14:07: rating=33/30 RED DutyCalls moves g6
+21:14:10: rating=33/30 GREEN AB_rate4allStones moves e6
+21:14:13: rating=34/30 RED DutyCalls moves c6
+21:14:15: rating=33/31 GREEN AB_rate4allStones moves c5
+21:14:18: rating=33/31 RED DutyCalls moves b6
+21:14:21: rating=33/31 GREEN AB_rate4allStones moves h5
+21:14:24: rating=33/30 RED DutyCalls moves h7
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+21:14:30: Players initialized
+21:14:30: rating=32/32 RED DutyCalls moves d6
+21:14:33: rating=32/31 GREEN AB_rate4allStones moves e3
+21:14:34: rating=33/31 RED DutyCalls moves f3
+21:14:35: rating=33/31 GREEN AB_rate4allStones moves c3
+21:14:36: rating=32/31 RED DutyCalls moves d3
+21:14:38: rating=32/31 GREEN AB_rate4allStones moves c7
+21:14:39: rating=32/31 RED DutyCalls moves d7
+21:14:40: rating=33/31 GREEN AB_rate4allStones moves e2
+21:14:41: rating=33/31 RED DutyCalls moves f4
+21:14:42: rating=32/32 GREEN AB_rate4allStones moves c4
+21:14:43: rating=32/32 RED DutyCalls moves f2
+21:14:44: rating=32/32 GREEN AB_rate4allStones moves d8
+21:14:45: rating=32/32 RED DutyCalls moves d1
+21:14:46: rating=33/30 GREEN AB_rate4allStones moves g1
+21:14:48: rating=34/29 RED DutyCalls moves f1
+21:14:49: rating=39/24 GREEN AB_rate4allStones moves f6
+21:14:50: rating=45/18 RED DutyCalls moves d2
+21:14:51: rating=46/17 GREEN AB_rate4allStones moves g4
+21:14:52: rating=47/17 RED DutyCalls moves e6
+21:14:53: rating=48/16 GREEN AB_rate4allStones moves e1
+21:14:54: rating=49/14 RED DutyCalls moves h1
+21:14:55: rating=50/13 GREEN AB_rate4allStones moves g3
+21:14:56: rating=51/13 RED DutyCalls moves h2
+21:14:57: rating=52/12 GREEN AB_rate4allStones moves g5
+21:14:58: rating=50/13 RED DutyCalls moves g2
+21:14:59: rating=50/13 GREEN AB_rate4allStones moves h3
+21:15:00: rating=53/11 RED DutyCalls moves f5
+21:15:01: rating=54/10 GREEN AB_rate4allStones moves e7
+21:15:02: rating=55/8 RED DutyCalls moves c2
+21:15:03: rating=57/7 GREEN AB_rate4allStones moves c1
+21:15:04: rating=59/5 RED DutyCalls moves h4
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+21:15:19: Players initialized
+21:15:19: rating=32/32 RED DutyCalls moves d6
+21:15:22: rating=32/32 GREEN AB_rate4allStones moves c7
+21:15:25: rating=32/32 RED DutyCalls moves f5
+21:15:28: rating=33/31 GREEN AB_rate4allStones moves d3
+21:15:31: rating=34/30 RED DutyCalls moves c4
+21:15:34: rating=34/30 GREEN AB_rate4allStones moves f4
+21:15:37: rating=34/30 RED DutyCalls moves f6
+21:15:40: rating=34/30 GREEN AB_rate4allStones moves b4
+21:15:43: rating=33/30 RED DutyCalls moves c5
+21:15:46: rating=35/29 GREEN AB_rate4allStones moves b6
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+21:16:23: Players initialized
+21:16:23: rating=32/32 RED DutyCalls moves d6
+21:16:26: rating=32/32 GREEN AB_rate4allStones moves e3
+21:16:29: rating=32/31 RED DutyCalls moves f3
+21:16:30: rating=33/31 GREEN AB_rate4allStones moves c7
+21:16:31: rating=32/31 RED DutyCalls moves d7
+21:16:33: rating=33/31 GREEN AB_rate4allStones moves g3
+21:16:34: rating=34/30 RED DutyCalls moves e6
+21:16:35: rating=34/29 GREEN AB_rate4allStones moves c6
+21:16:36: rating=35/29 RED DutyCalls moves c5
+21:16:37: rating=35/29 GREEN AB_rate4allStones moves b6
+21:16:38: rating=35/29 RED DutyCalls moves a6
+21:16:39: rating=36/28 GREEN AB_rate4allStones moves d8
+21:16:40: rating=36/28 RED DutyCalls moves e8
+21:16:42: rating=35/29 GREEN AB_rate4allStones moves b7
+21:16:43: rating=34/29 RED DutyCalls moves b5
+21:16:44: rating=37/27 GREEN AB_rate4allStones moves c4
+21:16:45: rating=39/24 RED DutyCalls moves a8
+21:16:46: rating=39/25 GREEN AB_rate4allStones moves f8
+21:16:47: rating=39/24 RED DutyCalls moves b8
+21:16:48: rating=40/23 GREEN AB_rate4allStones moves a5
+21:16:49: rating=41/23 RED DutyCalls moves c8
+21:16:50: rating=43/20 GREEN AB_rate4allStones moves f5
+21:16:51: rating=46/17 RED DutyCalls moves g8
+21:16:52: rating=47/17 GREEN AB_rate4allStones moves f6
+21:16:54: rating=46/17 RED DutyCalls moves a4
+21:16:55: rating=47/16 GREEN AB_rate4allStones moves b4
+21:16:56: rating=49/14 RED DutyCalls moves d3
+21:16:57: rating=50/14 GREEN AB_rate4allStones moves c3
+21:16:58: rating=49/14 RED DutyCalls moves a3
+21:16:59: rating=51/12 GREEN AB_rate4allStones moves b3
+21:17:00: rating=55/8 RED DutyCalls moves f4
+21:17:01: rating=56/8 GREEN AB_rate4allStones moves g5
+21:17:02: rating=58/6 RED DutyCalls moves e7
+21:17:02: rating=58/6 GREEN AB_rate4allStones moves f7
+21:17:04: rating=56/7 RED DutyCalls moves a2
+21:17:04: rating=57/6 GREEN AB_rate4allStones moves b2
+21:17:05: rating=58/6 RED DutyCalls moves a1
+21:17:06: rating=58/5 GREEN AB_rate4allStones moves b1
+21:17:07: rating=60/4 RED DutyCalls moves c1
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 12.12.19
+RED: reversiPlayers.DutyCalls, GREEN: reversiPlayers.AB_rate4allStones
+21:17:31: Players initialized
+21:17:31: rating=32/32 RED DutyCalls moves d6
+21:17:34: rating=32/32 GREEN AB_rate4allStones moves e3
+21:17:37: rating=32/32 RED DutyCalls moves f3
+21:17:38: rating=32/31 GREEN AB_rate4allStones moves c5
+21:17:39: rating=32/31 RED DutyCalls moves d3
+21:17:41: rating=32/31 GREEN AB_rate4allStones moves e2
+21:17:42: rating=32/31 RED DutyCalls moves f4
+21:17:43: rating=32/32 GREEN AB_rate4allStones moves g3
+21:17:44: rating=31/32 RED DutyCalls moves e1
+21:17:45: rating=31/32 GREEN AB_rate4allStones moves d1
+21:17:46: rating=32/32 RED DutyCalls moves c1
+21:17:47: rating=32/31 GREEN AB_rate4allStones moves c6
+21:17:48: rating=33/31 RED DutyCalls moves b5
+21:17:49: rating=33/30 GREEN AB_rate4allStones moves g4
+21:17:51: rating=32/31 RED DutyCalls moves f1
+21:17:52: rating=32/31 GREEN AB_rate4allStones moves c4
+21:17:53: rating=33/31 RED DutyCalls moves b4
+21:17:54: rating=32/32 GREEN AB_rate4allStones moves b6
+21:17:55: rating=31/32 RED DutyCalls moves a7
+21:17:56: rating=31/32 GREEN AB_rate4allStones moves c2
+21:17:57: rating=30/33 RED DutyCalls moves d2
+21:17:58: rating=29/34 GREEN AB_rate4allStones moves f2
+21:18:00: rating=29/34 RED DutyCalls moves b1
+21:18:01: rating=30/34 GREEN AB_rate4allStones moves c3
+21:18:02: rating=30/34 RED DutyCalls moves b3
+21:18:03: rating=29/34 GREEN AB_rate4allStones moves b2
+21:18:04: rating=30/34 RED DutyCalls moves a1
+21:18:05: rating=33/30 GREEN AB_rate4allStones moves a3
+21:18:06: rating=36/27 RED DutyCalls moves g1
+21:18:07: rating=37/27 GREEN AB_rate4allStones moves a2
+21:18:08: rating=38/26 RED DutyCalls moves a4
+21:18:10: rating=39/24 GREEN AB_rate4allStones moves g2
+21:18:11: rating=40/23 RED DutyCalls moves f5
+21:18:12: rating=43/20 GREEN AB_rate4allStones moves d7
+21:18:13: rating=47/16 RED DutyCalls moves h1
+21:18:14: rating=49/15 GREEN AB_rate4allStones moves a6
+21:18:15: rating=50/14 RED DutyCalls moves a5
