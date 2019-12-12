@@ -102,7 +102,7 @@ public class DataReader {
 
 			while ((sCurrentLine = br.readLine()) != null) {
 
-				if (sCurrentLine.contains("FIELD:")) {
+				if (sCurrentLine.contains("FIELD")) {
 
 					// prepare variables to read the ratings matrix
 					readingRatingsNow = true;
@@ -170,6 +170,52 @@ public class DataReader {
 
 		System.err.println("variable <numberOfGames> not found in the file " + filename);
 		return 0;
+
+	}
+	
+	/**
+	 * prints the given GameBoard to the console like this:
+	 */
+	public void printRatingsBoard(ArrayList<double[][]> ratingBoards, int index) {
+
+		double[][] boardToPrint = ratingBoards.get(index);// normalize(ratingBoards.get(index));
+
+		System.out.println("+=========================================+");
+
+		for (int y = 0; y < BOARDSIZE; y++) {
+
+			System.out.print("| ");
+
+			for (int x = 0; x < BOARDSIZE; x++) {
+
+				// print the numbers between 0 and 10
+				System.out.print(adjustStringLength(Integer.toString((int) Math.round(boardToPrint[x][y] * 10)), 3) + " ");
+
+			}
+
+			System.out.println("|");
+		}
+
+		System.out.println("+=========================================+");
+
+	}
+	
+	/**
+	 * returns the str with |str.length - newLength| spaces before it
+	 * 
+	 * @param str
+	 * @param newLength
+	 * @return
+	 */
+	private String adjustStringLength(String str, int newLength) {
+
+		String spaces = "";
+
+		for (int length = str.length(); length <= newLength; length++) {
+			spaces += " ";
+		}
+
+		return spaces + str;
 
 	}
 

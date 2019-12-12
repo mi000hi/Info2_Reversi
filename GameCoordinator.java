@@ -1,4 +1,3 @@
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -264,9 +263,6 @@ public class GameCoordinator {
 					saveData(baseFilename, stoneRatings_red, stoneRatings_green, numberOfGames_red, numberOfGames_green,
 							moveRatings_red, moveRatings_green, mobilityRatings_red, mobilityRatings_green, nrOfFieldColorChange);
 
-					/**
-					 * TODO: here i resetted the ratings to 0, but that should be unnecessary
-					 */
 
 					// update the terminate message
 					if (terminator != null) {
