@@ -70,6 +70,8 @@ public class GameCoordinator {
 		players.put("Random02", new RandomPlayer());
 		players.put("AB_rate4allStones01", new AB_rate4allStones());
 		players.put("AB_rate4allStones02", new AB_rate4allStones());
+		players.put("AB_prettyGood01", new AB_prettyGood());
+		players.put("AB_prettyGood02", new AB_prettyGood());
 
 		// dont let program run without commandline arguments
 		if (args.length < 5) {
