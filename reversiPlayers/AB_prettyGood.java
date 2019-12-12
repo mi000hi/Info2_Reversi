@@ -356,6 +356,9 @@ public class AB_prettyGood implements ReversiPlayer {
 		int currentOccupation;
 		double rating = 0;
 		int moveNumber = currentBoard.countStones(1) + currentBoard.countStones(2) - 4;
+		
+		if(moveNumber == 60) return 0;
+		
 		double[][] currentStoneRating = stoneRatings.get(moveNumber);
 		double[][] currentMobilityRating = mobilityRatings.get(moveNumber);
 		double[][] currentMoveRating = moveRatings.get(moveNumber);
