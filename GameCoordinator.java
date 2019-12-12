@@ -40,7 +40,7 @@ public class GameCoordinator {
 	private final int BOARD_SIZE = 8; // size of the gameboard
 	private final long MOVE_TIME; // time a player has to make its move; we trust the players here :)
 	private final int MIN_STONES_ON_BOARD = 58; // min stones on board to add the game to the ratings
-	private final int MIN_STONE_DIFFERENCE = 30; // min stone difference to add the game to the ratings
+	private final int MIN_STONE_DIFFERENCE = 56; // min stone difference to add the game to the ratings
 
 	/*
 	 * variables to analyze the games
