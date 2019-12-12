@@ -382,7 +382,7 @@ public class GameCoordinator {
 		double[][] currentStoneRatings; // saves the current board ratings for that move
 		int nrOfMovesMade = boards.size(); // the number of moves done that game
 //		System.out.println("nrOfMovesMade = " + nrOfMovesMade);
-		double weight = (boards.get(boards.size() - 1).countStones(winner)
+		double weight = 100 * (boards.get(boards.size() - 1).countStones(winner)
 				- boards.get(boards.size() - 1).countStones(-winner + 3)); // weight that will be counted to the
 		// boardRatings
 //		System.out.println("weight = " + weight);
@@ -399,7 +399,7 @@ public class GameCoordinator {
 					for (int i = 0; i < boards.size(); i++) {
 						if (boards.get(i).getOccupation(new Coordinates(y + 1, x + 1)) != lastOccupation) {
 							if(lastOccupation != 0) {
-								nrOfFieldColorChange[x][y] += 1.0 / 10000;
+								nrOfFieldColorChange[x][y] += 1.0 / 10000 * 100;
 							}
 							lastOccupation = boards.get(i).getOccupation(new Coordinates(y + 1, x + 1));
 						}
@@ -443,7 +443,7 @@ public class GameCoordinator {
 					}
 				}
 
-				currentMoveRatings[currentMove.getCol() - 1][currentMove.getRow() - 1] += moveRating(lastPlayer,
+				currentMoveRatings[currentMove.getCol() - 1][currentMove.getRow() - 1] += 100 * moveRating(lastPlayer,
 						winner); // TODO
 
 				// save the new boardRating
