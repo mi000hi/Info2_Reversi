@@ -46,7 +46,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 	GameBoard actualBoard;
 
 	// name of the file where the ratings are stored
-	private final static String BASE_FILENAME = "boardRatings/11122019_0030Random_vs_Random";
+	private final static String BASE_FILENAME = "boardRatings/12122019_1000Random_vs_Random";
 	private DataReader dataReader = new DataReader(8);
 	ArrayList<double[][]> stoneRatings;
 	ArrayList<double[][]> mobilityRatings;
@@ -369,11 +369,11 @@ public class AB_rate4allStones implements ReversiPlayer {
 
 					// rate for possession of the field
 					if (currentBoard.getOccupation(currentCoordinates) == myColor) {
-						stoneRatingSum += currentStoneRating[x][y] / nrOfFieldColorChange[x][y];
+						stoneRatingSum += currentStoneRating[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.001);
 //						mobilityRatingSum += currentMobilityRating[x][y];
 //						moveRatingSum += currentMoveRating[x][y];
 					} else if (currentBoard.getOccupation(currentCoordinates) == Utils.other(myColor)) {
-						stoneRatingSum -= 2 * currentStoneRating[x][y] / nrOfFieldColorChange[x][y];
+						stoneRatingSum -= 2 * currentStoneRating[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.001);
 //						mobilityRatingSum -= 2 * currentMobilityRating[x][y];
 //						moveRatingSum -= currentMoveRating[x][y];
 					} else {
@@ -382,16 +382,16 @@ public class AB_rate4allStones implements ReversiPlayer {
 						if (whoDidLastMove == Utils.other(myColor)) {
 							// test for our possible move
 							if (currentBoard.checkMove(myColor, currentCoordinates)) {
-								mobilityRatingSum += currentMobilityRating[x][y] / nrOfFieldColorChange[x][y];
+								mobilityRatingSum += currentMobilityRating[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.001);
 							} else if (previousBoard.checkMove(Utils.other(myColor), currentCoordinates)) {
-								mobilityRatingSum -= currentMobilityRating[x][y] / nrOfFieldColorChange[x][y];
+								mobilityRatingSum -= currentMobilityRating[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.001);
 							}
 						} else {
 							// test for enemys possible move
 							if (currentBoard.checkMove(Utils.other(myColor), currentCoordinates)) {
-								mobilityRatingSum -= currentMobilityRating[x][y] / nrOfFieldColorChange[x][y];
+								mobilityRatingSum -= currentMobilityRating[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.001);
 							} else if (previousBoard.checkMove(myColor, currentCoordinates)) {
-								mobilityRatingSum += currentMobilityRating[x][y] / nrOfFieldColorChange[x][y];
+								mobilityRatingSum += currentMobilityRating[x][y] / Math.max(nrOfFieldColorChange[x][y], 0.001);
 							}
 						}
 					}

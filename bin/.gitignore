@@ -28,3 +28,4 @@ DutyCalls.java
 # the ratings files
 #*.txt
 /boardRatings/
+/reversiPlayers/
