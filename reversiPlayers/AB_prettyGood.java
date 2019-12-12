@@ -216,7 +216,7 @@ public class AB_prettyGood implements ReversiPlayer {
 			}
 		} catch (Exception e) {
 			// do not update bestCoordinates, just return the best ones so far
-			System.out.println("got the exception");
+//			System.out.println("got the exception");
 
 			if (e.getMessage() != null && !e.getMessage().equals("no time for calculation left!")) {
 				e.printStackTrace();
