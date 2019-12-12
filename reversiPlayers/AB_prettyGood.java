@@ -27,7 +27,7 @@ import reversi.Utils;
  * 
  */
 
-public class AB_rate4allStones implements ReversiPlayer {
+public class AB_prettyGood implements ReversiPlayer {
 
 	int myColor; // color of this player
 	int BOARDSIZE; // size (= width = length) of the game board
@@ -46,7 +46,7 @@ public class AB_rate4allStones implements ReversiPlayer {
 	GameBoard actualBoard;
 
 	// name of the file where the ratings are stored
-	private final static String BASE_FILENAME = "boardRatings/12122019_1300_Random_vs_Random";
+	private final static String BASE_FILENAME = "boardRatings/13122019_0000_AB_prettyGood_vs_Random";
 	private DataReader dataReader = new DataReader(8);
 	ArrayList<double[][]> stoneRatings;
 	ArrayList<double[][]> mobilityRatings;
