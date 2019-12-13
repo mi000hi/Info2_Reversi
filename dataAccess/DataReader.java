@@ -3,7 +3,11 @@ package dataAccess;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import randomLearns.totallyRandom;
 
 public class DataReader {
 
@@ -18,7 +22,7 @@ public class DataReader {
 	 * 
 	 * @return
 	 */
-	public ArrayList<double[][]> readRatingsFromFile(String filename) {
+	public ArrayList<double[][]> readRatingsFromFile(Class c, String filename) {
 
 		double[][] currentBoardRatings = new double[BOARDSIZE][BOARDSIZE];
 		ArrayList<double[][]> boardRatings = new ArrayList<>();
@@ -26,8 +30,14 @@ public class DataReader {
 		int currentY = 0;
 		String sCurrentLine;
 		String[] ratingsString;
+		
+		InputStream input = c.getResourceAsStream(filename);
+        if (input == null) {
+            // this is how we load file within editor (eg eclipse)
+            input = c.getClassLoader().getResourceAsStream(filename);
+        }
 
-		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(input))){//new FileReader(filename))) {
 
 			while ((sCurrentLine = br.readLine()) != null) {
 
@@ -90,15 +100,20 @@ public class DataReader {
 
 	}
 
-	public double[][] readRatingFromFile(String filename) {
+	public double[][] readRatingFromFile(Class c, String filename) {
 
 		double[][] rating = new double[BOARDSIZE][BOARDSIZE];
 		boolean readingRatingsNow = false;
 		int currentY = 0;
 		String sCurrentLine;
 		String[] ratingsString;
+		InputStream input = c.getResourceAsStream(filename);
+        if (input == null) {
+            // this is how we load file within editor (eg eclipse)
+            input = c.getClassLoader().getResourceAsStream(filename);
+        }
 
-		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(input))){//new FileReader(filename))) {
 
 			while ((sCurrentLine = br.readLine()) != null) {
 
@@ -148,11 +163,16 @@ public class DataReader {
 	 * 
 	 * @return
 	 */
-	public int readNumberOfGamesFromFile(String filename) {
+	public int readNumberOfGamesFromFile(Class c, String filename) {
 
 		String nrOfGames;
+		InputStream input = c.getResourceAsStream(filename);
+        if (input == null) {
+            // this is how we load file within editor (eg eclipse)
+            input = c.getClassLoader().getResourceAsStream(filename);
+        }
 
-		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(input))){//new FileReader(filename))) {
 
 			String sCurrentLine;
 
@@ -172,7 +192,7 @@ public class DataReader {
 		return 0;
 
 	}
-	
+
 	/**
 	 * prints the given GameBoard to the console like this:
 	 */
@@ -189,7 +209,8 @@ public class DataReader {
 			for (int x = 0; x < BOARDSIZE; x++) {
 
 				// print the numbers between 0 and 10
-				System.out.print(adjustStringLength(Integer.toString((int) Math.round(boardToPrint[x][y] * 10)), 3) + " ");
+				System.out.print(
+						adjustStringLength(Integer.toString((int) Math.round(boardToPrint[x][y] * 10)), 3) + " ");
 
 			}
 
@@ -199,7 +220,7 @@ public class DataReader {
 		System.out.println("+=========================================+");
 
 	}
-	
+
 	/**
 	 * returns the str with |str.length - newLength| spaces before it
 	 * 
