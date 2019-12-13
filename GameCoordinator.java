@@ -178,12 +178,12 @@ public class GameCoordinator {
 		for (int gameIndex = 0; gameIndex < MAX_NUMBER_OF_GAMES || !terminateProgram; gameIndex++) {
 
 			// give ratings data to players
-			if (players[1] instanceof AB_rate4allStones) {
-				((AB_rate4allStones) players[1]).setRatings(stoneRatings_red, moveRatings_red, mobilityRatings_red,
+			if (players[1] instanceof AB_prettyGood) {
+				((AB_prettyGood) players[1]).setRatings(stoneRatings_red, moveRatings_red, mobilityRatings_red,
 						nrOfFieldColorChange);
 			}
-			if (players[2] instanceof AB_rate4allStones) {
-				((AB_rate4allStones) players[2]).setRatings(stoneRatings_green, moveRatings_green,
+			if (players[2] instanceof AB_prettyGood) {
+				((AB_prettyGood) players[2]).setRatings(stoneRatings_green, moveRatings_green,
 						mobilityRatings_green, nrOfFieldColorChange);
 			}
 
