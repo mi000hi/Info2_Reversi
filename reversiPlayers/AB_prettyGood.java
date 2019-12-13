@@ -547,8 +547,8 @@ public class AB_prettyGood implements ReversiPlayer {
 				+ 2 * cornerRating;
 		rating /= Math.max(0.1, nrOfFieldColorChange[hypotheticalMoves.get(calculationDepth - 1).getCol()
 				- 1][hypotheticalMoves.get(calculationDepth - 1).getRow() - 1]);
-		rating /= 5;
-		rating += 40 * mobilityRating02 + 2 * cornerRating02 + 10*saveStoneRating;
+		rating /= 150;
+		rating += 20 * mobilityRating02 + 2 * cornerRating02 + 2*saveStoneRating;
 //		rating *= -(currentBoard.mobility(myColor) - previousBoard.mobility(Utils.other(myColor)));
 		/*
 		 * if (moveNumber > 35) { rating = (stoneRatingSum + moveRatingSum * 2) * 2 *
