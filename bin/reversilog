@@ -19066,3 +19066,13 @@ RED: reversiPlayers.RandomPlayer, GREEN: randomLearns.totallyRandom
 15:02:22: rating=32/32 RED RandomPlayer moves c6
 15:02:25: rating=32/32 GREEN totallyRandom moves c5
 15:02:25: rating=32/32 RED RandomPlayer moves c4
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar
+ID = TestGame
+DATE = 13.12.19
+RED: reversiPlayers.RandomPlayer, GREEN: randomLearns.totallyRandom
+15:05:10: Players initialized
+15:05:10: rating=32/32 RED RandomPlayer moves f6
+15:05:12: rating=32/32 GREEN totallyRandom moves f5
+15:05:12: rating=32/32 RED RandomPlayer moves c6
+15:05:13: rating=33/31 GREEN totallyRandom moves d3
+15:05:13: rating=33/31 RED RandomPlayer moves f4

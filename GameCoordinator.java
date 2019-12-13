@@ -147,15 +147,15 @@ public class GameCoordinator {
 				mobilityRatings_green.add(new double[BOARD_SIZE][BOARD_SIZE]);
 			}
 		} else {
-			stoneRatings_red = dataReader.readRatingsFromFile(baseFilename + "_stoneRatings_red_wins.txt");
-			stoneRatings_green = dataReader.readRatingsFromFile(baseFilename + "_stoneRatings_green_wins.txt");
-			moveRatings_red = dataReader.readRatingsFromFile(baseFilename + "_moveRatings_red_wins.txt");
-			moveRatings_green = dataReader.readRatingsFromFile(baseFilename + "_moveRatings_green_wins.txt");
-			numberOfGames_red = dataReader.readNumberOfGamesFromFile(baseFilename + "_stoneRatings_red_wins.txt");
-			numberOfGames_green = dataReader.readNumberOfGamesFromFile(baseFilename + "_stoneRatings_green_wins.txt");
-			nrOfFieldColorChange = dataReader.readRatingFromFile(baseFilename + "_colorChange.txt");
-			mobilityRatings_red = dataReader.readRatingsFromFile(baseFilename + "_mobilityRatings_red_wins.txt");
-			mobilityRatings_green = dataReader.readRatingsFromFile(baseFilename + "_mobilityRatings_green_wins.txt");
+			stoneRatings_red = dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_stoneRatings_red_wins.txt");
+			stoneRatings_green = dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_stoneRatings_green_wins.txt");
+			moveRatings_red = dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_moveRatings_red_wins.txt");
+			moveRatings_green = dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_moveRatings_green_wins.txt");
+			numberOfGames_red = dataReader.readNumberOfGamesFromFile(this.getClass(), baseFilename + "_stoneRatings_red_wins.txt");
+			numberOfGames_green = dataReader.readNumberOfGamesFromFile(this.getClass(), baseFilename + "_stoneRatings_green_wins.txt");
+			nrOfFieldColorChange = dataReader.readRatingFromFile(this.getClass(), baseFilename + "_colorChange.txt");
+			mobilityRatings_red = dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_mobilityRatings_red_wins.txt");
+			mobilityRatings_green = dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_mobilityRatings_green_wins.txt");
 		}
 
 		// initialize the terminator
