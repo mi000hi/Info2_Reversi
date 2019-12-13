@@ -1,4 +1,4 @@
-package reversiPlayers;
+package randomLearns;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import reversi.Utils;
  * 
  */
 
-public class AB_prettyGood implements ReversiPlayer {
+public class totallyRandom implements ReversiPlayer {
 
 	int myColor; // color of this player
 	int BOARDSIZE; // size (= width = length) of the game board
@@ -45,7 +45,7 @@ public class AB_prettyGood implements ReversiPlayer {
 	GameBoard actualBoard;
 
 	// name of the file where the ratings are stored
-	public String BASE_FILENAME = "12122019_1300_Random_vs_Random";
+	private final static String BASE_FILENAME = "12122019_1300_Random_vs_Random";
 	private DataReader dataReader = new DataReader(8);
 	ArrayList<double[][]> stoneRatings;
 	ArrayList<double[][]> mobilityRatings;
@@ -73,7 +73,7 @@ public class AB_prettyGood implements ReversiPlayer {
 
 		// do not use this if the gamecoordinator plays the game. he will give the
 		// ratings to the player
-//		readDataFromFiles(BASE_FILENAME);
+		readDataFromFiles(BASE_FILENAME);
 
 	}
 
