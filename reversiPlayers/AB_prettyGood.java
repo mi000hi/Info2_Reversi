@@ -60,7 +60,7 @@ public class AB_prettyGood implements ReversiPlayer {
 
 		this.myColor = myColor;
 		this.timeLimit = timeLimit;
-		timeToUse = 0.9;// .999;
+		timeToUse = 0.999;
 		noTimeLeft = false;
 
 		// initialize hypotheticalMoves with 15 coordinates, so that we will not have a
@@ -356,9 +356,10 @@ public class AB_prettyGood implements ReversiPlayer {
 		int currentOccupation;
 		double rating = 0;
 		int moveNumber = currentBoard.countStones(1) + currentBoard.countStones(2) - 4;
-		
-		if(moveNumber == 60) return 0;
-		
+
+		if (moveNumber == 60)
+			return 0;
+
 		double[][] currentStoneRating = stoneRatings.get(moveNumber);
 		double[][] currentMobilityRating = mobilityRatings.get(moveNumber);
 		double[][] currentMoveRating = moveRatings.get(moveNumber);
@@ -375,6 +376,7 @@ public class AB_prettyGood implements ReversiPlayer {
 		double mobilityRatingSum = 0;
 		double moveRatingSum = 0;
 		double cornerRating = 0;
+		double saveStoneRating = 0;
 		Coordinates currentCoordinates;
 		GameBoard hypotheticalBoard;
 
@@ -382,8 +384,14 @@ public class AB_prettyGood implements ReversiPlayer {
 			for (int y = 0; y < BOARDSIZE; ++y) {
 				try {
 
+					
+					
+					
+					
 					currentCoordinates = new Coordinates(y, x);
 
+					
+					
 					// rate for possession of the field for all hypothetical fields
 					for (int i = calculationDepth; i > 0; i--) {
 
@@ -402,6 +410,14 @@ public class AB_prettyGood implements ReversiPlayer {
 //						System.out.println("looking the hypothetical boards");
 					}
 
+					
+					if (currentBoard.getOccupation(currentCoordinates) == myColor) {
+						saveStoneRating += 100 * isSaveStone(currentBoard, new Coordinates(y, x));
+					} else {
+						saveStoneRating -= 100 * isSaveStone(currentBoard, new Coordinates(y, x));
+					}
+					
+					
 					if (currentBoard.getOccupation(currentCoordinates) == 0) {
 
 						// no one has this field => it could be a possible move
@@ -454,25 +470,85 @@ public class AB_prettyGood implements ReversiPlayer {
 		// rate corners
 		try {
 			for (Coordinates corner : corners) {
-				if (currentBoard.getOccupation(corner) == Utils.other(myColor) || currentBoard.checkMove(Utils.other(myColor), corner)) {
+				if (currentBoard.getOccupation(corner) == Utils.other(myColor)
+						|| currentBoard.checkMove(Utils.other(myColor), corner)) {
 					cornerRating -= 1000;
 				} else {
 					cornerRating += 100;
 				}
 			}
 		} catch (OutOfBoundsException e) {
+		}
+		;
+
+		// look that our possible moves are more than the others and our possible moves
+		// are further outside
+		double mobilityRating02 = 0;
+		if (whoDidLastMove == myColor) {
+			double divisor = Math.max(currentBoard.mobility(Utils.other(whoDidLastMove)), 0.05);
+			mobilityRating02 += previousBoard.mobility(whoDidLastMove) / divisor;
+			divisor = Math.max(countPossibleMovesDistance(currentBoard, Utils.other(whoDidLastMove)), 0.05);
+			mobilityRating02 += countPossibleMovesDistance(previousBoard, whoDidLastMove) / divisor;
+		} else {
+			double divisor = Math.max(previousBoard.mobility(whoDidLastMove), 0.05);
+			mobilityRating02 += (currentBoard.mobility(myColor)) / divisor;
+			divisor = Math.max(countPossibleMovesDistance(previousBoard, whoDidLastMove), 0.05);
+			mobilityRating02 += countPossibleMovesDistance(currentBoard, myColor) / divisor;
+
+		}
+
+		// if we have a corner, better rating means more stones near our corner
+		double cornerCenterX = 0, cornerCenterY = 0;
+		int ourCorners = 0;
+		try {
+			for (Coordinates c : corners) {
+				if (actualBoard.getOccupation(c) == myColor
+						|| (whoDidLastMove == Utils.other(myColor) && currentBoard.checkMove(myColor, c))) {
+
+					// if its not the opposite corner, add it to corner center
+					// use maximum 2 corners
+					if (ourCorners < 2
+							&& (ourCorners == 0 || c.getCol() == cornerCenterX || c.getRow() == cornerCenterY)) {
+						cornerCenterX += c.getCol();
+						cornerCenterY += c.getRow();
+						ourCorners++;
+					} else {
+//					System.out.println("do not look at diagonal corners");
+					}
+					break;
+				}
+			}
+		} catch (OutOfBoundsException o) {
 		};
+
+		cornerCenterX /= Math.max(ourCorners, 1);
+		cornerCenterY /= Math.max(ourCorners, 1);
+
+		double cornerRating02 = 0;
+		if (cornerCenterX != 0) {
+
+			cornerRating02 += countStoneDistance(currentBoard, oppositeCorner(cornerCenterX, cornerCenterY));
+
+			cornerRating02 = cornerRating02 / 30;
+
+			rating += cornerRating02;
+
+//					System.out.println("additional rating for having stones near our Corner is: " + additionalRating);
+		}
 
 //		System.out.println("stoneRatingSum = " + 0.1 * stoneRatingSum * (64 - freeFields) / 15);
 //		System.out.println("moveRatingSum = " + 10 * moveRatingSum);
 //		System.out.println("mobilityRatingSum = " + freeFields * mobilityRatingSum / 15);
 //		System.out.println("cornerRaring = " + cornerRating);
+//		System.out.println("saveStoneRating = " + saveStoneRating);
 
 		// put different ratings together
-		rating = 0.1 * stoneRatingSum * (64 - freeFields) / 20 + 4 * moveRatingSum
-				+ freeFields * mobilityRatingSum / 10 + 2*cornerRating;
+		rating = 0.1 * stoneRatingSum * (64 - freeFields) / 20 + 4 * moveRatingSum + freeFields * mobilityRatingSum / 10
+				+ 2 * cornerRating;
 		rating /= Math.max(0.1, nrOfFieldColorChange[hypotheticalMoves.get(calculationDepth - 1).getCol()
 				- 1][hypotheticalMoves.get(calculationDepth - 1).getRow() - 1]);
+		rating /= 5;
+		rating += 40 * mobilityRating02 + 2 * cornerRating02 + 10*saveStoneRating;
 //		rating *= -(currentBoard.mobility(myColor) - previousBoard.mobility(Utils.other(myColor)));
 		/*
 		 * if (moveNumber > 35) { rating = (stoneRatingSum + moveRatingSum * 2) * 2 *
@@ -583,6 +659,243 @@ public class AB_prettyGood implements ReversiPlayer {
 		}
 
 		return normalized;
+
+	}
+
+	private double countPossibleMovesDistance(GameBoard board, int player) {
+
+		double centerX = 4.5, centerY = 4.5;
+		double distance = 0;
+		Coordinates c;
+		for (int y = 1; y <= BOARDSIZE; y++) {
+			for (int x = 1; x <= BOARDSIZE; x++) {
+
+				try {
+					c = new Coordinates(y, x);
+					if (board.getOccupation(c) == myColor) {
+						distance += Math.sqrt(Math.pow(c.getCol() - centerX, 2) + Math.pow(c.getRow() - centerY, 2));
+					}
+				} catch (OutOfBoundsException oe) {
+
+				}
+
+			}
+		}
+
+		return distance;
+
+	}
+
+	private Point oppositeCorner(double x, double y) {
+
+		Point p = new Point();
+		p.setLocation(-x + 9, -y + 9);
+
+		return p;
+
+	}
+
+	private double countStoneDistance(GameBoard board, Point center) {
+
+		double distance = 0;
+		Coordinates c;
+
+		for (int y = 1; y <= BOARDSIZE; y++) {
+			for (int x = 1; x <= BOARDSIZE; x++) {
+
+				try {
+					c = new Coordinates(y, x);
+					if (board.getOccupation(c) == myColor) {
+						distance += Math.sqrt(Math.pow(c.getCol() - center.x, 2) + Math.pow(c.getRow() - center.y, 2));
+					}
+				} catch (OutOfBoundsException oe) {
+
+				}
+
+			}
+		}
+
+		return distance;
+
+	}
+	
+	private int isSaveStone(GameBoard board, Coordinates field) {
+
+		try {
+
+			int occupation = board.getOccupation(field);
+			boolean noSaveStoneForThisCorner = false;
+
+			// only rate if the player has already a corner
+			Coordinates corner;
+			for (int cornerIndex = 0; cornerIndex < 4; cornerIndex++) {
+				corner = corners[cornerIndex];
+
+				if(board.getOccupation(corner) == myColor) {
+					noSaveStoneForThisCorner = false;
+	
+	//					System.out.println("corner is: " + corner.getCol() + "/" + corner.getRow());
+	
+					// check horizontal stones towards corner
+					boolean doOneMore = false;
+					for (int x = field.getCol(); x != corner.getCol() || doOneMore; x += (corner.getCol() - field.getCol())
+							/ Math.abs(corner.getCol() - field.getCol())) {
+	
+	//						System.out.println("checking field: " + x + "/" + field.getRow());
+						if (board.getOccupation(new Coordinates(field.getRow(), x)) != occupation) {
+							// is not a save stone
+							noSaveStoneForThisCorner = true;
+							break;
+						}
+	
+						if (doOneMore) {
+							break;
+						}
+	
+						doOneMore = x + (corner.getCol() - field.getCol())
+								/ Math.abs(corner.getCol() - field.getCol()) == corner.getCol();
+	
+					}
+	
+					if (noSaveStoneForThisCorner) {
+						continue;
+					}
+	
+					// check vertical stones towards corner
+					doOneMore = false;
+					for (int y = field.getRow(); y != corner.getRow(); y += (corner.getRow() - field.getRow())
+							/ Math.abs(corner.getRow() - field.getRow())) {
+	
+	//						System.out.println("checking field: " + field.getCol() + "/" + y);
+						if (board.getOccupation(new Coordinates(y, field.getCol())) != occupation) {
+							// is not a save stone
+							noSaveStoneForThisCorner = true;
+							break;
+						}
+	
+						if (doOneMore) {
+							break;
+						}
+	
+						doOneMore = y + (corner.getRow() - field.getRow())
+								/ Math.abs(corner.getRow() - field.getRow()) == corner.getRow();
+	
+					}
+	
+					if (noSaveStoneForThisCorner) {
+						continue;
+					}
+	
+					// check diagonal towards corner
+					doOneMore = false;
+					for (int x = field.getCol(), y = field.getRow(); x != corner.getCol()
+							&& y != corner.getRow(); x += (corner.getCol() - field.getCol())
+									/ Math.abs(corner.getCol() - field.getCol()), y += (corner.getRow() - field.getRow())
+											/ Math.abs(corner.getRow() - field.getRow())) {
+	
+	//						System.out.println("checking field: " + x + "/" + y);
+						if (board.getOccupation(new Coordinates(y, x)) != occupation) {
+							// is not a save stone
+							noSaveStoneForThisCorner = true;
+							break;
+						}
+	
+						if (doOneMore) {
+							break;
+						}
+	
+						doOneMore = x + (corner.getCol() - field.getCol())
+								/ Math.abs(corner.getCol() - field.getCol()) == corner.getCol()
+								|| y + (corner.getRow() - field.getRow())
+										/ Math.abs(corner.getRow() - field.getRow()) == corner.getRow();
+	
+					}
+	
+					if (noSaveStoneForThisCorner) {
+						continue;
+					}
+	
+					// check diagonal 90 degree to corner01
+					Coordinates corner01, corner02;
+					if (cornerIndex == 3) {
+						corner01 = corners[0];
+						corner02 = corners[2];
+					} else if (cornerIndex == 0) {
+						corner01 = corners[1];
+						corner02 = corners[3];
+					} else {
+						corner01 = corners[cornerIndex + 1];
+						corner02 = corners[cornerIndex - 1];
+					}
+					doOneMore = false;
+					boolean firstIsFalse = false;
+					for (int x = field.getCol(), y = field.getRow(); x != corner01.getCol()
+							&& y != corner01.getRow(); x += (corner01.getCol() - field.getCol()) / Math
+									.abs(corner01.getCol() - field.getCol()), y += (corner01.getRow() - field.getRow())
+											/ Math.abs(corner01.getRow() - field.getRow())) {
+	
+	//						System.out.println("checking field: " + x + "/" + y);
+						if (board.getOccupation(new Coordinates(y, x)) != occupation) {
+							// is not a save stone
+							firstIsFalse = true;
+						}
+	
+						if (doOneMore) {
+							break;
+						}
+	
+						doOneMore = x
+								+ (corner01.getCol() - field.getCol())
+										/ Math.abs(corner01.getCol() - field.getCol()) == corner01.getCol()
+								|| y + (corner01.getRow() - field.getRow())
+										/ Math.abs(corner01.getRow() - field.getRow()) == corner01.getRow();
+	
+					}
+	
+					doOneMore = false;
+					for (int x = field.getCol(), y = field.getRow(); x != corner02.getCol()
+							&& y != corner02.getRow(); x += (corner02.getCol() - field.getCol()) / Math
+									.abs(corner02.getCol() - field.getCol()), y += (corner02.getRow() - field.getRow())
+											/ Math.abs(corner02.getRow() - field.getRow())) {
+	
+	//						System.out.println("checking field: " + x + "/" + y);
+						if (board.getOccupation(new Coordinates(y, x)) != occupation) {
+							// is not a save stone
+							if (firstIsFalse) {
+								noSaveStoneForThisCorner = true;
+								break;
+							}
+						}
+	
+						if (doOneMore) {
+							break;
+						}
+	
+						doOneMore = x
+								+ (corner02.getCol() - field.getCol())
+										/ Math.abs(corner02.getCol() - field.getCol()) == corner02.getCol()
+								|| y + (corner02.getRow() - field.getRow())
+										/ Math.abs(corner02.getRow() - field.getRow()) == corner02.getRow();
+	
+					}
+	
+	//					System.out.println("it is a save stone");
+					
+					if(noSaveStoneForThisCorner) {
+						continue;
+					}
+					
+					return 1;
+	
+				}
+				
+			}
+
+		} catch (OutOfBoundsException e) {
+			e.printStackTrace();
+		}
+
+		return 0;
 
 	}
 
