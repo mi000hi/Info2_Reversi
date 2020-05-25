@@ -27,4 +27,4 @@ DutyCalls.java
 
 # the ratings files
 #*.txt
-/corona/
+/neuralNet/

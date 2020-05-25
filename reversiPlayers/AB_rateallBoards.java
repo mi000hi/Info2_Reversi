@@ -58,11 +58,11 @@ public class AB_rateallBoards implements ReversiPlayer {
 	private DataReader dataReaderMobility = new DataReader(8);
 
 	ArrayList<double[][]> stoneRatingsGreenWins = dataReaderStonesGreenWins
-			.readRatingsFromFile("boardRatings/Random_vs_Random_stoneLocationRatingToZero_green_wins.txt");
+			.readRatingsFromFile(this.getClass(), "boardRatings/Random_vs_Random_stoneLocationRatingToZero_green_wins.txt");
 	ArrayList<double[][]> stoneRatingsRedWins = dataReaderStonesRedWins
-			.readRatingsFromFile("boardRatings/Random_vs_Random_stoneLocationRatingToZero_red_wins.txt");
+			.readRatingsFromFile(this.getClass(), "boardRatings/Random_vs_Random_stoneLocationRatingToZero_red_wins.txt");
 	ArrayList<double[][]> mobilityRatings = dataReaderMobility
-			.readRatingsFromFile("boardRatings/Random_vs_Random_mobilityRating_green_wins.txt");
+			.readRatingsFromFile(this.getClass(), "boardRatings/Random_vs_Random_mobilityRating_green_wins.txt");
 
 	@Override
 	public void initialize(int myColor, long timeLimit) {

@@ -14,7 +14,7 @@ public class BestMove implements ReversiPlayer {
 	// name of the file where the ratings are stored
 	private final static String FILENAME_RANDOM_VS_RANDOM = "boardRatings_RandomPlayer_vs_RandomPlayer.txt";
 	private DataReader dataReader = new DataReader(8);
-	ArrayList<double[][]> ratings = dataReader.readRatingsFromFile(FILENAME_RANDOM_VS_RANDOM);
+	ArrayList<double[][]> ratings = dataReader.readRatingsFromFile(this.getClass(), FILENAME_RANDOM_VS_RANDOM);
 
 	public void initialize(int myColor, long timeLimit) {
 		this.myColor = myColor;

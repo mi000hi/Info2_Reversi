@@ -12,7 +12,7 @@ import reversi.OutOfBoundsException;
 import reversi.ReversiPlayer;
 import reversi.Utils;
 
-public class StayHomeStayHealthy implements ReversiPlayer {
+public class StayHome implements ReversiPlayer {
 
 	private int MY_COLOR, ENEMY_COLOR;
 	private long TIME_LIMIT;
@@ -26,14 +26,22 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 	ArrayList<double[][]> moveRatings;
 	double[][] nrOfFieldColorChange;
 
+	// Arraylist to save all calculated moves
+	ArrayList<MoveList> allMoves;
+
+	// ArrayList to save moves with ratings from one previous move
+	ArrayList<Move> calculatedMoves;
+
 	// save the previous board to determine the enemy his move
 	GameBoard previousBoard = null;
 
+	boolean moveDoneBefore;
+
 	int lastCompletedDepth;
 	int numberOfCuts;
-	int NUMBER_OF_FOLLOWING_MOVES_ME = 20;
-	int NUMBER_OF_FOLLOWING_MOVES_ENEMY = 20;
-	Move bestMove;
+	int NUMBER_OF_FOLLOWING_MOVES_STONERATING, NUMBER_OF_FOLLOWING_MOVES_PREVRATING;
+
+	MoveList bestMove;
 
 	@Override
 	public void initialize(int myColor, long timeLimit) {
@@ -41,11 +49,16 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 		MY_COLOR = myColor;
 		ENEMY_COLOR = Utils.other(MY_COLOR);
 
-		TIME_LIMIT = (long) (0.95 * timeLimit);
+		TIME_LIMIT = (long) (0.99 * timeLimit);
+
+		NUMBER_OF_FOLLOWING_MOVES_STONERATING = 10;
+		NUMBER_OF_FOLLOWING_MOVES_PREVRATING = 5;
 
 		readDataFromFiles();
 
+		moveDoneBefore = false;
 		lastCompletedDepth = 0 + 2; // + 2 because there was no move before
+		allMoves = new ArrayList<>();
 
 	}
 
@@ -59,141 +72,208 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 		// save current Gameboard
 		GameBoard currentGameBoard = gb.clone();
 
-		System.out.println("we have " + countSaveStones(currentGameBoard, MY_COLOR) + " safestones");
-		bestMove = null;
-
 		int freeFields = 64 - currentGameBoard.countStones(1) - currentGameBoard.countStones(2);
-		Move myMove = new Move(null); // TODO: take actually available move
+
+		MoveList myMove = null; // the move we think is the best one available
+
+		/** THE VERY FIRST MOVE **/
+		if (moveDoneBefore) {
+
+			// adjust allMoves arraylist according to the move done by enemy
+			Coordinates enemyMove = findMoveDone(currentGameBoard, previousBoard);
+			if (enemyMove != null) {
+				System.out.println("Enemy player moved " + enemyMove.toMoveString());
+			}
+			boolean allMovesAdjusted = false; // needed because we can look only at the top moves
+			for (int i = 0; i < allMoves.size(); i++) {
+				if (allMoves.get(i).move.coord.toMoveString().equals(enemyMove.toMoveString())) {
+					allMoves = allMoves.get(i).followingMoves;
+
+					allMovesAdjusted = true;
+					break;
+				}
+			}
+			if (!allMovesAdjusted) {
+				allMoves = new ArrayList<>();
+			}
+
+			// print saved moves
+//			printMoves(allMoves, 0);
+
+		} else {
+			moveDoneBefore = true;
+		}
 
 		// find the best available move
 		// TODO: start where we left off in the last move -- not needed because
 		// alpha-beta cuts?
 		try {
 			for (lastCompletedDepth -= 2; System.currentTimeMillis() < endTime; lastCompletedDepth++) {
-
-				// if theres no further depth to calculate, just play the best values
-				if (lastCompletedDepth >= freeFields) {
-					System.out.println("can calculate to the finish of the game");
-					lastCompletedDepth = freeFields - 1;
-				}
-
-				System.out.println("starting with depth: " + Math.max(1, lastCompletedDepth));
-
-//				numberOfCuts = 0;
-
-				myMove = alphaBetaFindMove(endTime, Math.max(1, lastCompletedDepth), gb.clone());
-
-				System.out.println("finished depth " + Math.max(1, lastCompletedDepth) + "; we did " + numberOfCuts
-						+ " cuts so far");
-
+			
 				// if theres no further depth to calculate, just play the best values
 				if (lastCompletedDepth >= freeFields - 1) {
+					System.out.println("already calculated to the finish");
+					myMove = getBestMove(allMoves);
 					break;
 				}
 
+				System.out.println("starting with depth: " + (lastCompletedDepth + 1));
+
+				numberOfCuts = 0;
+
+				myMove = alphaBetaFindMove(endTime, lastCompletedDepth + 1, gb.clone());
+
+//				System.out.println("#################");
+//				printMoves(allMoves, 0);
+//				System.out.println("#################");
+
+				System.out.println("finished depth " + (lastCompletedDepth + 1) + "; we did " + numberOfCuts + " cuts");
+
+				// TODO: remove parameter depth?
 			}
-		} catch (NoTimeLeftException e) {
+		} catch (NoTimeLeftException | FullGameBoardException e) {
 			// ignore exception, it means we have no time left for calculations or reached
 			// the maximum depth available on this gameboard
 			// return the best move!
-			// e.printStackTrace();
-		} catch (FullGameBoardException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-		} catch (SkipCalculationException e) {
-			// TODO Auto-generated catch block
-			myMove = e.move;
-//				e.printStackTrace();
+//			e.printStackTrace();
 		}
+
+		// print saved moves
+//		printMoves(allMoves, 0);
 
 		// save previous gameboard
-		currentGameBoard.makeMove(MY_COLOR, myMove.coord);
+		if (myMove == null) {
+			System.err.println("myMove == null, should not be\n");
+			myMove = bestMove;
+			System.err.println("myMove is now " + myMove.move + "\n");
+		}
+		if (!currentGameBoard.checkMove(MY_COLOR, myMove.move.coord)) {
+			System.err.println("move " + myMove.move + " is illegal, should not be\n");
+			if(allMoves.size() >= 1) {
+				myMove = allMoves.get((int) Math.min(Math.floor(Math.random() * allMoves.size()), allMoves.size() - 1));
+				System.err.println("randomly chose move " + myMove.move + "\n");
+			} else {
+				myMove = new MoveList(new Move(null));
+				System.err.println("new move is a pass\n");
+			}
+		}
+		currentGameBoard.makeMove(MY_COLOR, myMove.move.coord);
 		previousBoard = currentGameBoard;
 
-		if (myMove.coord == null) {
-			if (bestMove != null) {
-				myMove = bestMove;
-			} else {
-				System.out.println("\nWe need to pass for rating " + myMove.rating + "\n");
-			}
+		// adjust allMoves arraylist according to our move
+		allMoves = myMove.followingMoves;
+
+		if (myMove.move.coord == null) {
+			System.out.println("\nWe need to pass for rating " + myMove.move.rating + "\n");
 		} else {
-			System.out.println("\nWe will move " + myMove.coord.toMoveString() + " for rating " + myMove.rating + "\n");
+			System.out.println(
+					"\nWe will move " + myMove.move.coord.toMoveString() + " for rating " + myMove.move.rating + "\n");
 		}
 
-		return myMove.coord;
+		return myMove.move.coord;
 	}
 
-	private Move alphaBetaFindMove(final long endTime, int depth, GameBoard gb)
-			throws NoTimeLeftException, FullGameBoardException, SkipCalculationException {
+	private MoveList alphaBetaFindMove(final long endTime, int depth, GameBoard gb)
+			throws NoTimeLeftException, FullGameBoardException {
 
 		// if theres no move available, pass
 		if (!gb.isMoveAvailable(MY_COLOR)) {
-			throw new SkipCalculationException(new Move(null)); // pass
+			return new MoveList(new Move(null)); // pass
 			// TODO: do not return
 		}
 
 		// find available moves if we have not done so before
-		ArrayList<Move> possibleMoves = new ArrayList<>();
-		Coordinates coord; // iteration variable
-		for (int x = 1; x <= BOARDSIZE; x++) {
-			for (int y = 1; y <= BOARDSIZE; y++) {
-				coord = new Coordinates(y, x);
-				if (gb.checkMove(MY_COLOR, coord)) {
-					possibleMoves.add(new Move(coord));
+		if (allMoves.size() != 0) {
+
+			// sort moves
+			allMoves = sortMovesByPrevRating(allMoves, gb.countStones(MY_COLOR) + gb.countStones(ENEMY_COLOR) - 4,
+					MY_COLOR);
+
+		} else {
+			// TODO: we should never need to find a pass here
+//			// if we need to pass:
+//			if (gb.mobility(MY_COLOR) == 0) {
+//				System.out.println("mobility of player " + MY_COLOR + " is " + gb.mobility(MY_COLOR));
+//				allMoves.followingMoves.add(new MoveList(new Move(null)));
+//
+//				// see if we do not have stones left, set rating
+//				if (gb.countStones(MY_COLOR) == 0) {
+//					System.out.println("we would loose here");
+//					bestMove_inProgress.move.rating = -Double.MAX_VALUE;
+//
+//					// return the rating
+//					return bestMove_inProgress;
+//				}
+//				// else find available moves
+//			} else {
+			Coordinates move; // iteration variable
+			for (int x = 1; x <= BOARDSIZE; x++) {
+				for (int y = 1; y <= BOARDSIZE; y++) {
+					move = new Coordinates(y, x);
+					if (gb.checkMove(MY_COLOR, move)) {
+//						possibleMoves.add(new MoveList(new Move(move)));
+// goes with A
+						allMoves.add(new MoveList(new Move(move)));
 //						System.out.println("adding possible move " + move.toMoveString());
+					}
 				}
 			}
+//			}
+
+			// sort moves
+			allMoves = sortMovesByStones(allMoves, gb.countStones(MY_COLOR) + gb.countStones(ENEMY_COLOR) - 4,
+					MY_COLOR);
 		}
 
-		// skip calculation if only one more is available
-		if (possibleMoves.size() == 1) {
-			throw new SkipCalculationException(possibleMoves.get(0));
-		}
-
-		// sort moves
-		possibleMoves = sortMovesByStones(possibleMoves, gb.countStones(MY_COLOR) + gb.countStones(ENEMY_COLOR) - 4,
-				MY_COLOR, gb);
-
-//		System.out.print("We have " + possibleMoves.size() + " moves to choose from: ");
-//		printPossibleMoves(possibleMoves);
+		System.out.print("We have " + allMoves.size() + " moves to choose from: ");
+		printPossibleMoves(allMoves);
 
 		// initialize bestmove for a new depth search
-		bestMove = possibleMoves.get(0);
+		bestMove = allMoves.get(0);
 
 		// reset alpha and beta values
-		double maximalAlpha = -Double.MAX_VALUE;
-		double minimalBeta = Double.MAX_VALUE; // TODO: would not be needed
+		bestMove.alpha = -Double.MAX_VALUE;
+		bestMove.beta = Double.MAX_VALUE;
 
 		// test the moves
-		for (int i = 0; i < possibleMoves.size(); i++) {
+		for (int i = 0; i < allMoves.size(); i++) {
+
+//			System.out.println("bestMove is " + bestMove.move);
+//			System.out.println("trying move " + allMoves.get(i).move);
 
 			// make the move
 			GameBoard afterMove = gb.clone();
-			afterMove.makeMove(MY_COLOR, possibleMoves.get(i).coord);
+			afterMove.makeMove(MY_COLOR, allMoves.get(i).move.coord);
 
 			// calculate the alpha-beta rating for this move
-			double moveRating = alphaBeta(endTime, depth - 1, afterMove, possibleMoves.get(i), ENEMY_COLOR,
-					maximalAlpha, minimalBeta);
+			alphaBeta(endTime, depth - 1, afterMove, allMoves.get(i), ENEMY_COLOR, bestMove.alpha, bestMove.beta);
 
 			// if move rating is higher than alpha-rating, use this move!
-			if (moveRating > maximalAlpha) {
-				bestMove = possibleMoves.get(i);
-				maximalAlpha = moveRating;
-				bestMove.rating = moveRating;
+			if (allMoves.get(i).move.rating > bestMove.alpha) {
+				bestMove = allMoves.get(i);
+				bestMove.alpha = allMoves.get(i).move.rating;
 			}
+
+//			System.out.println("#################");
+//			printMoves(allMoves, 0);
+//			System.out.println("#################");
 		}
 
-//		System.out.println("prediction for this game is " + bestMove);
+		System.out.println(
+				"predicted rating is " + bestMove.move.rating + " with move " + bestMove.move.coord.toMoveString());
 
 		return bestMove;
 	}
 
-	private double alphaBeta(final long endTime, int depth, GameBoard gb, Move previousMove, int activePlayer,
+	private MoveList alphaBeta(final long endTime, int depth, GameBoard gb, MoveList previousMove, int activePlayer,
 			double maxAlpha, double minBeta) throws NoTimeLeftException, FullGameBoardException {
 
-		// return ratings value if depth is reached
+		// TODO: is that if right? -- should be okay
 		if (depth == 0) {
-			return rating(gb, Utils.other(activePlayer), true);
+
+			previousMove.move.rating = rating(gb, Utils.other(activePlayer));
+
+			return previousMove; // return rating -- not necessary since pointer
 		}
 
 		// if theres no time left, throw exception
@@ -206,71 +286,99 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 			throw new FullGameBoardException();
 		}
 
-		ArrayList<Move> possibleMoves = new ArrayList<>();
+//		ArrayList<MoveList> possibleMoves = previousMove.followingMoves;
 
-		// if we need to pass:
-		if (gb.mobility(activePlayer) == 0) {
+		// find available moves if we have not done so before
+		if (previousMove.followingMoves.size() != 0) {
+			// sort moves
+			previousMove.followingMoves = sortMovesByPrevRating(previousMove.followingMoves,
+					gb.countStones(MY_COLOR) + gb.countStones(ENEMY_COLOR) - 4, activePlayer);
 
-			// see if we do not have stones left, return rating
-			if (gb.countStones(activePlayer) == 0) {
-				if (activePlayer == MY_COLOR) {
-					return -Double.MAX_VALUE;
-				} else {
-					return Double.MAX_VALUE;
+		} else {
+			// if we need to pass:
+			if (gb.mobility(activePlayer) == 0) {
+//				System.out.println("mobility of player " + activePlayer + " is " + gb.mobility(activePlayer));
+				previousMove.followingMoves.add(new MoveList(new Move(null)));
+
+				// see if we do not have stones left, set rating
+				if (gb.countStones(activePlayer) == 0) {
+//					System.out.println("player " + activePlayer + " would loose here");
+					if (activePlayer == MY_COLOR) {
+						previousMove.move.rating = -Double.MAX_VALUE;
+					} else {
+						previousMove.move.rating = Double.MAX_VALUE;
+					}
+
+					// return the rating
+					return previousMove;
+				}
+				// else find available moves
+			} else {
+				Coordinates move; // iteration variable
+				for (int x = 1; x <= BOARDSIZE; x++) {
+					for (int y = 1; y <= BOARDSIZE; y++) {
+						move = new Coordinates(y, x);
+						if (gb.checkMove(activePlayer, move)) {
+							previousMove.followingMoves.add(new MoveList(new Move(move)));
+						}
+					}
 				}
 			}
 
-			possibleMoves.add(new Move(null));
+			// sort moves
+			previousMove.followingMoves = sortMovesByStones(previousMove.followingMoves,
+					gb.countStones(MY_COLOR) + gb.countStones(ENEMY_COLOR) - 4, activePlayer);
 		}
 
-		// find the possible moves
-		Coordinates coord; // iteration variable
-		for (int x = 1; x <= BOARDSIZE; x++) {
-			for (int y = 1; y <= BOARDSIZE; y++) {
-				coord = new Coordinates(y, x);
-				if (gb.checkMove(activePlayer, coord)) {
-					possibleMoves.add(new Move(coord));
-				}
-			}
-		}
-
-		// sort moves
-		possibleMoves = sortMovesByStones(possibleMoves, gb.countStones(MY_COLOR) + gb.countStones(ENEMY_COLOR) - 4,
-				activePlayer, gb);
-
-		// find the best move
-		for (int i = 0; i < possibleMoves.size(); i++) {
+		// get the best move
+		MoveList bestMove = previousMove.followingMoves.get(0);
+		bestMove.alpha = maxAlpha;
+		bestMove.beta = minBeta;
+		for (int i = 0; i < previousMove.followingMoves.size(); i++) {
 
 			// make the move
 			GameBoard afterMove = gb.clone();
-			afterMove.makeMove(activePlayer, possibleMoves.get(i).coord);
+			afterMove.makeMove(activePlayer, previousMove.followingMoves.get(i).move.coord);
 
 			// go one move further
+			MoveList moveRatings;
 			if (activePlayer == MY_COLOR) {
-				double moveRating = alphaBeta(endTime, depth - 1, afterMove, possibleMoves.get(i), ENEMY_COLOR,
-						maxAlpha, minBeta);
+				alphaBeta(endTime, depth - 1, afterMove, previousMove.followingMoves.get(i), ENEMY_COLOR,
+						bestMove.alpha, bestMove.beta);
+
+//				System.out.println("#################");
+//				printMoves(allMoves, 0);
+//				System.out.println("#################");
 
 				// if move rating is higher than alpha-rating, use this move!
-				if (moveRating > maxAlpha) {
-					maxAlpha = moveRating;
+				if (previousMove.followingMoves.get(i).move.rating > bestMove.alpha) {
+					bestMove = previousMove.followingMoves.get(i);
+					bestMove.alpha = previousMove.followingMoves.get(i).move.rating;
 				}
 
 				// if alpha is bigger than beta, cut
-				if (maxAlpha >= minBeta) {
+				if (bestMove.alpha >= bestMove.beta) {
+//					System.out.println("*** alpha cut at " + bestMove.move.coord.toMoveString());
 					numberOfCuts++;
 					break;
 				}
 			} else {
-				double moveRating = alphaBeta(endTime, depth - 1, afterMove, possibleMoves.get(i), MY_COLOR, maxAlpha,
-						minBeta);
+				alphaBeta(endTime, depth - 1, afterMove, previousMove.followingMoves.get(i), MY_COLOR, bestMove.alpha,
+						bestMove.beta);
+
+//				System.out.println("#################");
+//				printMoves(allMoves, 0);
+//				System.out.println("#################");
 
 				// if move rating is less than beta-rating, use this move!
-				if (moveRating < minBeta) {
-					minBeta = moveRating;
+				if (previousMove.followingMoves.get(i).move.rating < bestMove.beta) {
+					bestMove = previousMove.followingMoves.get(i);
+					bestMove.beta = previousMove.followingMoves.get(i).move.rating;
 				}
 
 				// if beta is smaller than alpha, cut
-				if (minBeta <= maxAlpha) {
+				if (bestMove.beta <= bestMove.alpha) {
+//					System.out.println("*** beta cut at " + bestMove.move.coord.toMoveString());
 					numberOfCuts++;
 					break;
 				}
@@ -278,14 +386,11 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 		}
 
 		// return rating value
-		if (activePlayer == MY_COLOR) {
-			return maxAlpha;
-		} else {
-			return minBeta;
-		}
+		previousMove.move.rating = bestMove.move.rating;
+		return previousMove; // not necessary since pointer
 	}
 
-	private double rating(GameBoard gb, int lastMoveBy, boolean longRating) {
+	private double rating(GameBoard gb, int lastMoveBy) {
 
 		int moveNumber = Math.min(59, gb.countStones(MY_COLOR) + gb.countStones(ENEMY_COLOR) - 4);
 		double[][] ratingsFieldOccupation = stoneRatings.get(Math.max(0, moveNumber - 1)); // we need to look at the
@@ -323,13 +428,13 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 						// rating from mobility
 						if (gb.checkMove(MY_COLOR, field)) {
 							// or +10 +20
-							mobilityRating += 5 * ratingsFieldMobility[x][y];
+							mobilityRating += 15 * ratingsFieldMobility[x][y];
 						}
 					} else {
 
 						// rating from mobility
-						if (gb.checkMove(ENEMY_COLOR, field)) {
-							mobilityRating -= 10 * ratingsFieldMobility[x][y];
+						if(gb.checkMove(ENEMY_COLOR, field)) {
+							mobilityRating -= 5 * ratingsFieldMobility[x][y];
 						}
 					}
 				} catch (OutOfBoundsException e) {
@@ -339,9 +444,7 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 		}
 
 		// rating from save stones that cant change its color anymore
-		if (longRating) {
-			savestoneRating = countSaveStones(gb, MY_COLOR) - 20 * countSaveStones(gb, ENEMY_COLOR);
-		}
+		savestoneRating = countSaveStones(gb, MY_COLOR) - 12 * countSaveStones(gb, ENEMY_COLOR);
 
 		// print ratings for comparison
 //		System.out.println("Occupation: " + occupationRating);
@@ -512,18 +615,12 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 	 * @param activePlayer the player that can choose one of the given moves
 	 * @return
 	 */
-	private ArrayList<Move> sortMovesByStones(ArrayList<Move> moves, int moveNumber, int activePlayer, GameBoard gb) {
+	private ArrayList<MoveList> sortMovesByStones(ArrayList<MoveList> moves, int moveNumber, int activePlayer) {
 
 		double[][] ratingsField = moveRatings.get(moveNumber);
 		PriorityQueue<Move> sortingMoves = new PriorityQueue<>();
-		ArrayList<Move> sortedMoves = new ArrayList<>();
-		int maxNumberOfMoves;
-
-		if (activePlayer == MY_COLOR) {
-			maxNumberOfMoves = NUMBER_OF_FOLLOWING_MOVES_ME;
-		} else {
-			maxNumberOfMoves = NUMBER_OF_FOLLOWING_MOVES_ENEMY;
-		}
+		ArrayList<MoveList> sortedMoves = new ArrayList<>();
+		int maxNumberOfMoves = NUMBER_OF_FOLLOWING_MOVES_STONERATING;
 
 		// do not sort if size == 1
 		if (moves.size() == 1) {
@@ -532,25 +629,142 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 
 		Coordinates move;
 		for (int i = 0; i < moves.size(); i++) {
-			move = moves.get(i).coord;
+			move = moves.get(i).move.coord;
 
 			// split per player because field ratings state a negative value for good enemy
 			// moves ==> move needs to be highly considered
 			if (activePlayer == MY_COLOR) {
-				sortingMoves.add(new Move(move,
-						ratingsField[move.getCol() - 1][move.getRow() - 1] * rating(gb, Utils.other(activePlayer), false)));
+				sortingMoves.add(new Move(move, ratingsField[move.getCol() - 1][move.getRow() - 1]));
 			} else {
-				// TODO: minussign?
-				sortingMoves.add(new Move(move,
-						-ratingsField[move.getCol() - 1][move.getRow() - 1] * rating(gb, Utils.other(activePlayer), false)));
+				sortingMoves.add(new Move(move, -ratingsField[move.getCol() - 1][move.getRow() - 1]));
 			}
 		}
 
+//		System.out.print("Ratings: ");
 		for (int i = 0; i < moves.size() && i < maxNumberOfMoves; i++) {
-			sortedMoves.add(sortingMoves.poll());
+//			System.out.print(sortingMoves.peek().rating + ",");
+			sortedMoves.add(new MoveList(sortingMoves.poll()));
 		}
+//		System.out.println("\n");
 
 		return sortedMoves;
+
+	}
+
+	private ArrayList<MoveList> sortMovesByPrevRating(ArrayList<MoveList> moves, int moveNumber, int activePlayer) {
+
+		PriorityQueue<MoveList> sortingMoves = new PriorityQueue<>();
+		ArrayList<MoveList> sortedMoves = new ArrayList<>();
+		int maxNumberOfMoves = NUMBER_OF_FOLLOWING_MOVES_PREVRATING;
+
+		// do not sort if size == 1
+		if (moves.size() == 1) {
+			return moves;
+		}
+
+		MoveList move;
+		for (int i = 0; i < moves.size(); i++) {
+			move = moves.get(i);
+
+			sortingMoves.add(move);
+		}
+
+//		System.out.print("Ratings: ");
+		for (int i = 0; i < moves.size() && i < maxNumberOfMoves; i++) {
+//			System.out.print(sortingMoves.peek().rating + ",");
+
+			// sort increasing we are the active player, else decreasing
+			if (activePlayer == MY_COLOR) {
+				sortedMoves.add(sortingMoves.poll());
+			} else {
+				sortedMoves.add(0, sortingMoves.poll());
+			}
+
+			// TODO: this should be the wrong direction
+//			if(activePlayer == MY_COLOR) {
+//				sortedMoves.add(0, sortingMoves.poll());
+//			} else {
+//				sortedMoves.add(sortingMoves.poll());
+//			}
+		}
+
+		if (maxNumberOfMoves < sortedMoves.size()) {
+			sortedMoves = (ArrayList<MoveList>) sortedMoves.subList(0, maxNumberOfMoves);
+			System.out.println("movelist shortened to length " + sortedMoves.size());
+		}
+//		System.out.println("\n");
+
+		return sortedMoves;
+
+	}
+
+	private Coordinates findMoveDone(GameBoard current, GameBoard previous) {
+
+		try {
+			for (int x = 1; x <= BOARDSIZE; x++) {
+				for (int y = 1; y <= BOARDSIZE; y++) {
+
+					if (previous.getOccupation(new Coordinates(y, x)) == 0
+							&& current.getOccupation(new Coordinates(y, x)) != 0) {
+						return new Coordinates(y, x);
+					}
+
+				}
+			}
+		} catch (OutOfBoundsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.err.println("ENEMY MOVE NOT FOUND! Guess he passed...");
+		return new Coordinates(0, 0);
+	}
+
+	private int doesListContainMove(ArrayList<MoveList> list, Coordinates coord) {
+
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).move.equals(coord)) {
+				return i;
+			}
+		}
+		return -1;
+
+	}
+
+	private int getIndexOfMove(ArrayList<MoveList> list, MoveList move) {
+
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).move.equals(move.move)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	private MoveList getBestMove(ArrayList<MoveList> moves) {
+
+		if (moves.size() == 0) {
+			return null;
+		}
+
+		double bestRating = moves.get(0).move.rating;
+		MoveList bestMove = moves.get(0);
+		for (int i = 0; i < moves.size(); i++) {
+			if (moves.get(i).move.rating > bestRating) {
+				bestRating = moves.get(i).move.rating;
+				bestMove = moves.get(i);
+			}
+		}
+
+		return bestMove;
+	}
+
+	private void printPossibleMoves(ArrayList<MoveList> moves) {
+
+		for (MoveList ml : moves) {
+			System.out.print(ml.move.coord.toMoveString() + " ");
+		}
+		System.out.println();
 	}
 
 	private void readDataFromFiles() {
@@ -658,6 +872,20 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 			}
 		}
 		return normalized;
+	}
+
+	private void printMoves(ArrayList<MoveList> moves, int depth) {
+
+		for (MoveList ml : moves) {
+
+			for (int i = 0; i < depth; i++) {
+				System.out.print("   ");
+			}
+			System.out.println(ml.move.toString());
+			printMoves(ml.followingMoves, depth + 1);
+
+		}
+
 	}
 
 }

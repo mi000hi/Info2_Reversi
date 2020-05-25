@@ -83,19 +83,19 @@ public class AB_rate4allStones implements ReversiPlayer {
 		// initialize rating boards
 		// myColor begins
 		if (myColor == GameBoard.RED) {
-			stoneRatings = normalize(dataReader.readRatingsFromFile(baseFilename + "_stoneRatings_red_wins.txt"));
-			mobilityRatings = normalize(dataReader.readRatingsFromFile(baseFilename + "_mobilityRatings_red_wins.txt"));
-			moveRatings = normalize(dataReader.readRatingsFromFile(baseFilename + "_moveRatings_red_wins.txt"));
+			stoneRatings = normalize(dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_stoneRatings_red_wins.txt"));
+			mobilityRatings = normalize(dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_mobilityRatings_red_wins.txt"));
+			moveRatings = normalize(dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_moveRatings_red_wins.txt"));
 		}
 		// myColor is second player
 		else {
-			stoneRatings = normalize(dataReader.readRatingsFromFile(baseFilename + "_stoneRatings_green_wins.txt"));
+			stoneRatings = normalize(dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_stoneRatings_green_wins.txt"));
 			mobilityRatings = normalize(
-					dataReader.readRatingsFromFile(baseFilename + "_mobilityRatings_green_wins.txt"));
-			moveRatings = normalize(dataReader.readRatingsFromFile(baseFilename + "_moveRatings_green_wins.txt"));
+					dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_mobilityRatings_green_wins.txt"));
+			moveRatings = normalize(dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_moveRatings_green_wins.txt"));
 		}
 
-		nrOfFieldColorChange = normalize(dataReader.readRatingFromFile(baseFilename + "_colorChange.txt"));
+		nrOfFieldColorChange = normalize(dataReader.readRatingFromFile(this.getClass(), baseFilename + "_colorChange.txt"));
 
 		// print ratings to see what they look like:
 //		dataReader.printRatingsBoard(moveRatings, 0);
