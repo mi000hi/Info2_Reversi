@@ -8,8 +8,8 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="ElPulpo.jar"/>
 	<classpathentry kind="lib" path="reversi.jar"/>
-	<classpathentry kind="lib" path="/home/michael/git/Info2_Reversi/BugattiCinque03.jar"/>
-	<classpathentry kind="src" path="/NeuronalNetwork"/>
-	<classpathentry kind="lib" path="NeuronalNetwork.jar"/>
+	<classpathentry kind="src" path="/NeuralNetwork"/>
+	<classpathentry kind="lib" path="NeuralNetwork.jar"/>
+	<classpathentry kind="lib" path="BugattiCinque03.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

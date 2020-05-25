@@ -1,6 +1,6 @@
 package neuralNet;
 
-import NeuronalNetwork.Netz;
+import NeuronalNetwork.Net;
 
 public class NetTrainer {
 	
@@ -9,7 +9,7 @@ public class NetTrainer {
 	public static void main(String[] args) {
 		
 		// 64 input neurons, 44 hidden neurons, 1 output neuron
-		Netz net = new Netz(64, (int) Math.round(2.0/3*64+1), 1, learnrate);
+		Net net = new Net(64, (int) Math.round(2.0/3*64+1), 1, learnrate);
 		
 		System.out.println(Math.round(2.0/3*64+1));
 	}
