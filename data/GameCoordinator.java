@@ -1,3 +1,5 @@
+package data;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,7 +12,7 @@ import reversiPlayers.*;
 import dataAccess.DataReader;
 import dataAccess.DataWriter;
 
-public class GameCoordinator {
+public class GameCoordinator implements Terminatable{
 
 	/*
 	 * variables for the GameCoordinator
@@ -147,20 +149,28 @@ public class GameCoordinator {
 				mobilityRatings_green.add(new double[BOARD_SIZE][BOARD_SIZE]);
 			}
 		} else {
-			stoneRatings_red = dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_stoneRatings_red_wins.txt");
-			stoneRatings_green = dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_stoneRatings_green_wins.txt");
-			moveRatings_red = dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_moveRatings_red_wins.txt");
-			moveRatings_green = dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_moveRatings_green_wins.txt");
-			numberOfGames_red = dataReader.readNumberOfGamesFromFile(this.getClass(), baseFilename + "_stoneRatings_red_wins.txt");
-			numberOfGames_green = dataReader.readNumberOfGamesFromFile(this.getClass(), baseFilename + "_stoneRatings_green_wins.txt");
+			stoneRatings_red = dataReader.readRatingsFromFile(this.getClass(),
+					baseFilename + "_stoneRatings_red_wins.txt");
+			stoneRatings_green = dataReader.readRatingsFromFile(this.getClass(),
+					baseFilename + "_stoneRatings_green_wins.txt");
+			moveRatings_red = dataReader.readRatingsFromFile(this.getClass(),
+					baseFilename + "_moveRatings_red_wins.txt");
+			moveRatings_green = dataReader.readRatingsFromFile(this.getClass(),
+					baseFilename + "_moveRatings_green_wins.txt");
+			numberOfGames_red = dataReader.readNumberOfGamesFromFile(this.getClass(),
+					baseFilename + "_stoneRatings_red_wins.txt");
+			numberOfGames_green = dataReader.readNumberOfGamesFromFile(this.getClass(),
+					baseFilename + "_stoneRatings_green_wins.txt");
 			nrOfFieldColorChange = dataReader.readRatingFromFile(this.getClass(), baseFilename + "_colorChange.txt");
-			mobilityRatings_red = dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_mobilityRatings_red_wins.txt");
-			mobilityRatings_green = dataReader.readRatingsFromFile(this.getClass(), baseFilename + "_mobilityRatings_green_wins.txt");
+			mobilityRatings_red = dataReader.readRatingsFromFile(this.getClass(),
+					baseFilename + "_mobilityRatings_red_wins.txt");
+			mobilityRatings_green = dataReader.readRatingsFromFile(this.getClass(),
+					baseFilename + "_mobilityRatings_green_wins.txt");
 		}
 
 		// initialize the terminator
 		if (MAX_NUMBER_OF_GAMES == 0) {
-			terminator = new Terminator();
+			terminator = new Terminator(this);
 			terminatorThread = new Thread(terminator);
 			terminatorThread.start();
 		}
@@ -183,47 +193,11 @@ public class GameCoordinator {
 						nrOfFieldColorChange);
 			}
 			if (players[2] instanceof AB_prettyGood) {
-				((AB_prettyGood) players[2]).setRatings(stoneRatings_green, moveRatings_green,
-						mobilityRatings_green, nrOfFieldColorChange);
+				((AB_prettyGood) players[2]).setRatings(stoneRatings_green, moveRatings_green, mobilityRatings_green,
+						nrOfFieldColorChange);
 			}
 
-			// create the game board
-			GameBoard board = new BitBoard();
-			int currentPlayer = GameBoard.RED;
-			Coordinates currentMove;
-
-			// reset game state variables
-			gameBoards = new ArrayList<>();
-			moveWasMadeBy = new ArrayList<>();
-			moves = new ArrayList<>();
-
-			// play the game
-			while (board.isMoveAvailable(GameBoard.GREEN) || board.isMoveAvailable(GameBoard.RED)) {
-
-				// player makes a move
-//				do {
-				currentMove = players[currentPlayer].nextMove(board.clone());
-//				} while(!board.checkMove(currentPlayer, currentMove));
-				board.makeMove(currentPlayer, currentMove);
-
-				// add the gameboard to the gameBoards
-				if (currentMove != null) {// && currentMove.getRow() != -1) {
-					gameBoards.add(board.clone());
-					moveWasMadeBy.add(currentPlayer);
-					moves.add(currentMove);
-//					System.out.println("add move " + moves.size() + ": " + currentMove.getCol() + "/" + currentMove.getRow());
-				}
-
-				// switch player
-				currentPlayer = -currentPlayer + 3;
-
-			}
-
-//			System.out.println("Game " + gameIndex + " finished.");
-			// printBoard(board);
-			// printAllBoards(gameBoards);
-
-			winner = getWinner(board);
+			playGame();
 
 //			if (winner == GameBoard.EMPTY) { // if draw
 //				System.out.println("===== DRAW: " + scores[GameBoard.RED] + "(r) - " + scores[GameBoard.GREEN] + "(g)");
@@ -265,8 +239,8 @@ public class GameCoordinator {
 
 				try {
 					saveData(baseFilename, stoneRatings_red, stoneRatings_green, numberOfGames_red, numberOfGames_green,
-							moveRatings_red, moveRatings_green, mobilityRatings_red, mobilityRatings_green, nrOfFieldColorChange);
-
+							moveRatings_red, moveRatings_green, mobilityRatings_red, mobilityRatings_green,
+							nrOfFieldColorChange);
 
 					// update the terminate message
 					if (terminator != null) {
@@ -289,7 +263,8 @@ public class GameCoordinator {
 
 		try {
 			saveData(baseFilename, stoneRatings_red, stoneRatings_green, numberOfGames_red, numberOfGames_green,
-					moveRatings_red, moveRatings_green, mobilityRatings_red, mobilityRatings_green, nrOfFieldColorChange);
+					moveRatings_red, moveRatings_green, mobilityRatings_red, mobilityRatings_green,
+					nrOfFieldColorChange);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -303,7 +278,48 @@ public class GameCoordinator {
 		printRatingsBoard(mobilityRatings_red, 60 - 2);
 		System.out.println("nrOfFieldColorChange for the gameboard is: ");
 		printRatingsBoard(nrOfFieldColorChange);
-		
+
+	}
+
+	private void playGame() {
+
+		// create the game board
+		GameBoard board = new BitBoard();
+		int currentPlayer = GameBoard.RED;
+		Coordinates currentMove;
+
+		// reset game state variables
+		gameBoards = new ArrayList<>();
+		moveWasMadeBy = new ArrayList<>();
+		moves = new ArrayList<>();
+
+		// play the game
+		while (board.isMoveAvailable(GameBoard.GREEN) || board.isMoveAvailable(GameBoard.RED)) {
+
+			// player makes a move
+//			do {
+			currentMove = players[currentPlayer].nextMove(board.clone());
+//			} while(!board.checkMove(currentPlayer, currentMove));
+			board.makeMove(currentPlayer, currentMove);
+
+			// add the gameboard to the gameBoards
+			if (currentMove != null) {// && currentMove.getRow() != -1) {
+				gameBoards.add(board.clone());
+				moveWasMadeBy.add(currentPlayer);
+				moves.add(currentMove);
+//				System.out.println("add move " + moves.size() + ": " + currentMove.getCol() + "/" + currentMove.getRow());
+			}
+
+			// switch player
+			currentPlayer = -currentPlayer + 3;
+
+		}
+
+//		System.out.println("Game " + gameIndex + " finished.");
+		// printBoard(board);
+		// printAllBoards(gameBoards);
+
+		winner = getWinner(board);
 	}
 
 	/**
@@ -376,7 +392,7 @@ public class GameCoordinator {
 			ArrayList<Integer> moveWasMadeBy, int winner) {
 
 //		System.out.println("adding game to ratings");
-		
+
 		GameBoard currentBoard; // saves the current board for that iteration
 		int lastPlayer; // saves the player who did the move resulting with this gameboard
 		double[][] currentStoneRatings; // saves the current board ratings for that move
@@ -398,7 +414,7 @@ public class GameCoordinator {
 					lastOccupation = 0;
 					for (int i = 0; i < boards.size(); i++) {
 						if (boards.get(i).getOccupation(new Coordinates(y + 1, x + 1)) != lastOccupation) {
-							if(lastOccupation != 0) {
+							if (lastOccupation != 0) {
 								nrOfFieldColorChange[x][y] += 1.0 / 10000 * 100;
 							}
 							lastOccupation = boards.get(i).getOccupation(new Coordinates(y + 1, x + 1));
@@ -433,18 +449,19 @@ public class GameCoordinator {
 					for (int y = 0; y < BOARD_SIZE; y++) {
 
 						currentCoordinates = new Coordinates(y + 1, x + 1);
-						
+
 						currentStoneRatings[x][y] += weight
 								* stoneRating(currentBoard, moveIndex, lastPlayer, winner, currentCoordinates) / 10000;
 
 						currentMobilityRatings[x][y] += weight
-								* mobilityRating(previousBoard, moveIndex, lastPlayer, winner, currentCoordinates) / 10000;
+								* mobilityRating(previousBoard, moveIndex, lastPlayer, winner, currentCoordinates)
+								/ 10000;
 
 					}
 				}
 
-				currentMoveRatings[currentMove.getCol() - 1][currentMove.getRow() - 1] += 100 * moveRating(lastPlayer,
-						winner); // TODO
+				currentMoveRatings[currentMove.getCol() - 1][currentMove.getRow() - 1] += 100
+						* moveRating(lastPlayer, winner); // TODO
 
 				// save the new boardRating
 				if (winner == 1) {
@@ -456,7 +473,7 @@ public class GameCoordinator {
 					moveRatings_green.set(moveIndex, currentMoveRatings);
 					mobilityRatings_green.set(moveIndex, currentMobilityRatings);
 				}
-				
+
 //				System.out.println("previous Board was:");
 //				printBoard(previousBoard);
 				previousBoard = currentBoard;
@@ -519,7 +536,7 @@ public class GameCoordinator {
 	 */
 	private double mobilityRating(GameBoard board, int boardIndex, int player, int winner, Coordinates field)
 			throws OutOfBoundsException {
-		
+
 		// rate the field according to possible moves: 1 for winners possible move
 		if (board.checkMove(player, field)) {
 			if (player == winner) { // winner could pick this move
@@ -747,7 +764,7 @@ public class GameCoordinator {
 	 * 
 	 * @param value
 	 */
-	public static void setTerminateProgram(boolean value) {
+	public void setTerminateProgram(boolean value) {
 		terminateProgram = value;
 	}
 

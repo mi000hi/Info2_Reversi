@@ -1,3 +1,5 @@
+package data;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,9 +9,12 @@ public class Terminator implements Runnable {
 	private final String TERMINATION_KEYWORD = "stop";
 	private final String INPUT_REQUEST = "TERMINATOR: type in '" + TERMINATION_KEYWORD + "' to terminate the program:\n";
 
-	public Terminator() {
+	private Terminatable toBeTerminated;
+	
+	public Terminator(Terminatable toBeTerminated) {
 
-		GameCoordinator.setTerminateProgram(false);
+		this.toBeTerminated = toBeTerminated;
+		this.toBeTerminated.setTerminateProgram(false);
 
 	}
 
@@ -32,7 +37,7 @@ public class Terminator implements Runnable {
 			
 			// terminate the program
 			System.out.println("TERMINATOR: terminating the program, please wait while data is being saved.");
-			GameCoordinator.setTerminateProgram(true);
+			toBeTerminated.setTerminateProgram(true);
 		
 		} catch(IOException e) {
 			
