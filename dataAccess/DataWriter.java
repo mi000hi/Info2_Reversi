@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import neuralNet.TrainingSample;
 import reversi.ReversiPlayer;
 
 public class DataWriter {
@@ -46,6 +47,46 @@ public class DataWriter {
 		writer.write(output);
 		writer.close();
 
+	}
+	
+	/**
+	 * writes the given string to the requested file
+	 * 
+	 * @param relativeFilename
+	 * @param output
+	 * @throws IOException
+	 */
+	private static void writeToFileStatic(String filename, String output, boolean append) throws IOException {
+
+		BufferedWriter writer = new BufferedWriter(new FileWriter(filename, append));
+		writer.write(output);
+		writer.close();
+
+	}
+	
+	public static void writeTrainingSample(String filename, TrainingSample sample, int sampleNumber, boolean append) throws IOException {
+		
+		if(!append) {
+			
+			// write fileheader
+			StringBuffer title = new StringBuffer();
+			title.append("+-----------------------------------------------------------+\n");
+			title.append("|  this file contains trainingsamples for a neural network  |\n");
+			title.append("|          which plays reversi. do not alter data.          |\n");
+			title.append("+-----------------------------------------------------------+\n\n");
+			title.append("the number before the gameboard represents the probability,\n");
+			title.append("that the player, whose turn it is to move, will win.\n\n");
+			
+			writeToFileStatic(filename, title.toString(), false);
+		}
+		
+		// write trainingsample
+		StringBuffer sampleString = new StringBuffer();
+		sampleString.append("sample " + sampleNumber + ":\n");
+		sampleString.append("player " + sample.nextPlayer + ": " + sample.gameResult + "\n");
+		sampleString.append(sample.gb);
+		
+		writeToFileStatic(filename, sampleString.toString(), true);
 	}
 
 	/**

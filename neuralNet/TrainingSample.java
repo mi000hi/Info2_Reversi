@@ -31,8 +31,15 @@ public class TrainingSample {
 
 		numberOfOutcomes = numberOfRedWins + numberOfGreenWins + numberOfDraws;
 
+		// if there is only this one outcome
 		if(numberOfOutcomes == 0) {
 			int stoneDifference = gb.countStones(GameBoard.RED) - gb.countStones(GameBoard.GREEN);
+			
+			// if its a draw
+			if(stoneDifference == 0) {
+				gameResult = 0.5;
+				return gameResult;
+			}
 			gameResult = stoneDifference / Math.abs(stoneDifference) / 2 + 0.5;
 			if (nextPlayer == GameBoard.GREEN) {
 				gameResult = 1 - gameResult;

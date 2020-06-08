@@ -13,6 +13,6 @@ public class NetTrainer {
 //		System.out.println("we made " + Math.round(2.0 / 3 * 64 + 1) + " hidden neurons");
 
 		TrainingDataCollector tdc = new TrainingDataCollector();
-		TrainingSample sample01 = tdc.findTrainingSample(11);
+		TrainingSample sample01 = tdc.findTrainingSample(0);
 	}
 }

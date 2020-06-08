@@ -1,5 +1,6 @@
 package neuralNet;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import reversi.BitBoard;
@@ -12,11 +13,11 @@ import data.Terminator;
 
 public class TrainingDataCollector implements Terminatable {
 
-	private String trainingDataFilename = "neuralNet_reversi_trainingData.txt";
+	private static String trainingDataFilename = "neuralNet_reversi_trainingData_depth08.txt";
 	private static boolean terminateProgram = true;
 
 	public static void main(String[] args) {
-		
+
 		TrainingDataCollector tdc = new TrainingDataCollector();
 
 		Terminator terminator = new Terminator(tdc);
@@ -24,10 +25,37 @@ public class TrainingDataCollector implements Terminatable {
 		terminatorThread.start();
 		tdc.setTerminateProgram(false);
 		
-		while(!terminateProgram) {
-			
+		long startTime = System.currentTimeMillis();
+		boolean appendToFile = true;
+
+		int sampleNumber = 17192;
+		int maxNumberOfSamples = 100000;
+		int depth = 8;
+		while (!terminateProgram && sampleNumber <= maxNumberOfSamples) {
+			TrainingSample sample = tdc.findTrainingSample(depth);
+
+			try {
+				dataAccess.DataWriter.writeTrainingSample(trainingDataFilename, sample, sampleNumber, appendToFile);
+				sampleNumber++;
+				if(!appendToFile) {
+					appendToFile = true;
+				}
+
+				// sleep so that i can terminate the thread manually after a cycle if i rewrite
+				// the whole file, so that i can change the append-boolean
+//				Thread.sleep(10000);
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+			}
 		}
-		System.out.println("program terminated");
+		
+		terminator.killMe(); // TODO: does not work
+		System.out.println("program terminated. it ran for " + (System.currentTimeMillis() - startTime) + " ms");
 
 	}
 
@@ -63,11 +91,11 @@ public class TrainingDataCollector implements Terminatable {
 		// find the winrate accroding to the player who has to make a turn
 		trainingSample.setGameResult();
 
-		System.out.println("the trainingSample has " + trainingSample.numberOfOutcomes + " possible outcomes"
-				+ "\nwith a winPrediction of " + trainingSample.gameResult + " for the player "
-				+ trainingSample.nextPlayer);
-		System.out.print("\n" + trainingSample.gb);
-		System.out.println("finding this trainingSample took " + (System.currentTimeMillis() - startTime) + " ms\n");
+//		System.out.println("the trainingSample has " + trainingSample.numberOfOutcomes + " possible outcomes"
+//				+ "\nwith a winPrediction of " + trainingSample.gameResult + " for the player "
+//				+ trainingSample.nextPlayer);
+//		System.out.print("\n" + trainingSample.gb);
+//		System.out.println("finding this trainingSample took " + (System.currentTimeMillis() - startTime) + " ms\n");
 
 		// return the trainingSample
 		return trainingSample;
