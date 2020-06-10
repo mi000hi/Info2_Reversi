@@ -27,3 +27,18 @@ DutyCalls.java
 
 # the ratings files
 #*.txt
+/neuralNet/
+/dataAccess/
+/neuralNet_reversi_trainingData.txt
+/neuralNet_reversi_trainingData_depth00.txt
+/data/
+/neuralNet_reversi_trainingData_depth01.txt
+/neuralNet_reversi_trainingData_depth02.txt
+/neuralNet_reversi_trainingData_depth03.txt
+/neuralNet_reversi_trainingData_depth04.txt
+/neuralNet_reversi_trainingData_depth05.txt
+/neuralNet_reversi_trainingData_depth06.txt
+/neuralNet_reversi_trainingData_depth07.txt
+/neuralNet_reversi_trainingData_depth08.txt
+/neuralNet_reversi_trainingData_depth09.txt
+/neuralNet_reversi_trainingData_depth10.txt
