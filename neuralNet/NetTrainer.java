@@ -1,10 +1,12 @@
 package neuralNet;
 
 import NeuronalNetwork.Net;
+import data.Terminatable;
 
-public class NetTrainer {
+public class NetTrainer implements Terminatable {
 
 	static double learnrate = 0.1;
+	
 
 	public static void main(String[] args) {
 
@@ -12,7 +14,17 @@ public class NetTrainer {
 		Net net = new Net(64, (int) Math.round(2.0 / 3 * 64 + 1), 1, learnrate);
 //		System.out.println("we made " + Math.round(2.0 / 3 * 64 + 1) + " hidden neurons");
 
+		
+		
 		TrainingDataCollector tdc = new TrainingDataCollector();
 		TrainingSample sample01 = tdc.findTrainingSample(0);
+		
+		System.out.println(sample01);
+	}
+
+	@Override
+	public void setTerminateProgram(boolean value) {
+		// TODO Auto-generated method stub
+		
 	}
 }

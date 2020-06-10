@@ -1,0 +1,4424 @@
++-----------------------------------------------------------+
+|  this file contains trainingsamples for a neural network  |
+|          which plays reversi. do not alter data.          |
++-----------------------------------------------------------+
+
+the number before the gameboard represents the probability,
+that the player, whose turn it is to move, will win.
+
+sample 1:
+player 1: 0.9303430434995832
+ |a|b|c|d|e|f|g|h|
+1|g|g|g| | |r|g| 
+2|r|r|r|r|r|g|r| 
+3|r|r|g|r|g|r| |r
+4|r|r|r|g|g|g|r| 
+5|r|r|g|g|g|g|g| 
+6|r|r|r|r|g|r|g|r
+7|r|r| |g| |g|g|r
+8|r|g|g|g|g| |g|r
+
+sample 2:
+player 1: 0.21800593854412686
+ |a|b|c|d|e|f|g|h|
+1| | |g|r|g|g|g|g
+2| |r|r|g|r|g|g|r
+3| |r|g|r|r|g|g|r
+4| |g|g|g|r|r|g|r
+5|g|g|g|r|r|g|g|r
+6| |g|r|r|r|g|g|r
+7| |r|g|r|r|r|r|r
+8| | | |g|r|r|g|r
+
+sample 3:
+player 1: 0.5871333221156543
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|r|r| | | 
+2|g|r|r|r|g| | | 
+3|g|r|g|g|g|r| |g
+4|g|r|g|g|g|g| |g
+5|g|r|g|r|g|r|r|g
+6|g|r|r|r|r|r|r|g
+7|g|r|r|r|r|g|r| 
+8| |r|r|r|r|r|r|r
+
+sample 4:
+player 1: 0.17380799853573717
+ |a|b|c|d|e|f|g|h|
+1|g| | |g|g|g| | 
+2|r|r|r|r|r|r|g|g
+3|r|r|r|r|g|g|g|g
+4|g|r|r|g|r|g|g| 
+5|r|r|r|r|r|g|r|r
+6| |g|r|g|g|r|r| 
+7| |g|g|g|r|r|r|r
+8| |g|g|g|g|g| |g
+
+sample 5:
+player 1: 0.06938023553664972
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|r|r|g|g|g
+2|r|r|g|r|r|r|g|g
+3|r|r|r|g|r|g|r|g
+4| |r|r|g|g|g|g|g
+5| |r|r|g|r|g| |g
+6| |g|r|r|r| |g| 
+7|g|r|g| |g|r| |g
+8| |r| |g|r|r|r|r
+
+sample 6:
+player 1: 0.0035043180141474633
+ |a|b|c|d|e|f|g|h|
+1| | | | |r|r|r| 
+2|g|g|g|g|r|r|r| 
+3|r|r|r|g|g|r|r|g
+4|r|r|r|g|r|g|r|g
+5| |g|r|r|g|g|r|g
+6|g|g|r|g|g|g|r|g
+7| |g|g|g|g|g|g|g
+8| | |g|g|g|g|g|g
+
+sample 7:
+player 1: 0.7550059395517239
+ |a|b|c|d|e|f|g|h|
+1| |g| | | |g|r| 
+2|g|g|g|g|g|g|r| 
+3|g|g|r|g|g|g|r|r
+4| |g|g|r|r|r|r|r
+5|g|g|g|g|r|r|r|g
+6|g|g|g|g|r|r|r| 
+7|r|r|r|r|r|r|g|g
+8|r|r|r|g| |r| |r
+
+sample 8:
+player 1: 0.4511206328279499
+ |a|b|c|d|e|f|g|h|
+1| | |g|r| |r|g| 
+2|r|g|g|g|g|g| |r
+3|r|r|r|r|r|r| |r
+4|r|g|g|g|r|r|g|r
+5|r|g|g|r|g|g|g|r
+6|r|g|g|g|g|g|g|r
+7|g|g|g|g|g|g|g| 
+8|r|r| |r|r|g| | 
+
+sample 9:
+player 1: 0.10110313805290778
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g|r|g
+2|g|g|r|r|g|g|r|g
+3|r|r|r| |g|r|r|g
+4| |r|r|g|g|g|r|g
+5| |r|r|g|g|g|g|g
+6|r|r|r|r|r|g|g|g
+7|r|r|r|r|r| |g| 
+8|r|r| | |r| | | 
+
+sample 10:
+player 1: 0.5341236831392281
+ |a|b|c|d|e|f|g|h|
+1|r|g|r|r| |r| |r
+2|r|g|g|g|g|g|r| 
+3|r|g|g|g|g|r| |g
+4|g|g|g|r|g|g|g|g
+5| |g|r|r|g|g|r|r
+6| |r|g|r|g|g|g|r
+7| | |r|g|r|r|r|r
+8| |r|g| |g|r|r|r
+
+sample 11:
+player 1: 0.9961283379925842
+ |a|b|c|d|e|f|g|h|
+1| |r| |r|r|r|r|r
+2|r|r|r| |r|r|r|r
+3|g|r| |r|r|r|g|r
+4| |g|r|r|g|g|r|r
+5| |r|g|r|g|r|g|r
+6| |r|r|g|g|r|g|r
+7|g|g|r| |g|g|g|r
+8|r| |r| |g|g|g|r
+
+sample 12:
+player 1: 0.006015635351795416
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|r| | |g
+2| |r|r|r|g|g|g|g
+3|g|r|r|r| |g|g|g
+4|g|g|g|g|g|r|g|r
+5|r|g|r|g|r|g|g| 
+6| |r|g|g|g|g|g| 
+7| |g|g|g|g|g|g| 
+8|g|g|g|g|g|g|g|r
+
+sample 13:
+player 1: 0.09722454487264508
+ |a|b|c|d|e|f|g|h|
+1| |r| |r|r| |r|g
+2|g| |r|g|r|r|r| 
+3|g|g| |r|r|g|r|g
+4| |r|g|r|r|r|r|g
+5| |r|r|g|r|r|g|g
+6| |r|g| |r|g|r|g
+7|r|g|r|r|r|r|r|r
+8|g|g|g|g|g|g|g|g
+
+sample 14:
+player 1: 0.8062988526763267
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r| |r| | 
+2|g|r|g|g|g|g|g| 
+3|g|g|r|r|r|g|g| 
+4|g| |g|r|g|g|g|g
+5|g|g|g|g|g|g|r| 
+6|g|g|g|g|r|g|r|g
+7| |g|g|g|g|g|g|r
+8| | |r|r|g|g|r|r
+
+sample 15:
+player 1: 0.19169090025532046
+ |a|b|c|d|e|f|g|h|
+1| | |g|g|g|g|g| 
+2|g|g|g|g|r|g|r|r
+3|r|g|g|g|g|r|r|r
+4|r|r|g|g|r|r|r|r
+5|r| |r|r|r|r|r|r
+6|r|g|r|r|r|g|g| 
+7| |g|g|g|g| |g|g
+8|r|g|g|g| | | |g
+
+sample 16:
+player 1: 0.9099307740717433
+ |a|b|c|d|e|f|g|h|
+1|r|g|g|g|g|g|g| 
+2|r|r|r|r|r|g|g|g
+3|r|r|r|r|g|g|g|r
+4|g|g|r|g|g|g| |r
+5| |r|g|g|g|g|g|r
+6|r|r|r|r|r|r|r|r
+7| | | |r|g|g|r|r
+8| |r|r|r| |g| | 
+
+sample 17:
+player 1: 0.5288665421031638
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r| | | | 
+2|r|r|r|r|r|g| |r
+3|g|g|r|g|g|g|g|g
+4|g|g|g|g|g|r|g| 
+5|g|r|g|r|r|r|g|g
+6|g|g|r|r|r|r|g|g
+7|g|g|r|r|r|r|g|g
+8| | | |r|r|r| |g
+
+sample 18:
+player 1: 0.999840868856046
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|r| | | 
+2| | |g|g|g|g|g| 
+3|r|r|r|g|g|g| | 
+4|r|r|r|g|g|g|g| 
+5|r|r|r|r|g|g|g|g
+6|r|r|r|g|g|g|g|r
+7|r|r|g|r|r|r|r|r
+8|r|r|r|r|r|r|r|r
+
+sample 19:
+player 1: 0.1357686184326906
+ |a|b|c|d|e|f|g|h|
+1|r| | |r| |g| |g
+2|r| |r|r|g|g|g|g
+3|r|r|g|g|g|g|g|g
+4|r|r|r|r|g|r|g| 
+5|r|r|r|g|r|g| | 
+6|r|r|r|r|g|r|g| 
+7| |r|r|r|r|r|g|g
+8|r|g|g|g|r|r|g|g
+
+sample 20:
+player 1: 0.18502028557879763
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g|g| 
+2|r|g|g|r|g|g|g|g
+3| |g|g|r|g|r|g|g
+4|r| |g|r|g|g|r|g
+5|r|r|g|r|g|r|g|g
+6|r|g|g|r|g|g|g|g
+7|r| |r|g|g| | | 
+8|r|r| |g|g|r| | 
+
+sample 21:
+player 1: 0.30985412466864554
+ |a|b|c|d|e|f|g|h|
+1| |g| | | |g|g|g
+2|r|r|r|r|g|g|r|r
+3|r|r| |g|r|g|r| 
+4|r|r|g|g|g|r|r|g
+5| |g|g|r|g|g|r|g
+6|g|g|g|g|r|g|r|g
+7| | |g|r|g|g|r|g
+8| |g|r|r|r|r|r|r
+
+sample 22:
+player 1: 0.3423256312897105
+ |a|b|c|d|e|f|g|h|
+1| |r|g| |r|r| |r
+2|g| |r|g|r| |r|r
+3|g|g|r|r|g|r|g|r
+4|g|r|g|r|r|g|r| 
+5|g|g|r|g|r|g|r|g
+6|g|g|g|g|g|r|g| 
+7|r|r|g|g|g|g|g|g
+8| | |r|g|g|r|r| 
+
+sample 23:
+player 1: 1.7744260840634357E-4
+ |a|b|c|d|e|f|g|h|
+1|g|g|r| | |g| | 
+2| |r|r|r|g| |g|g
+3|r|r|r|g|r|r|r|g
+4|r|r|r|r|r|r|r|g
+5|g|r|r|g|g|r|r|g
+6| | |r|g|g|g|r|g
+7| |g|g|g|r|r|g|g
+8| |g|g|g|g|g|g|g
+
+sample 24:
+player 1: 0.9842625489660198
+ |a|b|c|d|e|f|g|h|
+1|r|g| | |g|r|r| 
+2|r|r|g| |g|r|r| 
+3|r|r|r|g|g|g|r|g
+4|r|r|g|r|g|r| |r
+5|r|r|g|g|r|r|r|r
+6|r|r|r|r|r|r| | 
+7|r|r|r|r|r|r|r| 
+8|r|r|r|r|g|g|g| 
+
+sample 25:
+player 1: 0.5542635011147172
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r| |r| |g
+2|g|r|g|g|r|r| |g
+3| |r|g|r|g|r|r|g
+4| |g|r|g|r|r| |g
+5|g| |r|r|r|r|g|g
+6| |g|r|r|g|g|r|g
+7|g|g|r|g|g|g|r|r
+8| |g|r| |g|g|r|r
+
+sample 26:
+player 1: 0.6408991884321659
+ |a|b|c|d|e|f|g|h|
+1|g|r|g|g|g|g| | 
+2| |r|g|r|r|g|g|r
+3|r|g|g|r|r|g| |r
+4|g|g|g|g|g|r|r|r
+5| |g|g|g|r|r|r|r
+6|r|g|g|r|g|r|g|r
+7| |g|r|r|r|g|r|r
+8| |g|r|r| | | |r
+
+sample 27:
+player 1: 0.07149661007452233
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g| | |g|r
+2| |r|r|r|r| |g|r
+3|r|g|g|r|r|r|g|r
+4|r|g|r|g|r|g|g|r
+5|r|g|r|r|g|r|g|r
+6| |g|r|r|g|g|g|g
+7| |g| |r|r|r|g|g
+8| | |r|r|r|r|g|g
+
+sample 28:
+player 1: 0.24487789395972692
+ |a|b|c|d|e|f|g|h|
+1|g| | | |g| |r|g
+2|g|g|r|r|r|r|g|r
+3|g|g|g|g|g|g|g| 
+4|r|g|r|r|r|r| |g
+5|r|r|r|r|g|r|g| 
+6|r|r|g|g|g|g|r| 
+7|r|g|r|g|g|r|g|r
+8|r| |g|g|g|r| |g
+
+sample 29:
+player 1: 0.5255981501764634
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|r|g|g|g|r
+2|g|r|r|g|g|g|g|g
+3|g|g|r|r|g|r|g|g
+4|g| |g|g|r|g|g| 
+5| |g|g|g|g|r|g|r
+6| |r|r|g|r|r|r| 
+7| | |g|r|g|g| | 
+8| |g|r|r|r|r|r|r
+
+sample 30:
+player 1: 0.08377485114542335
+ |a|b|c|d|e|f|g|h|
+1|r| |g|g|g| | |g
+2| |r|g|g|g| |g|g
+3|g|g|r|g|g|g|r|g
+4| |g|g|r|r|r|r|g
+5|g|g|g|g|r|r|r|g
+6|g|g|g|r|g|r| |g
+7|g| |r|r|r|g|r|g
+8| |r|r|r| |r|g|g
+
+sample 31:
+player 1: 0.5840867835708764
+ |a|b|c|d|e|f|g|h|
+1|r| |g| | |r|r|g
+2|r|r|g|g|r| |r|g
+3|r|r|g|r|g|g|g|r
+4|r|r|r|r|g|g| | 
+5|r|r|r|g|g| |g| 
+6|r|r|r|g|g|g|g|r
+7|r|r|g|r|r|g|g| 
+8|r|g|g|g|g|g|g| 
+
+sample 32:
+player 1: 0.86914576390107
+ |a|b|c|d|e|f|g|h|
+1| |g| |r|r|r| |r
+2|r|g|r|r|r|r|r|r
+3|g|g|g|r|g|r|r| 
+4| |g|r|r|r|g|r| 
+5|g|g|g|g|r|r|g| 
+6|g|g|r|r|r|g|g|g
+7| |g|g|g|g|g|g| 
+8|r|r|r|r|r|r|r| 
+
+sample 33:
+player 1: 0.19963029327043028
+ |a|b|c|d|e|f|g|h|
+1| | | |g|r| |g|g
+2|r| |r|r|r|r|g|g
+3|r|r|r|r|r|g|r|g
+4|r|r|g|g|g|g| |g
+5|r|g|g|g|g|g|g|g
+6|r|g|g|g|r|r| |g
+7|r|g|g| |g|r|g|g
+8| |g|g|g|g|r|r| 
+
+sample 34:
+player 1: 0.6798916363142773
+ |a|b|c|d|e|f|g|h|
+1| |r| | |g|r|r|g
+2|r|r| | |g|r|r|g
+3| |r|r|g|r|g|r| 
+4| |g|g|r|g|g|r|g
+5| |g|r|r|r|g|r|g
+6|g|r|r|g|g|g|r|g
+7|r|r|r|r|g|g|g|g
+8|r|r|r|r|r|g| |r
+
+sample 35:
+player 1: 0.39749674802576995
+ |a|b|c|d|e|f|g|h|
+1|g| | |g|g|g|g|r
+2|r|g|r|r|g|g|r| 
+3| |g|r|g|g|g|g| 
+4|g|r|g|g|r|g|g|r
+5|r|r|g|r|g| |g|r
+6|r|r|r|r|g|g|g|g
+7|g|g|r|r|r|r|r| 
+8|g| | |r|r|r| |r
+
+sample 36:
+player 1: 0.6618467869363072
+ |a|b|c|d|e|f|g|h|
+1|g|r|g|g|g| | | 
+2|r|r|r|r|r|r| | 
+3|r|r|r|g|r|r|r| 
+4| | |r|r|g|r|r|g
+5|g|g|r|r|g|r|r|g
+6|g|g|g|g|r|r|g|g
+7|r|r|r|r|r|r|r|g
+8|r|r|r|r|g| |r| 
+
+sample 37:
+player 1: 0.9793520353586029
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g| | | |r
+2| | | |r|g|g|r|r
+3| |g|g|g|r|r|r|r
+4|g|r|g|g|r|r|r|r
+5|r|r|g|g|r|r|r|r
+6|r|r|r|g|g|r|g|r
+7|r|r|r|r|g|g|r|r
+8|r|r|r|r| |g| |r
+
+sample 38:
+player 1: 0.15849169025173962
+ |a|b|c|d|e|f|g|h|
+1|g|g|r|g|g|g|g| 
+2| |g|g|g|g|g|g|r
+3|g|g|g|g|r|r|g|r
+4|g| | |g|r|g|g|r
+5|r|g|r|r|g|g|g|r
+6|r|g|g|g|g|g|g|r
+7|r| | |g|g|g|g| 
+8| | |r| |g|g|g|g
+
+sample 39:
+player 1: 0.15778381768764374
+ |a|b|c|d|e|f|g|h|
+1|g| | | | |g|r| 
+2|g|r|r|r|g|g|r|r
+3|g|r|r|g|g|g|r|r
+4|g| |g|g|g|g|r|r
+5|g|g|r|g|r|g|r|r
+6|g| |g|r|g|r|g| 
+7|g|g|g|g|g|g|r|g
+8|r| |g|r|r| |g|r
+
+sample 40:
+player 1: 0.6211127123786407
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|g| |g
+2| |r|r|r|g|g|g| 
+3| |g|g|g|r|g|g|g
+4|g|g|g|g|r|r| | 
+5|g|g|r|r|g|g|r| 
+6|g|g|g|g|r|g|g|r
+7| |g|r|r|r|g|g|r
+8| |g|g|g|g|g| |r
+
+sample 41:
+player 1: 0.4890289777577651
+ |a|b|c|d|e|f|g|h|
+1| | |r| |g|g|g| 
+2| |g|g|g|r|r|r| 
+3|g|g|g|r|g|r|r|r
+4|r|g|r|g|g|r|r|g
+5|r|g|r|g|r|r|r| 
+6|r|g|g|r|g|r|r|g
+7|r|g|r|r|r|r|r| 
+8| |r|r|r|r|r|g| 
+
+sample 42:
+player 1: 0.2503661953891224
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g| | | 
+2|g|g|g|g|g| | | 
+3|g|r|g|r|r|g| | 
+4|r|r|r|r|r|r|g|g
+5|r|r|r|r|r|r|g|g
+6| |g|g|g|g|g|r|g
+7|g|g|g|r|r|r|r| 
+8|r|r|r|r|r|r|r|r
+
+sample 43:
+player 1: 0.4995053800284061
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g|g| 
+2|r|r|r|r|r|r|r|r
+3|r|r|r|g|g|g|r| 
+4|r|r|r|g|g|r|g|r
+5|r|r|g|r|r|g| |g
+6| |g|r|r|g|g|g| 
+7|g|r|r|g|g| | | 
+8|r|r|r|g|g|r| | 
+
+sample 44:
+player 1: 8.023106546854942E-5
+ |a|b|c|d|e|f|g|h|
+1| | |g|g| |g| |g
+2| |g| |g|g|g|g|r
+3|g|g|g|g|g|g|g|r
+4| |g|g|g|r|r|r|g
+5| |r|g|g|g|g|g|g
+6|g|r|g|g|r|g|g|g
+7| |g|r|r|g|g|g|g
+8|g|r| |r|r|g|g|g
+
+sample 45:
+player 1: 0.4956402254072899
+ |a|b|c|d|e|f|g|h|
+1|r|g|g|g|g|g|g|g
+2|r|r|r|g|r| |r| 
+3|r|r|g|g|r|r|r| 
+4|r|g|g|g|r| | |g
+5|g|g|g|r|r|g|g|g
+6| |g|g|g|r|g|g|g
+7|g|r|g| |r|g|g|g
+8|r|r|g| |r| |g| 
+
+sample 46:
+player 1: 0.018768881366100314
+ |a|b|c|d|e|f|g|h|
+1| | |g|g|g| |r| 
+2|r| | |g|g|g|r|r
+3|g|r|g|g|g|g|g|g
+4|g|g|r|g|g|g|g|g
+5| |g|g|r|r|g|g|g
+6|r|g|g|r|r|r|g| 
+7|g|g|g|r|r|g|r| 
+8|g|g|g|g|g|g|g| 
+
+sample 47:
+player 1: 0.4693727886780315
+ |a|b|c|d|e|f|g|h|
+1| |r| |g|r|r|r| 
+2| | |g| |g|r|g|r
+3| |g|g|g|g|g|g|r
+4|r|r|g|r|g|g|g|r
+5|r|r|r|g|r|g|g|r
+6|g|r|r|g|g|r|g|g
+7| |g|g|g|g|g|g| 
+8| |g|g|g|g|g|g|r
+
+sample 48:
+player 1: 0.49467075625419343
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|g|g| |g| 
+2| |r|r|g|g|g|g|r
+3| |r|g|g|g|g|r|r
+4|g|g|g|g|g|r|g| 
+5|g|r|g|g|r|g|g|r
+6|r|r|g|g|g|r|r|r
+7|g|g|g|g| |r|r| 
+8| |r|g|r|r|r| | 
+
+sample 49:
+player 1: 0.39430307405402154
+ |a|b|c|d|e|f|g|h|
+1|g| |r|g| |r|r|r
+2|g|g|g|g|r|g|g|g
+3|g|g|g|r|r|r|g|g
+4|g|g|r|g|g|g|g|r
+5| |r| |g|g|g|g| 
+6|r|g| |g|g|r|g|r
+7| | |r|r|r|g| |g
+8| |r|r|r|r|r|r|r
+
+sample 50:
+player 1: 5.405340476390673E-4
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|g|g|g|g
+2| | |g|g|r|r|g|g
+3| | |r|r|r|g|g|g
+4| |r|r|g|g|g|g|r
+5|g|r|r|g|r|g|g|r
+6|g|r|g|r|g|r|g| 
+7|g|g|g|g|r|g|g|r
+8|g| | |g|g|g|g| 
+
+sample 51:
+player 1: 0.5137385313819486
+ |a|b|c|d|e|f|g|h|
+1|r|g|g|g|g|r|g| 
+2| |r|g|g|g|r|g|g
+3|r|r|r|r|g|g| | 
+4| |r|r|r|g|r|g|g
+5| |r|g|r|r|r|g|g
+6| |g|r|r|g|g|g|g
+7|g|g|g|r|r|r|r|g
+8| | |g|g|r|r| |r
+
+sample 52:
+player 1: 0.19860378971363443
+ |a|b|c|d|e|f|g|h|
+1| | | |g| |g|g|r
+2|g|g|g|g|g|g|g|r
+3|g|g|r|g|r|g|g|r
+4| |g|r|r|r|r|r|r
+5|g|g|g|g|r|g|r|r
+6|g|g|g|g|g|r|r|r
+7| | |g|g|g|g|r|g
+8| |g|g|g|g| |g| 
+
+sample 53:
+player 1: 0.019561291807854733
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|r| | | |g
+2|r|g|r|r|r| |g| 
+3|r|g|r|r|r|g|g| 
+4|r|g|r|g|r|r|g| 
+5|r|g|g|g|g|g| | 
+6|r|g|g|g|g|g|r|g
+7|r|g|g|g|g|r|g|g
+8|r|g| |g|g|g|g|g
+
+sample 54:
+player 1: 0.19440246445439752
+ |a|b|c|d|e|f|g|h|
+1|r|g|g|g|g|g| | 
+2|r|r|g|r|r|r|g| 
+3|r|g|g|g|r|r|r|r
+4|r|g|g|r|g| |r| 
+5|g|r|r|r|r|r|r|r
+6|g|g|r|g|g|r|g| 
+7|g|g|g|r| | |g| 
+8|g|g|g|g|r| |g|r
+
+sample 55:
+player 1: 0.22460068558092042
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|r| | 
+2|r|r| | |g|g| | 
+3|r|r|g|r|g|g|r|r
+4|r|r|r|g|r| |g|r
+5|r|r|r|r|g|r|g|g
+6|r|r|g|r|r|g|g|g
+7| |r|r|r|g|g|g| 
+8|r|r|r|r|r|r|r| 
+
+sample 56:
+player 1: 0.635655560363479
+ |a|b|c|d|e|f|g|h|
+1| |g| |g| |g|g|g
+2| | |g|g|g|g|g|g
+3| |r|g|g|g| |r| 
+4|r|r|r|g|g| |r|g
+5|r|r|g|r|g|r|g| 
+6|r|g|g|g|g|g|g|g
+7|r|g|g|g|g|r|r|r
+8|r|r|r|r|r|r|r|r
+
+sample 57:
+player 1: 0.3319175289654994
+ |a|b|c|d|e|f|g|h|
+1| | | | |g|r|r|r
+2| |g|g|g|r|r|r| 
+3|r|r|g|g|r|g|g|g
+4|r|g| |g|r|g|g|g
+5|r|r|g|g|r|g|r|g
+6|r|g|r|g|r|r|g|g
+7|r|r|g|g|g| |g|g
+8|r| |r| |r|g|g|g
+
+sample 58:
+player 1: 0.02292456805731142
+ |a|b|c|d|e|f|g|h|
+1| |g| |r| |g|r|g
+2| |g|g|g|g|r|g|g
+3| |g| |g|r|g|r|g
+4|g|g|g|r|g|r|r|g
+5|r|g|g|g|g|g|r| 
+6|r|g|g|g|g|g|r|r
+7| |g|r|r|r|r|r| 
+8|g|r|r|r|r|r| |g
+
+sample 59:
+player 1: 0.048212251497446075
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g|g| 
+2|g| |r|g|g|g| |g
+3|g|r|r|r|r|r|r|r
+4|g|r|r|g|g|g|g|g
+5|g|r|r|r|g|g|g|g
+6|g|r|g|g|g|g|g|g
+7|g|r|r|g|g|g| | 
+8| |r| |g|g| | | 
+
+sample 60:
+player 1: 0.8693457146653054
+ |a|b|c|d|e|f|g|h|
+1| |g|g|r|g|g|g| 
+2| |g|g|r|r|g|r| 
+3| |g|g|r|g|g|r|r
+4|g|r| |r|g|g|r| 
+5|g|r| |r|r|g|r| 
+6|g|r|g|r|r|r|r|r
+7|g|r|r|g|r|r|r|r
+8|r|r|r|r|r|r| |g
+
+sample 61:
+player 1: 0.12630484187820193
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|r|g|g|r
+2|r|r|r|r|r|g|g|g
+3|g|g|g|g|g|g|g|r
+4| |r|r|r|r|g|r| 
+5|r|r|r|r|g|r|r| 
+6|r|r|g|r|r|r|r|r
+7|r|r|g|r|r|r| | 
+8| |r|g|g|g| | | 
+
+sample 62:
+player 1: 0.027688234521367434
+ |a|b|c|d|e|f|g|h|
+1|g| |g| | | | | 
+2|r|r|r|r|r|r|g|r
+3|r|r|r|r|r|g|r|r
+4|r|r|g|r|g|r|r|r
+5| |r|r|g|r|r|g|g
+6|g|r|g|g|g|r|r|g
+7|g|g| |r|r| |r|g
+8|g|g|g|g|g|r| |r
+
+sample 63:
+player 1: 0.3740534825022171
+ |a|b|c|d|e|f|g|h|
+1|g| |g|g|g| |g| 
+2|g|g| |g|g|g|g| 
+3| |r|g|r|g|g| |r
+4|g|r|g|g|g|g|r|r
+5|r|r|r|g|r|r|r|r
+6|g|r|g|g|g|r|g|r
+7| |g|r|g|r|g|r|r
+8|g|g|g|r| | |g|r
+
+sample 64:
+player 1: 0.09702660406885759
+ |a|b|c|d|e|f|g|h|
+1| | |g|g|g|g|g|g
+2|r|g|g|g|r| |g| 
+3|r|g|g|r|g|g|r|r
+4|r|g|r|r|g| |g|r
+5|r|r|g|r|r|g|g|g
+6|r|g|g|g|g|g|g| 
+7|g|g|g|g|g|g|g|g
+8| |r|r|r| | |r| 
+
+sample 65:
+player 1: 0.8457522223472488
+ |a|b|c|d|e|f|g|h|
+1|r| |r| |g|g|r|r
+2|r|r|r| |g|g|r|g
+3|r|r|r|r|r|g|g| 
+4|r|r|r|r|r|g|g| 
+5|r|r|g|r|g| |g| 
+6|r|r|g|g|r|g|g|r
+7|r| |g| |r|g|r|r
+8|r| |g|g|g|r|g|g
+
+sample 66:
+player 1: 0.07477600037528732
+ |a|b|c|d|e|f|g|h|
+1|r| |g|g|r|r| |g
+2|r| |g| |g|r|r|g
+3|r|g|g|g|r|r|r|g
+4|g|g|g|g|g|r|r|g
+5|g|g|r|r|r|g|r| 
+6|r| |g|r|g|r|g| 
+7|r|r|g|g|r| |g|g
+8|g|g|g|r| | |g|r
+
+sample 67:
+player 1: 0.12730760009590025
+ |a|b|c|d|e|f|g|h|
+1| |r|r|g| |r|g| 
+2| |g|g|g|r|r|r|g
+3|g|g|g|r|g|r|r|r
+4|g|g|r|g|r|g|r| 
+5| |g|r|r|g|r|g|g
+6| |g|r|r|r|g|g|g
+7|r|r|r|r|r|r|g|g
+8| | | |g|g|g|g|g
+
+sample 68:
+player 1: 0.5805980931400248
+ |a|b|c|d|e|f|g|h|
+1|g|r|g| |r| | | 
+2| |r|r|g|r| | |g
+3| |r|g|r|r|g|g|g
+4|g|g|g|g|r|g|g|g
+5|g|g|r|g|r|r|r|g
+6|r|g|g|r|r|r|r|g
+7| |g| |g|r|r|r|g
+8|r|r|r|r|r|r|r|g
+
+sample 69:
+player 1: 0.357252159218926
+ |a|b|c|d|e|f|g|h|
+1| | | |g|g|g|g| 
+2|r| |g|g|g|r|g| 
+3|r|r|r|r|r|r| |g
+4|g|g|g|g|g|g|g|g
+5| |g|g|r|g|r|g|g
+6|r|g|g|r|g|g|r|g
+7|g|g| |g|g|r|g|g
+8|g| |g|g|g|r|r|r
+
+sample 70:
+player 1: 0.025433484423339807
+ |a|b|c|d|e|f|g|h|
+1|g|r| |r|g|g| | 
+2|g|r| |r|g|g|g|r
+3|g|g|g|g|r|g|g| 
+4|r|g|r|r|r|r|g| 
+5|r|g|g|r|g|r|r|r
+6|r|r|r|r|r|g|r|r
+7| |r|r|r|g|g|g| 
+8| | |r|r|r|r|r|g
+
+sample 71:
+player 1: 0.5236548278780269
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|r| |g| 
+2| |r|g|r|r|r|r| 
+3| | |r|r|g|r|r|g
+4|r|r|r|g|r|g|r|r
+5|r|r|r|r|g|r|r| 
+6|g|g|g|g|r|r|r| 
+7|g|g|r|g|g|r|r| 
+8|r|r|r|r|r|r|r|g
+
+sample 72:
+player 1: 0.8694624571515905
+ |a|b|c|d|e|f|g|h|
+1|g|r| |r|r|r| |r
+2| |r|g|g|g|g|g|g
+3| |r|g|g|r|r|r|g
+4| |r|g|r|g|r|r|g
+5|r|r|g|r|r|g|r|g
+6| |r|g|r|r|g|g|g
+7|g|r|r|g|r|g| | 
+8|r|r|r|r|r|g| | 
+
+sample 73:
+player 1: 0.02143278012373564
+ |a|b|c|d|e|f|g|h|
+1| | | |r| |r|r|g
+2| | |r|r|r|r|r|g
+3| |r|g|r|r|r|r|r
+4|r|g|g|g|r|r|r|r
+5|g|g|g|g|g|r|r|r
+6|g| |g|g|g|r|r|r
+7|g|g|g|r|r|r|r| 
+8|g|g|g|g|g|r|r| 
+
+sample 74:
+player 1: 0.4374265719977525
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|r|r|r|r
+2|r|r|r|r|g|g|g|g
+3|r|r|r|g|r|g|g| 
+4|r|r|g|r|g|g|g|g
+5|g|r|g|r|g| |g| 
+6|g|g|r|r|r|g|r|r
+7|g| |g|r|g|r| | 
+8|g|g|g|g|g| | | 
+
+sample 75:
+player 1: 0.010406575664171436
+ |a|b|c|d|e|f|g|h|
+1|g| | | | |r|r|g
+2|g| |g|g|r|r|g| 
+3|g|r|g|r|g|r|g| 
+4|g|g|r|g|g|g|g|r
+5| |g|g|r|g|g|g|r
+6|r|g|r|g|r|r|g|r
+7| |g|g|g|r|r|r| 
+8|g|g|g|g|g|g|g|r
+
+sample 76:
+player 1: 0.4654090392744744
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g| |g|r| 
+2|r|r|r|g|g|r|g| 
+3| | |g|g|r|g| |r
+4|g|g|r|g|g|r|r|r
+5|g|r|r|g|r|r|r|r
+6|g|g|g|g|g|r|r|r
+7| | |g|g|g|g|g|r
+8|r|r|r|r|g| | |r
+
+sample 77:
+player 1: 0.17344363184928485
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|r|g|g|g
+2| |r|r|r|r|g|r|r
+3|r|r|g|r|r|g|r|r
+4|r|r|r|r|r|g|g|r
+5| | |r|g|r|g|r|r
+6|g|g|g|g|g|g|r|r
+7| |r|r|r|r|g|r|r
+8| |g|r| | |g| | 
+
+sample 78:
+player 1: 0.223291604053256
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|r|g|g|r| 
+2|r|r|r|r|r|r|r|r
+3|r|r|g|r|r|g|r| 
+4| |g|r|r|g|r|g|r
+5|g|g|g|g|g|g|g|g
+6|g|g| |r|g|r|g|r
+7| | |g|g|g|g|r| 
+8| |r|g|g|g| | |r
+
+sample 79:
+player 1: 0.826511904900919
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|g|g|r| 
+2|r|r|r|r|g|g| |g
+3|r|r|r|r|r|g|r|r
+4|r|r|g|r|g|g|g| 
+5|r| |g|g|r|g|g|g
+6| |g|g|r|g|r|r| 
+7|g| |g|g|r|r|r|r
+8| | |g|r|r|r|r| 
+
+sample 80:
+player 1: 0.6846672913535371
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|r| | |r
+2| |g|r|r|r|r|r| 
+3| |g|g|g|r|g|g|g
+4| | |r|g|r|r|g|r
+5|g|g|g|r|r|r|r|r
+6|g|g|g|r|g|r|r|r
+7|g|g|g|r|r|g|r|r
+8|r|g|r|r|g| |g| 
+
+sample 81:
+player 1: 0.4780363290988959
+ |a|b|c|d|e|f|g|h|
+1| | | |g|g|g| | 
+2|g| |r|r|g|r| | 
+3|g| |r|r|g|g|r|r
+4|g|r|r|r|g|g|r|r
+5|r|r|g|g|r|r|r|r
+6|r|r|g|r|r|g|r|r
+7|g|g|g|r|g|g| |r
+8|g|g|g|g|g|g|g|r
+
+sample 82:
+player 1: 0.1187562812768735
+ |a|b|c|d|e|f|g|h|
+1| |r|g|g| | |g|r
+2|g|g|g|g|g|g|g|g
+3|g|g|g|g|g|r|g|r
+4|r|r|g|r|r|g|r| 
+5| |g|r|r|r|r|g|g
+6|g|r| |r|g|g|g|g
+7|g|g|r|g|g|g|g|g
+8| |r|g|g|g| | | 
+
+sample 83:
+player 1: 0.2848340264002478
+ |a|b|c|d|e|f|g|h|
+1|g| |r| |r|r|r|g
+2| |g|g|g|g|g|g|g
+3|r|g|g|g|r|r|r|r
+4|r|g|g|g|g|r|r| 
+5|r|r|g|g|r|r|r| 
+6|r|g|g|g|g|r| | 
+7|r|g|g|r|r|r|r| 
+8|r|g|g|g|g|g| | 
+
+sample 84:
+player 1: 0.015982604568508307
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g| | | | 
+2|g|r|g|g|r|r|r| 
+3|g|g|r|g|g|r|g| 
+4|g|r|g|g|r|r|r| 
+5|g|r|g|g|r|r|r|r
+6| |g|g|r|g|g|r| 
+7|g|g|g|g|r|r|g|r
+8| |r|r|r|r|r|g|g
+
+sample 85:
+player 1: 0.4480642115203022
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|r|r|r
+2|r|r|g|g|g|g|g|g
+3| |g|r|g|g|r|g|r
+4|g|g|r|g|g|g|r| 
+5|g|g|r|r|r|r|r|r
+6|g|g|r|g|g|r|g|g
+7| |g|r|r|g| | | 
+8|g| |r|r| |g| | 
+
+sample 86:
+player 1: 0.007019979942914449
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|r|g| | | 
+2|g| |r|r|r|r| |g
+3|g|g|r|r|r|r|g| 
+4| |g|r|r|g|g|g|g
+5| |g|g|g|g|r|g|g
+6|g|g|g|r|r|g|g| 
+7|g|g|g|g|g|r|g|r
+8|g|g|g|g|g|r|r| 
+
+sample 87:
+player 1: 0.5416470285787738
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|g|g|g| | 
+2|r|r|r|g| |g|g|r
+3|g|g|g|g|g|g|g|r
+4|g|g|r|g|g|r|g|r
+5|g|g|g|g|r|g|r|r
+6|g|g|g|g|g|r|g|r
+7| |g| |g|r|g|g|r
+8| |g| |r| | | |g
+
+sample 88:
+player 1: 0.856225541531169
+ |a|b|c|d|e|f|g|h|
+1| | |g|g|r| |g| 
+2| | |r|g|r|r|r|r
+3|r|r|r|g|r|r|r|r
+4|r|g|r|g|r|r|r|r
+5|r|g|r|g|r|r|r|r
+6|r|r|g|g|g|g|g| 
+7|r|r|r|g|g|g| | 
+8|r|r|r|r|g|r|r| 
+
+sample 89:
+player 1: 0.48667951326658493
+ |a|b|c|d|e|f|g|h|
+1| |g| |r|r|r|r|g
+2| |g|r|r|r|r|r|g
+3|g|r|r|g|g|g|g|g
+4|r|r|r|g|g|g|g|g
+5|r|r|r|g|g|g|g| 
+6|r|g|r|g|g|g|g|r
+7|r|r|g|g| |g| | 
+8|r|r|r|g|g| | | 
+
+sample 90:
+player 1: 0.7675774248351751
+ |a|b|c|d|e|f|g|h|
+1| |g|r| |r| |g| 
+2|g| |r|r|r|r|r| 
+3|r|g|r|g|g|r|r|r
+4|r|g|r|r|g|r|r|r
+5|r|g|g|g|g|g|g|g
+6|r|g|g| |r|g|g| 
+7|r|g|g|g|g|g|g| 
+8|r|g|g|g|g|g|g| 
+
+sample 91:
+player 1: 0.02017614853606284
+ |a|b|c|d|e|f|g|h|
+1| | | |g|g|g|g|g
+2|r| | |g|g|g|g| 
+3| |r|g|r|r|g|g| 
+4|g|g|g|r|g|r|g|r
+5|g|r| |g|g|g|g|r
+6|g|r|g|r|g|g|g|r
+7| |r|r|g|g|g|g|r
+8|g|r|r|r|r|r|g|g
+
+sample 92:
+player 1: 0.002287697227538511
+ |a|b|c|d|e|f|g|h|
+1| | | | |g| | |g
+2| |r|r|r|g|g|g|g
+3| |g|r|r|g|g|g|g
+4|r| |r|r|r|r|g|g
+5|r|r|g|r|r|g|g| 
+6|r|r|g|r|g|g|g|r
+7|r|r|r|r|g|g|g|g
+8|g|r|g|g|g|g|g|g
+
+sample 93:
+player 1: 0.41767393648391843
+ |a|b|c|d|e|f|g|h|
+1|r|g| | |g|r|r|r
+2| |g|g|g|g|r| | 
+3|r|r|g|g|g|r| |g
+4| |g|r|r|g|r|g| 
+5|g|g|r|r|g|g|g|g
+6|r|r| |g|r|r|g|g
+7|r|r|r|r|g|g|g|g
+8| |r|r|g|g|g|r|r
+
+sample 94:
+player 1: 0.06955930218015319
+ |a|b|c|d|e|f|g|h|
+1| | |g|r|g|g|g|g
+2|g|g|r|r|g|g|g|r
+3|g|r|r|r|r|r|g|r
+4| |g|r|g|r|g|g|r
+5|g| |g|r|r|r|g|r
+6|g|g|g|g|r|r|g|r
+7|g|g|g| |r|g|r|r
+8| | | |r|g|r| | 
+
+sample 95:
+player 1: 0.4862254776982284
+ |a|b|c|d|e|f|g|h|
+1| | |g|r| | |g|r
+2|r|r|r| |r|g|r|r
+3|r|r|g|r|g|g|g|r
+4|r|g|r|g|r|g|g| 
+5|r|g|g|r|g|g|r| 
+6|r|g|g|g|r|g|r|r
+7|g|g|g|g|g|r|g| 
+8| |g|g|g|g|r| |g
+
+sample 96:
+player 1: 0.538483102621607
+ |a|b|c|d|e|f|g|h|
+1|r|r|r| |r|g|g|r
+2|g| |g|r|r|g|r|r
+3|g|g|r|r|r|g|r|g
+4|g|g|g|r|r|g|g| 
+5| |g|g|g|r|g|g|g
+6|r|r|r|r|g|g|g| 
+7|r|r|g|g|g|g| |r
+8|r| |g|g|g| | | 
+
+sample 97:
+player 1: 0.6877238425306235
+ |a|b|c|d|e|f|g|h|
+1|g| | | | |g| | 
+2| |g|g|g|g|g|r| 
+3|g|g|g|g|g|r|r|g
+4|g|g|g|g|r|r|r|g
+5|g|g|r|r|r|g|r|g
+6|g|g|r|r|g|r|r|g
+7|r|r|r|r|r|g|r|g
+8|r|g|g|g|g| | |r
+
+sample 98:
+player 1: 0.27432874918140143
+ |a|b|c|d|e|f|g|h|
+1| | | |r|g| |r| 
+2|g| |r|g|r|r|r|r
+3|g|r|g|r|r|g|r|r
+4|g|g|r|r|r|g|r|r
+5|g|r|g|r|r|r|r|r
+6|g|g|r|g|r|r| |r
+7|g|g|r|r|r|g|r|r
+8|g| |g|r| |g|g| 
+
+sample 99:
+player 1: 0.6851288641393589
+ |a|b|c|d|e|f|g|h|
+1| |r| | | |r|g| 
+2|g|g|g|g|g|g|g|g
+3| |g|g|r|r|r|r|r
+4|r|g|r|g|r|r|r|r
+5|r|g|g|r|g|r|g|g
+6|r|g|g|r|g|g|g|r
+7|r|r|g|g|g|g|g|r
+8|r| |g|g|g| | | 
+
+sample 100:
+player 1: 0.8200328267821264
+ |a|b|c|d|e|f|g|h|
+1| | |r|r|r|g| | 
+2| | |r|r|r|g|g|g
+3|g|g|g|g|g|r|g| 
+4|g|g|r|g|g|r|r|g
+5|g|g|g|r|r|r|r|r
+6| |g|r|g|r|r|r|r
+7| |r|r|r|r|r|g|r
+8|r| |r|r|r|r|r|r
+
+sample 101:
+player 1: 0.19294099354738398
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|g|g| |r
+2|r|g|g|g|g|g|g|g
+3|r|r|g|g|g|g|g|g
+4|r|r|r|g|r|g|g| 
+5|r|r|g|r|g|g|g| 
+6|g|r|r|g|r|g| | 
+7| |r|g|g|g|g|g| 
+8|r| |g|r| |g|g|g
+
+sample 102:
+player 1: 0.5330305628287416
+ |a|b|c|d|e|f|g|h|
+1| | | | |r|g|g|g
+2| |g| | |r|g|g|g
+3|g|g|g|g|g|g|g|r
+4|g|g|g|g|r|g|g|r
+5|r|g|g|r|r|r|g|r
+6| |g|g|g|r|r|g|r
+7|g|g|r|r|g|r|r|r
+8| |g| |r|r|r|r|r
+
+sample 103:
+player 1: 0.029875995866528886
+ |a|b|c|d|e|f|g|h|
+1|g|g|r|r|r|g|r|r
+2|g|g|g|g|g|r|g|r
+3|g|g|g|g|g|r|r|r
+4|g| |r|r|r|r|r|r
+5| |g|g|g|g|g|r| 
+6|r| |g|g|g|g|g|r
+7| |r|g| | |g|g| 
+8|g|g|g|g| | |g|r
+
+sample 104:
+player 1: 0.0216192616787672
+ |a|b|c|d|e|f|g|h|
+1| | |g|g|g|g|g| 
+2|r|r|g|g|g|g|g|g
+3|r|r|g|r|r|g|g|g
+4|r|r|g|r|g|r|g|g
+5| | |g|g|g|r|r|g
+6| |r|g|g|g|g|g|g
+7| |g|g|r|g|g|g|g
+8| | |r|r| |g|g|g
+
+sample 105:
+player 1: 0.05173451521120595
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|r| |g| 
+2| |g|g|g|g|g|g|r
+3|r|g|g|g|g|r|g|r
+4|r| |g|g|g|r|r|r
+5|r|g|g|g|g|g|r|r
+6| |g|g|g|g|g|r|r
+7|g| |g|g|g|g|g| 
+8| | |g|g|g|g|g|g
+
+sample 106:
+player 1: 0.7779732106616155
+ |a|b|c|d|e|f|g|h|
+1|g| |r|g|r|r|r|r
+2|r|g|r|g|r|r|g|r
+3|r|r|g|g|g|r|r|r
+4| |r|r|g|r|r|r|r
+5| |r|r|r|g|r|r| 
+6|r|r|r|g|r|r| |g
+7|r|r|r|r|r| | | 
+8|r|g|r|r|r|g| | 
+
+sample 107:
+player 1: 0.012432176157614707
+ |a|b|c|d|e|f|g|h|
+1| | |r|r|r|g|g|g
+2| |g|r|r|r|g|g|g
+3| |g|g| |g|r|r|g
+4| |g|g|g|r|g|g|g
+5| |g|g|r|g|g|g|g
+6|r|g|r|g|r|g|g|g
+7| |r|g|r|r|g|g|g
+8|r|g|g| |g|g|g| 
+
+sample 108:
+player 1: 0.8931646533669001
+ |a|b|c|d|e|f|g|h|
+1|r|g|g|g| |g|g| 
+2|r|r|g|g|g|g|r| 
+3|r|r|r|r|g|g| |g
+4|r|r|g|r|r|g|g|g
+5|r|r|r|r|g|g|r|g
+6|g|g|r|r|g|r|g|g
+7| |g| |r|r|g|g|g
+8| | | |r|r|r|g| 
+
+sample 109:
+player 1: 0.5267016629413565
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|r|r|r| |g
+2| |g| |r|r|r|g|g
+3| | |r|r|g|g|g|g
+4| |r|g|g|g|g|g| 
+5|r|g|g|g|r|g|g|r
+6|g|r|g|g|g|g|r|r
+7|r|r|g|r|g|r|r|r
+8| | |g| |g|r|r|r
+
+sample 110:
+player 1: 0.5635554190973289
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r| | | 
+2|r|r|r|r|g|g|g|g
+3|r|r|r|r|g|g|g|g
+4|g|r|r|g|r|g|g|g
+5| |g|g|r|r|g|g|g
+6|g|g|g|g|r|g|g|g
+7|g| | |g|g|r|g| 
+8|g| |g| |g|g|g| 
+
+sample 111:
+player 1: 0.6829609209683368
+ |a|b|c|d|e|f|g|h|
+1|g|g|r| |r| | | 
+2| |r|g|r|r|r|r|r
+3|r| |r|g|g|r|g|g
+4| |r|g|g|r|g| |g
+5|r|r|r|r|r|g|g|r
+6| |g|g|g|g|g|r|r
+7|g|g|g|g|r|g|r|r
+8|r|r|r|g| |g|g|r
+
+sample 112:
+player 1: 0.558517217988109
+ |a|b|c|d|e|f|g|h|
+1| |g| |r|g|g|g|g
+2| |r|r|r|r|r|r|r
+3| | | |g|r|r|r|r
+4| |r|g|r|r|r|r|r
+5| |r|r|r|r|r|r|r
+6| |r|r|r|g|r|r|g
+7| |r|g|g|g|g|g|g
+8|r| |g|g|g|g|g|g
+
+sample 113:
+player 1: 0.6941888419132886
+ |a|b|c|d|e|f|g|h|
+1| | |r|g| |r| |g
+2| | |g|g|g|r|g| 
+3|g|g|g|r|g|g|g| 
+4|r|r|r|g|g|r|g|r
+5|r|r|g|g|g|r|g|g
+6|r|g|g|g|g|r|g| 
+7|r|r|r|r|r|r|g|r
+8|r|r|r|r|g|g|g| 
+
+sample 114:
+player 1: 0.19200142619443783
+ |a|b|c|d|e|f|g|h|
+1| | | |r|r|r| |g
+2|g|r| |r|r|r|g| 
+3|g|r|g|r|g|g|r|g
+4|g|g|g|r|g|g|r|g
+5|g|g|g|r|g|g|r|g
+6|g|g|r|r|g|r|r|g
+7|g|g| |r|r|r|r|r
+8| | |g|g|r|r|r| 
+
+sample 115:
+player 1: 0.22870708803930095
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|g|r| 
+2|g|g|g|g|g|g|g| 
+3|g|g|g|r|r|g|g| 
+4| |g|g|g|r|r|g| 
+5|g|r|g|g|g|r|r|r
+6|r|r|r|r|r|g|r|r
+7|g|r|r|g|g| |g| 
+8|g| |r| |g|r| |g
+
+sample 116:
+player 1: 0.49281706853449764
+ |a|b|c|d|e|f|g|h|
+1|g|r| |g|r|r|r|r
+2|g|r|r|r|r|r|r|r
+3|g|r|r|r|r|g|g|r
+4|g|r|r|r|r|g|g|r
+5|g|g|g|g|g|g|g|g
+6|g|g|g|g|g|r| |g
+7|g| | | |g|g|r|r
+8| | | |g| |g| |r
+
+sample 117:
+player 1: 0.011017555307374735
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g|g|r
+2|g| |g|g|g|g|g|g
+3|g|g|r|r|g|g|g|g
+4|g| |g|r|r|g|g|g
+5|g|g|r|g|g|g|g| 
+6| |r|g|r|r|g|g| 
+7|r|r|r|r|r| |g|r
+8|g| |r|r|r| | | 
+
+sample 118:
+player 1: 0.9218929473926029
+ |a|b|c|d|e|f|g|h|
+1|r|r|g| |g|g|g| 
+2|r|r|r|g| |g|g| 
+3|r|r|g|r|g|g|g|g
+4|r|g|r|r|g|r|g|g
+5|g|g|g|g|r|r|r|g
+6| | |g|g|r|r|r|g
+7| |g|g|r|g|g|g|g
+8| | | |r|r|r|r|r
+
+sample 119:
+player 1: 0.040162149988739584
+ |a|b|c|d|e|f|g|h|
+1|g|r| |g|g|g|g| 
+2| |r| | |g|g|g| 
+3|g|g|g|g|r|g|g|g
+4|g|g|r|r|r|g|g|g
+5|g|r|g|g|g|g|g|g
+6|g|r|r|g|g|g|g|g
+7|g|r|r|g|g|g|g|g
+8| | |g|g|g|g| | 
+
+sample 120:
+player 1: 0.13873839697461857
+ |a|b|c|d|e|f|g|h|
+1| |g|g| | |g| | 
+2|r|g|g|g|g| |g|r
+3|r|g|g|g|g|g|r|r
+4| |g|g|g|g|g|r| 
+5|g|g|g|g|g|r|r| 
+6|g|g|g|g|r|g|r|g
+7|g|r|r|r|g|r|r|r
+8| |r|r|r|r|r|r|g
+
+sample 121:
+player 1: 0.01206816331278353
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|g|g|g| 
+2|g|r|g|g|g|g| | 
+3|g|g|r|g|g|g| | 
+4|g|g|g|g|g|g|g|g
+5| |g|r|r|r|g|g| 
+6|r|r|g|r|r|g|g| 
+7|g|r|g|g|g|g|g|g
+8|g|r|r|r|g|g|r| 
+
+sample 122:
+player 1: 0.11963406052076003
+ |a|b|c|d|e|f|g|h|
+1| | |g|r| |g|g|g
+2|g|g|r|r| |r|r|r
+3|r|r|g|r|r|r|r| 
+4| |g|g|g|g|g|g|g
+5|g|g|r|g|r|g|g|g
+6|g|g|g|g|g|g|r|g
+7|g|g| |g|r|r| |r
+8|g| | |g|r|r|r|r
+
+sample 123:
+player 1: 0.12693236164882715
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g| |r| |g
+2|r|g|g|g|r|r|g|g
+3|g|g|g|r|r|r|g| 
+4| |g|r|r|g|g|r| 
+5|g|g|g|g|g|r|g|g
+6|g|r|r|g|r|g| |g
+7|g|g|g|g|g|g|g| 
+8| |r|r|r|r|r|r| 
+
+sample 124:
+player 1: 0.013644176105063681
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|r| |g|g
+2|g|g|r|g|r|g|g|g
+3| |g|g|r|r|g|g|g
+4|g|g|r|g|r|r|r| 
+5|g|g|g|g|r|r| |r
+6|g|g|g|g|r|g|r| 
+7|g|g|g|g|g|g| |r
+8|g| |r|g|g| |r| 
+
+sample 125:
+player 1: 1.392414553945353E-4
+ |a|b|c|d|e|f|g|h|
+1| | | |g| |r|r|r
+2| |g|r|g|g| |r|r
+3| | |g|g|g|g|r| 
+4|r|g|g|g|g|r|g| 
+5|r|g|g|g|r|g|g|g
+6|r|g|g|g|g|g|g|g
+7|r|g|r|g|g|g|g|g
+8|g|g|g|g|g|g|g|g
+
+sample 126:
+player 1: 0.8456377429125416
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|r|r|g
+2|r|r|r| |r|r| |g
+3|r|r|r|g|r|g|g|g
+4|r| |r|g|r|g| |g
+5|g|g|g|r|r|g|g|g
+6|g|g|r|g|r|g|g|g
+7| |g| |g|r|r|g| 
+8| |g|g| | |g|r|r
+
+sample 127:
+player 1: 0.3227363069984329
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g| | | | 
+2|g|r| |g|g|r| | 
+3|r|r|r|r|r|g|r| 
+4|r|r|g|g|g|r|g|r
+5|r|r|g|g|r|g|g|g
+6|r|r|r|r|g|g|g|r
+7|r|g| |r|r|g|g|r
+8|g|g|g|g|g|g| |r
+
+sample 128:
+player 1: 0.9553786648989201
+ |a|b|c|d|e|f|g|h|
+1|r|g|g|g|g| |g|r
+2|r|r|g|r|r|g|g| 
+3| |g|r|g|g|r|g|r
+4|g|g|r|g|g|g|g| 
+5| |g|g|r|g|g|g| 
+6|r|r|r|g|r|r|g|g
+7| | | |g|g|g|r|r
+8| | |g|g|g|g|g|r
+
+sample 129:
+player 1: 0.524188077673196
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|g|r| | 
+2|r|g|g|g|r| |r| 
+3|r|r|r|r|r|r|r| 
+4|r|g|r|g|r|r|r| 
+5|r|g|r|g|g|r|r|g
+6|r|g|r|g|r|g|g|g
+7|g|g|g|g|r|g|g| 
+8|r|r|r|g|g|g| | 
+
+sample 130:
+player 1: 0.905868765697883
+ |a|b|c|d|e|f|g|h|
+1| |r| |g|g|g|g| 
+2| | |g| |g|g|r|g
+3|r|r|r|r|g|r|g|g
+4|r|r|r|r|g|g|g|g
+5|r|r|r|g|r|r| |r
+6|r|r|g|r|g|r|r|r
+7|r|r|r|g|g|g|r| 
+8|r|r| |r| |r|r|r
+
+sample 131:
+player 1: 0.7081689984915791
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|r|g|g
+2|r|r|r|g|r|r| |g
+3|r|r|r|g|r|r|r|g
+4|r|r|r|r|r|r|g|g
+5|g|g|r|g|r|g|g|g
+6| |g|g|r|g|r|g| 
+7|r|g|g|g|r|r|g| 
+8| | | | |g|r| | 
+
+sample 132:
+player 1: 0.2613198027667051
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g| |r|g|g
+2| | |r|r|r|r|r|g
+3| |g| |r|r|g|g|r
+4| |r|r|g|r|r|g|r
+5|g|g|g|g|g|r|g|r
+6|r|g|g|g|g|r|r|r
+7| |r|g|r|r|r|r|r
+8| |g|g|r|g|g|g| 
+
+sample 133:
+player 1: 0.1294629284477403
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g|g|g
+2| | |g|g|g|r|g|r
+3| | |g|g|g|g|r| 
+4|r|r|g|g|g|r|g|r
+5|r|r|r|g|r|g|g|r
+6| |r|g|g|g|g|g|r
+7|r|r|g|g|g| |g| 
+8| | |g|g|g|g|g|r
+
+sample 134:
+player 1: 0.6340747225938459
+ |a|b|c|d|e|f|g|h|
+1|g| |r|r|r|r| |r
+2| |r|g|g|g|g|g|r
+3|r|r|r|g|g|g|g|r
+4| |r| |g|g|g|r| 
+5|g|g|g|g|g|g|r|r
+6| | |g|g|g|g|r|r
+7| |r|g|g|g|g|r|r
+8|r|g|g|g|g|g| |r
+
+sample 135:
+player 1: 0.3691297794700936
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|g|g|r|g
+2|g|g|g|g|g|g|g|g
+3|g|r|g|g|g|g|r|g
+4|g|g|r|g|g|g|r|g
+5|g|r|g|r|g|g|r| 
+6|r|r|r|g|r|g|r|r
+7| |r|r|r|g|g| | 
+8| | |r| |r|g| | 
+
+sample 136:
+player 1: 0.21101019462465245
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|r|r|r| 
+2| |r|r|r|g| |r|g
+3|g|g|g|g|r|r|r|g
+4| |g|g|r|r|g|r|g
+5|g|r|g|r|g|g|r|g
+6| |g| |g|r|r|g|g
+7|g|g|g|g|g|g|g|g
+8| | |r|r|r|r|r| 
+
+sample 137:
+player 1: 0.658407832808138
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|g|g|r|r
+2|r|r|r|g|g|g|r| 
+3|g|r|g|r|g|g| | 
+4| |r|g|r|r| |g|g
+5| |r|g|g|g|r|g|g
+6|g|r|g|r|g|g|g|r
+7|g|r|r|g|g|g|r| 
+8|g|r| | | |g|g|r
+
+sample 138:
+player 1: 0.002484061424064304
+ |a|b|c|d|e|f|g|h|
+1|r| |g|g|g|g|g|g
+2| |r|r|g|r|r|g|g
+3|g|r|g|r|g|g|r|g
+4|r|r|r|g|r|g| |g
+5|g|r|g|g|g|g|g|g
+6| | |g|r|r|r|r|g
+7| |g|r|g|r|r|r|r
+8|g|g|g| | | | |r
+
+sample 139:
+player 1: 0.002190948715570806
+ |a|b|c|d|e|f|g|h|
+1|r| |g|g|g|g|g|g
+2| |r| | |r|g|g|g
+3| |r|r|r|g|g|g|g
+4|g|r|r|r|g|r|g|g
+5|g|r|r|r|r|g|g|g
+6|g| |g|g|r|r|g| 
+7| | |r|g|g|g|r|g
+8|g|g|g|g|g|g| |r
+
+sample 140:
+player 1: 0.5897171089164405
+ |a|b|c|d|e|f|g|h|
+1| |r| | | |r|g| 
+2| |r|r|g|r|g|g| 
+3| |r|g|r|g|r|g|g
+4|g|g|r|g|g|r|g|g
+5|g|g|r|r|g|r|g|g
+6|g|g|g|r|r|r|g|g
+7| |r|r|r|r|r|g|r
+8|r|r|r|r|r|r|g| 
+
+sample 141:
+player 1: 0.717941852422072
+ |a|b|c|d|e|f|g|h|
+1|g| |r|r| | |r| 
+2|g|g|r|r|r|r| | 
+3|g|r|r|r|r|r| |g
+4|g|r|r|r|g|g|g|g
+5|g|g|g|r|r|g|g| 
+6|r|r|r|r|r|g|r| 
+7|r|r|r|r|g|r|r|r
+8|r|r|r|r|r|r|r| 
+
+sample 142:
+player 1: 0.9058839740939783
+ |a|b|c|d|e|f|g|h|
+1| |r| |r|r|r|r|r
+2|g|g|g|g|g|g|r| 
+3|r|r|r|g|g|r|r|r
+4|r|r|g|g|r|g|r| 
+5|r| |r|r|r|r|g|g
+6|r| |r|r|r|g|g| 
+7|r|r|r|r|g|g|g|r
+8|g| |r|g| |g|g| 
+
+sample 143:
+player 1: 0.7125166774520848
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|r|r| 
+2|r|g|g|g|g|r|r|r
+3|r|g|r|r|g|r|r| 
+4|r|r|r|g|g|g|r| 
+5|r|r|r|r|g|g|g| 
+6| |g|g|g|r|g|g| 
+7|g| |g|g|g|g|g|r
+8| | |g|g|g|g|g| 
+
+sample 144:
+player 1: 0.007782375623060284
+ |a|b|c|d|e|f|g|h|
+1| |r|g|g|g|r| |g
+2|r|r|g|g|g|r|g| 
+3|r| |g|g|g|g|r|r
+4|r|r|r|g|g|g|r|r
+5|r|r|r|g|g|g|r|r
+6| |r|g|g|g|g|g|g
+7| |r|r|r|r|g|g|g
+8| |r| | | |g|g|g
+
+sample 145:
+player 1: 0.1909083575346886
+ |a|b|c|d|e|f|g|h|
+1| |g| |r|g|g|g| 
+2| |g|r|g|g|g|g|r
+3| |g|g|r|g|r|g| 
+4|r|g|g|g|r|g|g|g
+5|r|g|g|r|g|r|g|r
+6|r|g|g|g|r|g|r|r
+7|g|g|g|g|g|g|g|r
+8|r|g| |r| |r| | 
+
+sample 146:
+player 1: 0.3947716486423403
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g| |g| | 
+2|g|r|g|g|g|g|g| 
+3|r|g|r|g| |g|g| 
+4|g|r|g|r|g|g|g|g
+5|g|r|r|g|r|g|g| 
+6| |r|r|r|g|g|g|g
+7|g|r|r|g|g|g|r|r
+8|r|r|r|r| | |g|r
+
+sample 147:
+player 1: 0.7386361295903445
+ |a|b|c|d|e|f|g|h|
+1|g| |r|r|r|r|r|r
+2| |r|r|r|r|r|r|g
+3|r|r|g|r|r|g|g| 
+4|r|g|r|g|g|g|g|g
+5|r|g|r|r|g|g|g|r
+6|r|r|r|g|g|g|g|r
+7|g| |r|r|g|g|g|r
+8| | | |g| |g| | 
+
+sample 148:
+player 1: 0.6752992383025027
+ |a|b|c|d|e|f|g|h|
+1| | |r|r|r|r|r|r
+2|r|g|g|g|r|r|r|r
+3| |g|g|g|g|r|r|r
+4|g|r|r|g|g|g|r| 
+5|r|r|r|g|g|g|g| 
+6| |g|g|r|r|g|g|g
+7|g|r|r|r|r| |g|g
+8| |r|r|r|r| | |g
+
+sample 149:
+player 1: 0.31693998681028795
+ |a|b|c|d|e|f|g|h|
+1| |g|r|g|g|g| | 
+2| |g| |r|g|g|g|g
+3|g|g|r|g|r|r|g|r
+4|g|g|g|g|g|g|g|r
+5|g|g|g|g|r|g|g|r
+6|g|g|g|g|r|g|g|r
+7| |g|r|r|r|r|r|r
+8|g| | |g| |r| |r
+
+sample 150:
+player 1: 0.5729759755589502
+ |a|b|c|d|e|f|g|h|
+1|r| |g|g|g|g|g|r
+2| |r|g|g|g|g|g| 
+3|g|r|r|g|g|r|g|g
+4| |r|r|r|r|g|g| 
+5|r|r|r|r|r|g|g| 
+6|r|g|r|r|r|g|g|g
+7|r|r|g|g|g|g| |g
+8|r|g| |g|g|g| | 
+
+sample 151:
+player 1: 0.24710034166516814
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g| |g| | 
+2|r|g|g|g|g|g|g|r
+3| |g|g|g|g|g|g|g
+4|r|g|g|g|g|r|g|r
+5|r|g|g|g|g|r|r|r
+6|r|g|g|r|r|r|r|r
+7|r| | |r|r| |r|r
+8|r| |r|r|r|r| | 
+
+sample 152:
+player 1: 0.12660434162573284
+ |a|b|c|d|e|f|g|h|
+1| | | | | | | |g
+2|g|r| | |r|r|r|g
+3| |r|r|g|g|g|g|g
+4|r|r|g|r|g|g|g|g
+5|r|r|g|r|g|r|g|g
+6|g|g|r|g|r|r|g|g
+7|r|g|g|r|r|r|r|g
+8|r|g|g|g|g|r|r|r
+
+sample 153:
+player 1: 0.520169514940231
+ |a|b|c|d|e|f|g|h|
+1| |g| | |r| |g|r
+2|r|r|g|r|r|r|r| 
+3|r|r|r|g|r|r|r|g
+4|r|r|r|r|g|g|r|g
+5|r|r|r|r|r|g|g|g
+6|r|g|g|g|g|g|g|g
+7|r|r|g|g|g| |g| 
+8| |g|g|g|r| | |g
+
+sample 154:
+player 1: 0.6976521941266111
+ |a|b|c|d|e|f|g|h|
+1| | |g|g|g|g|g|r
+2| | |g|g|r|g|g| 
+3| |g|g|r|g|r|g|g
+4| |r|g|g|g|g|g|g
+5| |r|r|g|g|r|g|g
+6|r|g|g|r|g|g|r|g
+7|r| |g|g|r|g|g|r
+8|r|r|g|g|g|g|r| 
+
+sample 155:
+player 1: 0.2031973961324909
+ |a|b|c|d|e|f|g|h|
+1| |r|r| |g|r|r| 
+2|g|r|g|g|g|g|r| 
+3|g|r|g|g|g|g|g|g
+4|g|r|r|g|g|r|g|g
+5|g|r|g|g|r|g| | 
+6|g|g|g|g|g|g|g| 
+7|g|r|r|r|r|r|r| 
+8|g|r| |r|r|r| |r
+
+sample 156:
+player 1: 0.604972100613517
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|r|g| 
+2|g|g|g|r|r|g|g| 
+3| |g|g|g|g|r| | 
+4|r|r|g|g|g|g|r|r
+5|r|r|g|r|r|r|r|r
+6| |g|g|r|g|g|r|g
+7|g|g|g|g|r|r|r| 
+8| |r|g| |r|g| |r
+
+sample 157:
+player 1: 0.007578568778009305
+ |a|b|c|d|e|f|g|h|
+1| |g|r| | | | | 
+2| |g|g|r| | | |g
+3|r|g|r|g|r|r|g|g
+4|g|g|g|g|g|r|r|r
+5|g|g|g|g|g|g|g|r
+6|g|g|r|r|g|r|r|g
+7|g|g|r|g|r|r|g|g
+8|g|g|g|g|g|g|g|g
+
+sample 158:
+player 1: 0.6375923733216019
+ |a|b|c|d|e|f|g|h|
+1|r| |r|r|r|r|r|r
+2|g|r|g|g|r|r|r|g
+3|g|g|r|r|g|r|r|g
+4| |g|g|g|g|r| |g
+5|g|g|g|g|g|r|g| 
+6|g|g| |g|g|g| |r
+7|g| | |g|g|g|r|g
+8| |r|r|r|r|r|g| 
+
+sample 159:
+player 1: 1.0
+ |a|b|c|d|e|f|g|h|
+1|g|g|g| |r|r|r|r
+2|r|g|g|g|r|r| | 
+3|r|r|g|g|g|r|r| 
+4|r|r|r|g|r|g|g| 
+5|r|r|r|r|r|g|g| 
+6|r|r|r|r|r|g|g|g
+7|r|r|r|r|r|r| | 
+8|r|r|r|r|r|r| | 
+
+sample 160:
+player 1: 0.8537676499370893
+ |a|b|c|d|e|f|g|h|
+1| | |g|g|g|g|g|g
+2| | | | |r|r|g|g
+3|r|g|g| |g|g|g|g
+4|r|r|g|g|g|g|g|g
+5|r|r|r|g|r|g|g| 
+6|r|r|r|r|g|g|g|g
+7|r|r|r|r|r|r|r| 
+8|r|r|r|r|r|r|r| 
+
+sample 161:
+player 1: 0.9899125483018101
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|r|r|r|r
+2| |g|r|g|g|r|g|r
+3|r|g|r|g|r|r|r|r
+4|r|g|r|g|g|g| |r
+5|r|g|r|g|g|g| | 
+6|r|r|g|g|g|r|r|r
+7|r|r|r|g| |g|g|r
+8|r| |r| | | |g|r
+
+sample 162:
+player 1: 0.4297582946042455
+ |a|b|c|d|e|f|g|h|
+1|g| |g| |r| |g|r
+2| |g| |g|r|g|g|g
+3|r|g|g|r|r|r|g| 
+4|r|r|g|g|r|r|g|r
+5|r|r|r|g|g|r|g|g
+6|r|r|r|r|g|r|g|g
+7| |r|r|r|r|g|g| 
+8| |r|r|r| |g|g|g
+
+sample 163:
+player 1: 0.47390232006281846
+ |a|b|c|d|e|f|g|h|
+1|r| |g| |g|r|g|g
+2|g|g|g|g|r|r|g| 
+3|r|r|r|r|r|r|r|r
+4| |r|r|g|g|g|r|g
+5|g|r|r|g|g|g|g|g
+6|r|r|g|g|r|g|r|r
+7|r| | |g|g|r|r|r
+8| | | |g| |r|r|r
+
+sample 164:
+player 1: 0.01951111439332398
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g| | | 
+2|g|g|r|g|r|r|r|r
+3|g|r|g|g|g|g|r|r
+4|g|r|g|g|r|r|r|r
+5|g|g|r|r|r|r|r|r
+6|g|g|g|g|g|g|g|r
+7| |r|r|g|r|g|g| 
+8|r| | |g| | | |g
+
+sample 165:
+player 1: 0.8414016650056876
+ |a|b|c|d|e|f|g|h|
+1|r| |r|g|r|r|r|r
+2|r|r|r| |g|r|g| 
+3|r|r|r|g|r|g|r| 
+4|r|r|g|r|r|r|g|r
+5| |g|g|g|r|g|g| 
+6|g|g|g|r|g|g|g|r
+7|r|g|g|g|g|g| | 
+8| |r|g| |g|r|r|r
+
+sample 166:
+player 1: 0.4356771414898708
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|r| | |g| 
+2|g|r|r| | |g|g|r
+3|r|r|r|r|r|r|r|r
+4|r|r|g|g|g|g|g|r
+5|r|g|r|g|g| |r|r
+6| |g|r|r|g|g|r| 
+7|g|g|r|g|r|g|g| 
+8| |r|r|r|r|r|r|g
+
+sample 167:
+player 1: 0.4309699738657943
+ |a|b|c|d|e|f|g|h|
+1| | |g|g|g|g|g|r
+2|r| | |g| |g|g|r
+3|r|r|g|g|g|r|g|r
+4|r|g|r|g|r|g|g|r
+5|r|r|g|r|r|r|g|r
+6|r|g|r|g|r|g|g| 
+7| |g|r|r|g|g|g|g
+8| |g|g|g|g|g| | 
+
+sample 168:
+player 1: 0.9321764385550917
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|g|g|g| |r
+2|r|r|r|r|g|g|g| 
+3|r|r|r|g|g|r| |g
+4|r|r|r|g|r| |r|g
+5|r|r|r|r|r|r|g|g
+6|r|r|g|g|r|g|g| 
+7|g|g|g|g|g|g|r|r
+8| | |r|g| |g| | 
+
+sample 169:
+player 1: 0.7728144134546292
+ |a|b|c|d|e|f|g|h|
+1|r|r|r| |r|g|r| 
+2|g|r|g|g|g|g|g|g
+3| |r|r|g|g|g|g|g
+4|g|r|r|r|r|g|g| 
+5|g|g|r|g|r|g|r|g
+6|g|g|r|r|r|r|r|r
+7|g| |r|r|r| |r| 
+8| |r| |g|r|r| |r
+
+sample 170:
+player 1: 0.0
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|r|r|r| |g
+2|g|r| |g|r|r|r|r
+3|g|g|r|r|r|g|r| 
+4|g|r|g|r|r|r|g| 
+5|g|r|g|g|r| | | 
+6|g|r|g|g|r|g| |g
+7|g|g|g| |g|r|g|g
+8|g|g|g|g|g|g| |g
+
+sample 171:
+player 1: 0.001585914261950745
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|r| | |g| 
+2|g|r|r| | |g| |g
+3|g|r|g| |g|g|g|g
+4|g|r|g|g|g|g|r|g
+5|g|r|r|g|g|r|g|g
+6|g|g|g|g|r|g|r| 
+7|g|g|g|r|r|r|r|r
+8|g|g|g| |r|g| |g
+
+sample 172:
+player 1: 0.008008321636254262
+ |a|b|c|d|e|f|g|h|
+1|r|g|g|g|g|g| | 
+2|r|g|g|g|g|g|g|r
+3|g|r|g|g|r|g|g| 
+4|g|g|g|g|r|r|g| 
+5|g|g|g|g|r|r|g| 
+6|g|g|r|g|r|g|g| 
+7|g|g|g|r|r|g| | 
+8|g|g|g|g|r|g| | 
+
+sample 173:
+player 1: 0.2771542843291722
+ |a|b|c|d|e|f|g|h|
+1|r|r|g|g|g|g| | 
+2|g|r|r|g|g| |r| 
+3| |r|r|g|g|r|r|g
+4|g| |r|r|r|r|r| 
+5| |g| |r|r|g|r|g
+6|r|r|r|r|g|g|r|g
+7|r|r|r|g|g|g|r|g
+8|r|r|g|g|g|g|r| 
+
+sample 174:
+player 1: 0.4168401283355505
+ |a|b|c|d|e|f|g|h|
+1| | |r| |r|g| |r
+2| |r|r|r|r|g|r| 
+3|g|g|g|g|r|r|g| 
+4|g|g|g|g|r|r| |g
+5|g|r|g|r|g|g|g|g
+6|g|r|g|g|r|r|g|g
+7|g|g|g|g|g|g|g|g
+8|g|r| |r| |g|r|r
+
+sample 175:
+player 1: 0.278103719224725
+ |a|b|c|d|e|f|g|h|
+1|r|g| |r|g|r| | 
+2|r|r|g|g|g| | |g
+3|r|r|r|r|g| | |g
+4|r|r|r|g|g|r|g|g
+5|r|r|r|g|g|g|r|r
+6|r|g|g|g|g|g|r|g
+7| |g|g|g|g|g|g|g
+8| | |g|g|g|g|g|g
+
+sample 176:
+player 1: 0.1291401771756123
+ |a|b|c|d|e|f|g|h|
+1| | | |r|g|g| | 
+2|r|r|g|g|g|g| | 
+3|r|g|g|g|g|g|r|r
+4|g|g|g|r|r|g|r|r
+5|g|g|g|g|r|g|r|r
+6|g|g|g|g|r|g|r|r
+7| |r|g|r|g|g|r|r
+8|r| |g|g|g|g| |g
+
+sample 177:
+player 1: 0.24069127053872466
+ |a|b|c|d|e|f|g|h|
+1| | | | |r| |r|g
+2|g|g|g| |r|r|g|g
+3|g|g|g|g|r|g|r|g
+4| |r|g|r|r|g|r| 
+5|g|r|g|r|r|r|r|r
+6|r|r|g|g| |g|r|r
+7|r|r|g|g|g|g|r|g
+8|r|g|g|r|r|r|r| 
+
+sample 178:
+player 1: 0.13184465503027296
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|r| | |r
+2| |g|g|g|g|g|r|g
+3|g|g|g|g|g|r|g|g
+4|g|g|g|r|r|g|r|g
+5|g|g|g|r|r| |r|g
+6|g|g|g|r|g|g|g|g
+7|g|g|r|r|r|g|r| 
+8|g| | |r| |r| | 
+
+sample 179:
+player 1: 0.9379180709950391
+ |a|b|c|d|e|f|g|h|
+1| |g| | |r|r|r|r
+2| |r|g|g|r|r|r|r
+3|r|r|g|g|r|g|r|r
+4| |g|r|g|r|r|r|r
+5|g|g|r|r|g|r|r|r
+6|g|g|g| |r|g|r|r
+7|r|g|g|r|r|r|g|r
+8| | | |g|r| |g|g
+
+sample 180:
+player 1: 0.013742035295624214
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|r|r|r|g
+2|r|r|g|g|r| |r| 
+3|r|g|r|r|g|g|g|g
+4|r|r|r|r|r|g|g| 
+5|r|r|r|r|g|g|g|r
+6|g|r|g|g| |r|r|g
+7| |g|g|g| |g|r| 
+8| |r|g| |g|g|g|g
+
+sample 181:
+player 1: 0.42201629901603677
+ |a|b|c|d|e|f|g|h|
+1|r|g|g| |r|g| | 
+2|r|r|r|r|r|g| | 
+3|r|r|r|g|r|g| |r
+4|r|r|r|r|g|g|r| 
+5|g|g|g|g|g|r|r|g
+6| | |r|g|r|g|r|g
+7| |r|g|g|g|r|r|g
+8|r|g|g|g|g|g|g|g
+
+sample 182:
+player 1: 0.004988456689389432
+ |a|b|c|d|e|f|g|h|
+1|g| |r|g|g|g|g|r
+2|g|g|g|g|g| |g| 
+3|g|r|g|r|r|r|g| 
+4|g|g|r|g|r|r|g| 
+5|g|g|g|g|g|g|g| 
+6|g|r|g|r|g|g|g| 
+7|g|g|g|g|r|g|g| 
+8|g|r| |r|r| |g|r
+
+sample 183:
+player 1: 0.12109205096379279
+ |a|b|c|d|e|f|g|h|
+1|r| | | |r|r|r|r
+2|g|g|g|g|g|r|g|g
+3| |g|r|r|g|g|r| 
+4| | |g|r|r|g|g|r
+5|r|g|r|g|g|r|g|g
+6|g|r|g|r|g|g|g|g
+7|g|g|r|g|g|g| |r
+8|g|g|g|g|g|r| | 
+
+sample 184:
+player 1: 0.0749133619705742
+ |a|b|c|d|e|f|g|h|
+1|r|r|r| | | | | 
+2|r|r|r|r| | |g|r
+3|r| |r|g|g|g|g|g
+4|r|r|r|r|r|r|g| 
+5|r|r|g|r|r|g|r|r
+6|g|g|g|g|g|r|r|g
+7|g|g|g|g|g|g|g|g
+8| |r|g|g|g|g|g|g
+
+sample 185:
+player 1: 0.8263004577611319
+ |a|b|c|d|e|f|g|h|
+1|r|g|g|g|r| |g| 
+2|r|r|r|r|r|r|g|g
+3|g|g|g|g|g|r|g| 
+4|g|g|g|r|r|g|g| 
+5|g|g|g|g|g|g|g| 
+6| |g|r|g| |g| |g
+7|g|g|r|g|g|g|g| 
+8|r|r|r|g|g|g| |r
+
+sample 186:
+player 1: 0.030377956664465706
+ |a|b|c|d|e|f|g|h|
+1| |r|r| |g|r|g| 
+2|r| |r|g|r|r|r| 
+3|r|r|g|r|g|g|g|g
+4|r|g|r|g|r|g|g|r
+5|g|g|g|g|g|g|g|r
+6|g|g|g|r|g|g|g| 
+7|g|g|g|g|g|g|g| 
+8|g|g|g|g| |r| | 
+
+sample 187:
+player 1: 0.04168802225204006
+ |a|b|c|d|e|f|g|h|
+1|g| |g|g|g|g|g|g
+2| |g|r|g|g|g|g| 
+3| |r|g|r|g|g|g| 
+4|g|g|r|g|g|g|r| 
+5|g|r|g|r|r|r|r|r
+6| |r|g|r|r|r|r|g
+7|r|r|r|r|r|r| | 
+8|g|g|g|r|r|r|g| 
+
+sample 188:
+player 1: 0.3742007763308239
+ |a|b|c|d|e|f|g|h|
+1|r|g|g|g|g| |r| 
+2| |r| |g|r|r|r|r
+3|r|g|r|r|g|g|r|g
+4| |g|g|g|g|g|r|g
+5| |r|g|g|g|r|r| 
+6| |g|g|r|g|r|r|g
+7|r|g|r|r|r|r|r|r
+8|g|r| |r|g| |g|r
+
+sample 189:
+player 1: 0.4942755210878349
+ |a|b|c|d|e|f|g|h|
+1| | |r|g|g|g|g|g
+2| |g|g|g|r|r|r|r
+3| |g|g|g|r|g|r|g
+4|r|g|r|g|g|r|r|g
+5|r|g|r|g|g|r|r| 
+6| |g|r|r|r|r| |r
+7|g|g|r|r|g|g|r| 
+8| |g|r|r| |g|g|r
+
+sample 190:
+player 1: 0.13957989280023178
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r| |g|g| 
+2|r| | |g|g|g|r|r
+3|r|r|g|g|g|r|r|g
+4|r|g|r|r|r|g| | 
+5|r|r|g|r|g|g|g|g
+6|r|g|g|g| |g|g|r
+7|g|g|g|g|g|g|r|r
+8|g|g|g| |g| |g|r
+
+sample 191:
+player 1: 0.0799039906189307
+ |a|b|c|d|e|f|g|h|
+1| |r|g| |g|g|g|g
+2|r|r|g|g|g|r|r|r
+3|r|r|g|g|g|r|r|r
+4|r|r|r|g|g|r|r|r
+5|r|r|g|r|r|g|r| 
+6|r|r|g|r|r|g|g| 
+7|r|r|r|g| |g| |g
+8| | |g|g|g|g| | 
+
+sample 192:
+player 1: 0.6925645983476886
+ |a|b|c|d|e|f|g|h|
+1|g| |r|r|r|r|r|r
+2|r|g|g|g|g|g|g|g
+3| |r|g|g|r|g|g|g
+4| |g|g|r|g|g|r|g
+5|g|g|g|g|r|r|r|g
+6| | |g|r|r|r|r|r
+7| |g| | |r|r|r|r
+8| | |r|r|r|r|r|r
+
+sample 193:
+player 1: 0.0
+ |a|b|c|d|e|f|g|h|
+1|g|r| | |r|g|g| 
+2|g|r| | |g|g|g| 
+3|g|r|g|g|g|g|g| 
+4|g|r|r|r|g|r|g| 
+5|g|r|g|g|r|r|g|g
+6|g|g|g|g|r|g|g|g
+7|g|g|g|r|g|g|g|g
+8|g| | |g|g|g|g|g
+
+sample 194:
+player 1: 0.2435016874888981
+ |a|b|c|d|e|f|g|h|
+1| |r| |r| |r|r| 
+2|r|r|r|r|r|r|g| 
+3|r|r|g|g|g|g| | 
+4|r|r|r|r|g|r|g| 
+5|r|r|r|r|g|g|g|g
+6|r|r|g|r|r|r|g|g
+7|g|g|r|r|r|r|r|g
+8|g|r|r|r|r|r| | 
+
+sample 195:
+player 1: 0.373275484324999
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|g| |r|g
+2|g| |g|g|r|g|g|r
+3| |g|g|g|g|g|r|r
+4| |g|g|g|g|r|r|r
+5| |g|g|g|g|r|r|r
+6|r|g|g|g|r|r|r|r
+7|g|g|g|g|g|r| |r
+8|r|r|r| | |r|g| 
+
+sample 196:
+player 1: 0.1580018583248529
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|r| | | | 
+2|g|g|g|g|g| |r| 
+3|g|g|r|g|g|r| |r
+4|g|g|g|g|g| |g|r
+5|g|g|r|r|g|g|g|r
+6|g|g|g|r|g|g|g|r
+7|g|g|g|g|g|r|r|r
+8|r| |g|g|r|r|r| 
+
+sample 197:
+player 1: 0.6598060645180219
+ |a|b|c|d|e|f|g|h|
+1|g| |g| |r|r|r|r
+2|g|g|g|g|g|r|g|g
+3|g|r|g|r|g|r|g|g
+4|g|g|r|g|r|g|g| 
+5|g|g|r|r|g|g|g|g
+6|r|g|r|r|r|r| | 
+7|r|g|g|r|r|r| | 
+8|r|g| |r|r|r| | 
+
+sample 198:
+player 1: 0.023434183341352277
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g| | 
+2| |r|r|r|g|g|g|g
+3| | |r|r|r|r|r|g
+4|r| |g|r|g|r|r|g
+5|g|r|r|g|r|r|r| 
+6|g|r|r|r|r|g|r|g
+7|g|g|r|g|r|r|g|g
+8| | |r|r|r| |r|g
+
+sample 199:
+player 1: 0.5187027647565292
+ |a|b|c|d|e|f|g|h|
+1|r| | |g| | |g|g
+2| |r|r|r|g|g|g|r
+3| | |r|g|r|g|g|r
+4|g| |g|r|g|g|g|r
+5|r|g|r|g|r|g|g|r
+6|r|g|r|r|g|r|g|r
+7|r|r|r|g| |g|g|r
+8|r|g|g|g|g|g|g| 
+
+sample 200:
+player 1: 0.12579703235802395
+ |a|b|c|d|e|f|g|h|
+1| | |g|g|g|g|g|g
+2|r| |g|g|g|g|g|g
+3|r|r|g|g|r|r|g| 
+4|r|g|r|r|g|r|g| 
+5|r|g|r|g|g|g|r|g
+6|r|g|g|g|g| |g|r
+7| |g|g|g|g|g|g|r
+8| | |g|g|g|g| |r
+
+sample 201:
+player 1: 0.4420638356487859
+ |a|b|c|d|e|f|g|h|
+1| |r| | |r|g|g|r
+2| | |r| |r|r|g|r
+3| |g|g|g|g|r|r|r
+4|g|r|g|g|r|r|r|r
+5|g|g|g|r|g|g|r|r
+6|g| |g|r|g|r|g|g
+7| |g|g|g|r|r|r|g
+8|g|g|g|r| |r|r|r
+
+sample 202:
+player 1: 0.011279154161517488
+ |a|b|c|d|e|f|g|h|
+1| | | | |r|r|g|g
+2| |r| |g|r|r|r|r
+3| | |g|g|g|r|r|r
+4| |g|g|r|r|g|r|r
+5|g|g|g|r|r|r|g|r
+6|g|r|g|r|g|g|g|r
+7|g|r|r|r|r|r|r|r
+8|g|r|r|r|r|r|r| 
+
+sample 203:
+player 1: 0.4221002172867356
+ |a|b|c|d|e|f|g|h|
+1|r|r|g|g| | |g| 
+2| |r|r|r|r|r|g|r
+3| |g|r|r|r|g|g|r
+4|g|r|g|r|r|r|g|r
+5|g|g|r|g|r|r|g|r
+6|g|r|r|r|r|r|r|r
+7| |g|r|r| |r|r|r
+8|g|g| |r| | |r|g
+
+sample 204:
+player 1: 0.11425313568985176
+ |a|b|c|d|e|f|g|h|
+1|g| | |g| | | | 
+2|r|r|g|g|g|r|r|r
+3|r|g|g|g|r|g|g| 
+4|r|g|g|r|g|r|g|g
+5|r|r|r|r|r| |g| 
+6|r|r|g|r|g|r|g|r
+7|r|r|r|r|g|r|r|r
+8| |r|g|g|g|g|g|r
+
+sample 205:
+player 1: 0.6302184482273683
+ |a|b|c|d|e|f|g|h|
+1|g| | |g|g|g|r|g
+2|g| | |g|g|r|g| 
+3|g|g|g|g|g|g| | 
+4|r|g|g|g|g| | |r
+5|r|g|r|g|g|g|r|r
+6|r|r|r|g|r|r|r|r
+7|r|r|g|g|r|r|r|r
+8|r|r|r|r|r|r|r| 
+
+sample 206:
+player 1: 0.7243926670006539
+ |a|b|c|d|e|f|g|h|
+1| | |g|g|r|r|r|r
+2|r| |g|g|r|r| |r
+3|g|r|r|g|g|r|r|r
+4|g|g|r|g|g|g|r|r
+5| |r|g|g|g|g|r|r
+6|r|r|r|g|g|g|g|g
+7| |r| |r|r|r|r|g
+8|r|r|r| |g|r| | 
+
+sample 207:
+player 1: 0.006379389245196675
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g| | | 
+2| | |r|g| | |g| 
+3|g|g|g|r|r|r|g| 
+4|g|g|g|g|g|r|g| 
+5|g|g|r|g|r|g|r|r
+6|g|r|r|r|g|r|r|r
+7|r|r|r|g|g|g|g|r
+8|g|g|g|g|g|g|g|g
+
+sample 208:
+player 1: 0.4718204148471616
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g| | |r| 
+2|g|g|r| | |r|r|g
+3|r|g|r|r|r|r|g|r
+4|r|g|g|g|r|g|r| 
+5|r|g|g|r|g|g|g|g
+6|r|g|r|g|r|r|g|g
+7|r|r|g|g| |r| |g
+8|r| |g|g|r|r|r| 
+
+sample 209:
+player 1: 0.35915946682439426
+ |a|b|c|d|e|f|g|h|
+1| |r| |g| |g| | 
+2| |g|g|g|g|g| |g
+3|r|g|g|r|r|g|r|g
+4|r|g|r|g|r|g|r|g
+5|r|g|r|r|g|g|g| 
+6|g|r|g|g|r|g|g|g
+7| | |r|g|g|r|r|g
+8|r|r|r|r|r|r|r|g
+
+sample 210:
+player 1: 0.9965454954092547
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|r|r|r|r
+2|r| | |g|r|r|r|r
+3| |r|g|g|g|g|r|r
+4|r|g|r|g|r| |g|r
+5|g| |r|r|g|r|g|r
+6|r|r|g|g|g|g|r| 
+7|r|r|g|g|g|g|r|r
+8|r|g|g|g| |g| | 
+
+sample 211:
+player 1: 0.28232471522170566
+ |a|b|c|d|e|f|g|h|
+1|r| |g|g| |r| | 
+2| |r|g|g|g|g|g|g
+3|g| |g|g|g|g|g|g
+4|r|r|g|r|r|g|g|g
+5|r|r|g|r|r|g|g|g
+6|r|r|r|g|g|g|r|g
+7|g| |r|g|r|r|r|r
+8|g|g|g| | |g|r| 
+
+sample 212:
+player 1: 0.0691467624885507
+ |a|b|c|d|e|f|g|h|
+1|r| |g|g|r| |g|g
+2|g|g|g|r|g|g|g|r
+3|g|g|r|r|r|g|g| 
+4|g|g|g|g|g|g|g| 
+5|g|g|g|r|r|r|g|g
+6|g|r|g|g| |g|r| 
+7|g|g|g|g|g|r|r| 
+8|g|g|g| |r| | |r
+
+sample 213:
+player 1: 0.6605314831784265
+ |a|b|c|d|e|f|g|h|
+1|r| |g|g|g|g|g| 
+2| |r|g|g|r|r|r|r
+3| | |r|g|r|r|r|r
+4|g| |r|r|r|r|r|r
+5|g|g|r|r|g|g|r|r
+6|g|g|r|r|g|g|r|r
+7| |g|g|g|r|g| |r
+8|r|g|g|g|g|g| | 
+
+sample 214:
+player 1: 0.017596729602599545
+ |a|b|c|d|e|f|g|h|
+1|r| | |g|g|g| | 
+2|r| |r|r|g| | | 
+3|r|g|r|g|r|g|g|g
+4|r|g|g|r|r|r|g|g
+5|r|g|g|g|g|g|r|g
+6|r|r|g|g|g|g|g|g
+7|r|r|g|g|g|g|g|g
+8| | |r|g|g|g|g|g
+
+sample 215:
+player 1: 0.4278638184245661
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|g| |r|g| 
+2|g|g|g|g|g|g| | 
+3|g|r|g|r|g|g|r|r
+4| |r|r|g|g|g| |r
+5| |r|r|g|g|r|g|r
+6| |r|r|g|r|r|r|r
+7|r|g| |r|r|r|g|r
+8|g|g|g|g|r|r|g| 
+
+sample 216:
+player 1: 0.3497882646196553
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|g|g|g
+2|g|r|g|g|g|g|g| 
+3|g|g|r|r|r|g|r|r
+4|g|g|g|r|g|r| |g
+5|g|g|g|g|r|r|g|g
+6|g|r|g|g|r|g|g|g
+7| |r|r|r|g| | | 
+8| | |r|g|g|g| | 
+
+sample 217:
+player 1: 0.5591005773321179
+ |a|b|c|d|e|f|g|h|
+1|g| |r|r|r| |g|g
+2| |r|r|r|r|r|g|r
+3|r|r|g|g|r|r| | 
+4| |r|r|r|r|r| |r
+5| |r|r|r|r|r|r|r
+6|r|r|r|r|r|r|g|r
+7|r|g|g|g|r|g|g|r
+8|r| | |r|g|g|g|r
+
+sample 218:
+player 1: 0.3467358711416407
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g| |r|r|r
+2|g| |g|g|g|g|r| 
+3|g|g|r|g|g|g|r|r
+4|g|g|g|g|g|r|r|r
+5| | |r|g|r|r|r|g
+6| |r|g|g|r|g|r| 
+7|r|g|g|g|g|g|r| 
+8| | |r|r|r|r|r|r
+
+sample 219:
+player 1: 0.0662126233747314
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g| | | 
+2|r|r|r|r|r|r|r| 
+3|r| |r|r|g|r|g| 
+4|r|g|r|g|r|g|r|g
+5|r|g|r|r|r|r|g|g
+6| |r|r|g|r|g|g|g
+7|g|r|r|r|g|g| |g
+8| |r|r| |g|g|g|g
+
+sample 220:
+player 1: 0.29936219297055233
+ |a|b|c|d|e|f|g|h|
+1| |g|r|r|r|r|r|g
+2| |g|g|g|r|r|r|g
+3| | |g|g|g|r|r|g
+4|g|g|r|g|r|g|r| 
+5| |r|r|r|r|r|r|r
+6|r|r|r|r|r|r|r|r
+7|r|r|r|r|r|g| |r
+8| |r|r|r|r|g| | 
+
+sample 221:
+player 1: 0.06209181924459641
+ |a|b|c|d|e|f|g|h|
+1|g| |r|g| | |g| 
+2|g|g|r|g| |g| | 
+3|g|r|g|g|r|r|g|r
+4|g|g|r|g|g|r|g|g
+5|g|g|g|g|g|r|r|r
+6|g| |r|r|r|g|r|r
+7|g|r|r|r| |r|g|r
+8|g|g|g|g|r| |g|r
+
+sample 222:
+player 1: 0.1306464649363196
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g| |g|r| 
+2| |g|g|g|g|g|g|g
+3| |g|g|g|r|r|g|g
+4|r|r|r|r|g|r|g|r
+5|r|r|g|g|r|g|g|r
+6|r|g|r|r| |r|g|r
+7|g|g|r|r|r|r|r|r
+8|g|r|g| | | | | 
+
+sample 223:
+player 1: 0.16483188008515354
+ |a|b|c|d|e|f|g|h|
+1|r|r|g| | | |r|g
+2|g|g|g|g|g|g|g|g
+3|g|r|g|g|g|g|g|g
+4|g| |r|g|r|g|r|g
+5|g| |g|r|g|g|r|g
+6| | |g|g|r|r|r|g
+7| |g|g|g|r|r|r| 
+8| |r|r|r|r|r|r|g
+
+sample 224:
+player 1: 0.033261085068131795
+ |a|b|c|d|e|f|g|h|
+1|g|r| | | | |r|g
+2|g|g|g|g|g|g|g|g
+3|g|r|r|r|g|r|g|g
+4|g|g|r|g|r|g|r|g
+5| | |g|g|g|r|g|g
+6| |g|r|g|g|g|r| 
+7|g|g|g|r|r|r|r|r
+8|r| | |r|r|g|g|r
+
+sample 225:
+player 1: 0.027747464085729107
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g| | 
+2|g|g|g|r|g|g|g|g
+3|g|r|g|g|g|g|r|r
+4|g|r|g|g|g|r|r|r
+5|g|r|g|g|r| | | 
+6|g|r|g|r|g|r|r| 
+7|g|g|r|g| |r| | 
+8|g|r| |r|r|r|r|r
+
+sample 226:
+player 1: 0.5259154964989252
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r| |r|r|r
+2|g|g|g|g|g|g|r|g
+3|r|g|r|r|g|r|g| 
+4| | |g|g|r|g|g|r
+5|g|g|g|g|g|g|g| 
+6|g|g|g|r|r|g|r| 
+7|g|g|g|r|r| |r|r
+8| |r|r|r|r| |r|g
+
+sample 227:
+player 1: 0.004813998458438696
+ |a|b|c|d|e|f|g|h|
+1| |g|g|r|r| |r| 
+2| |g|g|r|r|r| |g
+3|g|g|r|r|r|r|g| 
+4|r|g|r|r|r|g|g| 
+5| |r|r|r|r|g|g| 
+6|g|g|g|g|g|g|g| 
+7|g|g|r|r|g|g|g|g
+8|g|g|g|g|g|g|g|g
+
+sample 228:
+player 1: 0.7276812115168312
+ |a|b|c|d|e|f|g|h|
+1| | | | |g|g|g|g
+2| |r|g|g| |r|r|g
+3|r| |g|g|r|r|g|r
+4|r|g|r|r|g|g|g|r
+5|r|r|g|r|g|g|r|r
+6|r|r|r|g|g|g|g| 
+7|r|r|r|r|g|g|r|g
+8|r|r|r| | |r|r|r
+
+sample 229:
+player 1: 0.001052560750538296
+ |a|b|c|d|e|f|g|h|
+1|g|r|g| |r|r|g|r
+2| |g|r|g|r|r|g|g
+3| | |g|r|g|r|r| 
+4| |g|g|g|r|g|g|r
+5| |g|g|g|g|r|g| 
+6|g|g|g|g|r|g|g|r
+7|g|g|g|g|r|r|g|r
+8|g|g| | |g|g|g|g
+
+sample 230:
+player 1: 0.047551673228346455
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|g|g| | 
+2|g| |g|g|g| |g| 
+3|g|g|g|g|r|g|g|r
+4|g|g|g|g|g|r|r|r
+5|g|g|r|r|r|r|r|r
+6|g|g|r|g|r|r|g|r
+7| |g|g|r|g|r|g| 
+8| |g| |r|r|r|r|g
+
+sample 231:
+player 1: 0.1283970042935207
+ |a|b|c|d|e|f|g|h|
+1|g| |r| |g|g|g|g
+2|r|g|r|r|g|r|g|g
+3| |r|r|g|r|r|r|g
+4| |r|g|r|r|r|g|g
+5| |g|r|r|g|g|r|g
+6|g|g|g|r|g|r|g|g
+7| |g|g|g|r|r| |r
+8| |r| |r| |r|r|r
+
+sample 232:
+player 1: 0.19437561825804325
+ |a|b|c|d|e|f|g|h|
+1| | | |g|g|g|g|g
+2|g|g|r|r|g|r|r|r
+3| |g|r|g|r|r|r|r
+4| | |g|r|r|g|r|r
+5| |g|g|g|g|r|g| 
+6|r|g|g|r|r|g|g|g
+7|r|g|g|g|g|g|g| 
+8|r|g|g|g|g| |g|g
+
+sample 233:
+player 1: 1.7724872660783252E-4
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g| | |r
+2|g|r| |g| |r|r|r
+3|g|g|g|g|r|r|g| 
+4| |r|g|r|g|g|g| 
+5| |r|r|g|g|g|g|g
+6|r|r| |g|g|g|g|g
+7|g|r|g|g|g|g|g|g
+8|g|g|g|g|g|g|g| 
+
+sample 234:
+player 1: 0.013276886689324826
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g| |g|r| 
+2| |g|g|g|g|g|r|r
+3|r|r|r|r|r|r|r|r
+4|g|r|g|r|r|g|r|r
+5| |g|g|g|r|g|r|r
+6| | |g|g|g|g|r|r
+7| | |r|g|g|g|r|r
+8| |r| |g|g|g|g|g
+
+sample 235:
+player 1: 0.14806216301934666
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|r|r| |r
+2|r| |r|g|g|r|r|r
+3|g|g|g|g|g|g|r|r
+4| | |g|g|g|g|g|r
+5|r|r|r|g|r|g|g|r
+6|g| |g|g|g|g| |r
+7| |g|r|r|r|r|r|r
+8|g|g|g|g|g|g| | 
+
+sample 236:
+player 1: 0.10348551202831603
+ |a|b|c|d|e|f|g|h|
+1| |g| |g| |r|g| 
+2|g|g|g|g|g| |g| 
+3| |g|g|g|g|r|r|r
+4|r|g|g|g|r|r|r|r
+5|r|r|r|r|r|r|g|r
+6|r|g|g|g|g|g|r|r
+7|r|g|g|g|g|r|g|r
+8|g| |g|g|r| | |g
+
+sample 237:
+player 1: 0.8304548649462797
+ |a|b|c|d|e|f|g|h|
+1| |g|r|r|r|r|r| 
+2|g|g|g|g|r|r|r|g
+3|g|g|r|r|r|r|r|r
+4|g|g|g|r|g|g|r| 
+5|r|g|r|g|r|r|r|r
+6| |g| | |r|r|r|r
+7|r|g| |g|r|r|g|r
+8| | |g| |r|r|r|r
+
+sample 238:
+player 1: 0.009978542310835416
+ |a|b|c|d|e|f|g|h|
+1|g|r|g| | |g| | 
+2|g|g|g|g|g|g|g|g
+3|g|g|r|r|r|r|r|r
+4|g|r|g|r|r|r|r|r
+5|g|g|r|g|r|r| |r
+6|g|r|r|r|g|g|r| 
+7|g| |r|r|r|r|g| 
+8|g| |r| |r|r|r|g
+
+sample 239:
+player 1: 0.21367182185133113
+ |a|b|c|d|e|f|g|h|
+1|g| |g| | | | |g
+2| |g|g|g| | |g|g
+3| |g|g|r|g|g|g|g
+4|r|g|g|g|r|r|r|r
+5|r|g|g|r|g|r|r|r
+6|r|g|r|g|r|r| |r
+7|r|g|g|r|r|r|r|r
+8|r|g|g|r|r|r|g|g
+
+sample 240:
+player 1: 0.08170863348974511
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|g|g|g|g
+2|g|g|g|r|g|g|g|g
+3| |g|r|g|r|r|r|g
+4| |r|g|r|r| |r| 
+5|r|r|r|g|r|g|r| 
+6|r|r|r|r|g|r|r|r
+7|r|r|r|r|r|r|r|g
+8|r| | |r|r|r| | 
+
+sample 241:
+player 1: 0.6038515579799983
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|g| | 
+2|g|g|g|g|g|g| | 
+3|g|g|r|g|r|g|g|r
+4|g|g|g|g|r|g|g| 
+5|g|g|r|r|r|r|g|g
+6|g|g|g|g|g|r|r| 
+7|g| |g|g|r|r|r| 
+8| |r|r|r|r|r| |r
+
+sample 242:
+player 1: 0.17360458511901689
+ |a|b|c|d|e|f|g|h|
+1|r|g|g|g|g|g| | 
+2| |g|r|g|g|r|r|r
+3|g|g|g|g|g|r|r|r
+4| | |g|r|g|r|r|r
+5|r|r|g|r|g|g|r|r
+6|r|r|g|r|g|r|r| 
+7|r|g|g|r|r|r|r| 
+8|g|g|g|g|g| | | 
+
+sample 243:
+player 1: 0.19826411023390378
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|g|g|g|g
+2| |r|g|r|g|g|g|g
+3| | |r|r|r|g|r|g
+4|g|g|r|r|g|g|r|r
+5| |g|g|r|g|r|r|r
+6|r|g|g|g|g|g|r|r
+7| | |g|g|g|g|r|r
+8| | | |r|r|r|r|r
+
+sample 244:
+player 1: 0.8851613485308713
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r| |r| 
+2|g|r|g|r|r|r|g| 
+3|g|g|r|g|g|r| |g
+4|g|g|r|r|g|g|g|g
+5|g|g|g|g|g|g|g|g
+6|g| |g|g|g|g|g|g
+7| |g|g|g|g|g|r|r
+8| |r| | | |g|r|r
+
+sample 245:
+player 1: 0.008354139420600008
+ |a|b|c|d|e|f|g|h|
+1|r| | |g|g|g|g|g
+2|g|g|g|g|g|r|g|g
+3| |g|g|g|r|r|g|g
+4|r|r|r|r|r|g|r|g
+5| |r|r|r|g|r|g|g
+6| |r|r|g|g|g|g|g
+7|r| |g|g|r| |r|g
+8| |g|g| |r| |r|g
+
+sample 246:
+player 1: 0.22501199424276347
+ |a|b|c|d|e|f|g|h|
+1|g|r| |r|r|r|r|g
+2|g|g|r|r|r|r|r|g
+3| |r|g|r|g|r|r|g
+4|g|r|r|g|r|r|r|g
+5|r|r|r|r|g|r|g|g
+6|r| |r|r|r|g| |g
+7| | |r|r| | |g| 
+8|r|r|r|g|g|g| |r
+
+sample 247:
+player 1: 0.5022405257767156
+ |a|b|c|d|e|f|g|h|
+1|r| |r|r| |g|g|r
+2|r|r|g|g|g|g|g|g
+3|g|r|g|g|r|r|g|g
+4|g|g|r|r|r|r|g|g
+5|g|g|g|r|r|r|g|g
+6| |g|g|r|g|r|g|g
+7|g| |g|g| |r|g| 
+8| |r|g| | |r|g| 
+
+sample 248:
+player 1: 0.3725659037691669
+ |a|b|c|d|e|f|g|h|
+1| |r| |r|g| | | 
+2|r|r|g|g|r|g| | 
+3| |g|g|g|g|g|g| 
+4|g|r|g|g|r|g|g| 
+5|g|r|r|r|g|r|g|g
+6|r|r|r|r|r|g|g|g
+7|r|r|r|r|r|g|g|g
+8|r|r|r|g|g|g|g|g
+
+sample 249:
+player 1: 0.6941495473137552
+ |a|b|c|d|e|f|g|h|
+1|r|g|g|g|g|g|g| 
+2|r|r|g|g|g|r|r| 
+3|r|g|r|g|g|g|r|r
+4|r|g|r|g|g| |g| 
+5|r|r|r|g|r|g|r|g
+6|r| |r|r|g|r|r|r
+7| | |r|r|r|g|g|g
+8| |g|g|g|g| |r| 
+
+sample 250:
+player 1: 0.2555714112217634
+ |a|b|c|d|e|f|g|h|
+1|g| |g|g|g|g|g|r
+2|g|g|g|g|g|g| |r
+3| |g|g|g|r|g|r|r
+4|g|g|g|r|r|g|r|r
+5|g|g|g|g|g|r|r|r
+6| | |g|g|g|r|r|g
+7| |g|g|r|r|g|r| 
+8|g|g|g| |g| |g| 
+
+sample 251:
+player 1: 0.22432042794544454
+ |a|b|c|d|e|f|g|h|
+1|g| |r|r|r|r|r|g
+2| |g|g|g|g|r|g|g
+3|r|r|g| |r|r|r|g
+4|g|r|r|g|r|r|g|r
+5|g|r|r|r|g|g|r| 
+6|g|r|r|r|g|g|r| 
+7| |r|r|r|r|r|r| 
+8| |r| |g|g|g|g| 
+
+sample 252:
+player 1: 0.3040057224606581
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|r|r|r|r
+2|r|g|g|r|r|r|r|r
+3|g|g|r|g|r|g|g|r
+4|g|g|r|g|g|g|r|r
+5|g|g|r|g|g|r| | 
+6| |g|g|g|r|r|g| 
+7| |g|g|r|r| |r| 
+8|g|g|r| |g| | |r
+
+sample 253:
+player 1: 0.3463410552154084
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g| |r| |r
+2|r|g|g|g|g|g|g|r
+3|r|g|r|g|g| |g|r
+4|r|g|g|r|r|g|g|g
+5|r|g|r|r|r|r|g| 
+6|g|g|r|g|r|g|r|g
+7|r| | |r|g|r|r|g
+8| | |g|r|r|r|r| 
+
+sample 254:
+player 1: 0.13022625966258533
+ |a|b|c|d|e|f|g|h|
+1|g|r| |r|g|g|g| 
+2|r|g|r|r|g|g|g|r
+3| |r|g|g|r|r|g|r
+4|g|g|g|g|g|r|r| 
+5|g|g|r|r|r|r|r|r
+6|g|g|g|r|r|g|r|r
+7| | |r|r|r|r|r| 
+8| | |r|r|r|r| |g
+
+sample 255:
+player 1: 0.6368154879494271
+ |a|b|c|d|e|f|g|h|
+1|r|g| | |g|r|r|r
+2| |r|g|g|g|g| | 
+3|r|r|r|r|r|r|g|g
+4|r|g|g|g|g|r|g|g
+5|r|g|g|g|g|r|g| 
+6|r|g|r|g|g|g|r|g
+7|r|r|g|g| |r|g|g
+8|r|g|g|g| | | |g
+
+sample 256:
+player 1: 0.8301634887305652
+ |a|b|c|d|e|f|g|h|
+1|r|r|r| | |r| | 
+2|r|r|g|r|r| | | 
+3|r|r|g|g|g|g|r| 
+4|r|g|g|r|g|g|r|r
+5|r|g|g|g|g|g|r|r
+6|r|g|g|r|g|g|r|r
+7|r|r|r|r|r|r|g| 
+8|r|r|g|g|g|g| |g
+
+sample 257:
+player 1: 0.17812026452329244
+ |a|b|c|d|e|f|g|h|
+1|g|r|r| |g|g|g|g
+2|g|r|r|r|g|r|r|r
+3|r|r|g|g|r|r|r|r
+4|g|g|g|g|g|r|g| 
+5|g|g|g|g|g|r|g| 
+6| |g|g|r|g|g| |g
+7|g| |r|r|g|g|g| 
+8| |r|r|r|r|r| | 
+
+sample 258:
+player 1: 0.37919858748526164
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|g| |g| 
+2|r|r|r|r|r|g|g| 
+3|r|r|g|r|g|r|g| 
+4|r|r|g|g|r|r|g|g
+5|r|g|g|g|g|r|g|g
+6|r|g|g|r|r|g|g|g
+7|r| |g| |g|r|g|g
+8| |r| |g| | |r|g
+
+sample 259:
+player 1: 0.3211831168363859
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|r|r| 
+2| |g|g|g|g|r| |g
+3|g| |r|r|r|g|g| 
+4|g|g|r|r|g|g|r| 
+5|r|g|r|r|r|g|r| 
+6|r|r|g|r|r|g|g|g
+7|r| |g|g|g| |g|g
+8| |r|g|g|g|g|g|g
+
+sample 260:
+player 1: 0.36348214628650444
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r| |g| | 
+2| |g|r|r|r|r| |g
+3|r|r|g|g|r|r|r|g
+4|r|r|r|r|g|g| |g
+5|r|r|r|g|g|g|g|g
+6| |g|g|g|g|g|g|g
+7|r|g|r|r|g|g|g|g
+8|g|g|r|r|r| | |r
+
+sample 261:
+player 1: 0.4082325752754798
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g| |r
+2| | |r|r|g|g|g|r
+3|r| |g|r|r|g|g|r
+4|g|r|r|r|g|g|g|r
+5| |g|r|r|r|g|g|r
+6| |g|g|r|g|r|g|r
+7|r|g|g|g|g|g|r|r
+8| | | |g|g|r| |r
+
+sample 262:
+player 1: 0.9450431757760405
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|r|r|g|g| 
+2| |r|r| |g|g|g| 
+3|r|g|g|r|g|r|g| 
+4|r|r|g|r|r|g| |g
+5|r|g|g|g|g|g|g| 
+6|r|r|r|r|r|r|r|r
+7|r|r|g|g|r|g|r| 
+8|r|r|g| |g|r| |r
+
+sample 263:
+player 1: 0.9407695368698155
+ |a|b|c|d|e|f|g|h|
+1| |g|g|r|r|r|r|r
+2|r|g|r|r|r|r|r|r
+3| |g| |g|r|g|r|r
+4|r|g|g|r|r|g|g|r
+5| |g| |r|g|g|g|r
+6| |r|r|r|r|g|g|r
+7|g|g|r|g|r| |g|g
+8| | |r|r|r|r|r| 
+
+sample 264:
+player 1: 0.9695763330898466
+ |a|b|c|d|e|f|g|h|
+1| |g|g|r|r|r|r|r
+2| | |g| |r|r|r|r
+3| |r|g|g|r|r|r|r
+4| |r|g|g|g|g|r|g
+5|r|r|g|r|g|g|g|g
+6| |r|r|g|r|g|g|g
+7| |r|g|r|r|r|r|r
+8| |g| |g|g|g|r|r
+
+sample 265:
+player 1: 0.11901818181818181
+ |a|b|c|d|e|f|g|h|
+1|r| | |r|r|r| |r
+2|r|g|g|g|g|g|g|g
+3|r|g|r|r|g|r|r| 
+4|r|r|r|g|r|r|r|g
+5|r|r|r|r|r|r|r|r
+6| |g|g|r|g|r|g|g
+7| | | |g|g|g|g|g
+8| | |g|g|g|g|g|g
+
+sample 266:
+player 1: 0.03492291880781089
+ |a|b|c|d|e|f|g|h|
+1| |r|r|g| | |g|g
+2|r|r|r|r|r|g|g|g
+3| |r|r|g|r|g|r|g
+4| | |r|g|g|r| |r
+5| | |r|g|r|r|r|r
+6|g|g|g|g|g|r|r|r
+7|g|g|g|g|g|g|r|r
+8| |r|g|g|g|g|g|r
+
+sample 267:
+player 1: 0.7711946501671822
+ |a|b|c|d|e|f|g|h|
+1| |g| |g|g| |r| 
+2|g|g|g|g|g|r|r|r
+3|r|g|r|g|g|g|g|r
+4|r|r|r|g|r|g|g|r
+5|r|r|r|g|g|g|g|r
+6|r| |r|g|g|g|g|r
+7|r|g| |g|g|g|g|r
+8| | |g| |r|r| |r
+
+sample 268:
+player 1: 0.40737125859825246
+ |a|b|c|d|e|f|g|h|
+1|r|g|r|r|r|r|r|r
+2|r|g|r|r|r|r| | 
+3|r|g|g| |g|r|g|r
+4|r|g|g|g|g|g|r|r
+5|r|g|g|g|g|r|r|r
+6|g|r|g| |g|g|g| 
+7|g|g|r| |g|g|g| 
+8|g| | | |g|g|r|g
+
+sample 269:
+player 1: 0.16906940580994095
+ |a|b|c|d|e|f|g|h|
+1| |r|g| |r| | | 
+2|g|g|g|g|r| | |r
+3|g|g|g|g|r|g|r|g
+4|g|g|r|g|r|r|g| 
+5|g|g|g|g|r|g|r|g
+6|r|r|g|g|g|r|g|r
+7|r|r|g|g|g|g|g|r
+8| |r|r|g|g| |g|g
+
+sample 270:
+player 1: 0.008215312954168162
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|r|g|g
+2|g|g|r| |r|r|g|r
+3|g|g|r|g|g|r|g| 
+4|g|g|r|r|g|g|g| 
+5|g|r|g|r|r|g| | 
+6|g|r|g|r|g|g| | 
+7|g|r|r|g|g| | | 
+8|g|r|g|g|g|g|g|g
+
+sample 271:
+player 1: 0.008435575969331676
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g| |r
+2|g|g|g|r|r|r|r|r
+3|g|r|g|g|g|r|r|g
+4|g|r|g|g|r|r|g| 
+5|r|r|g|g|r|r|r|r
+6| |r| |r|g|g|r|r
+7| | |r|g| |g|g|r
+8| |r| |g| |r|g|g
+
+sample 272:
+player 1: 0.17482253436036851
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|r|r|r| 
+2| |r|r|r|g|r| | 
+3| |g|r|r|r|r|r|r
+4|g|g|g|g|r|g|g|g
+5|r|g|r|g|g|r|g|g
+6|g|g|g|g|g|g|r| 
+7|g|g|g|g|r|r| |r
+8|g|g|g|g| |r|r| 
+
+sample 273:
+player 1: 0.05550619954420796
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g| |r|g| 
+2|r|r|g|g|g|g| | 
+3|r|r|g|r|g|g|r|r
+4|r|r|r|g|g|r|g|r
+5|r|r|g|r|r| |r|r
+6|r|r|r|r|r|g|g|r
+7|r|r|r|r|g|g|g| 
+8| |r| | | |g|g|g
+
+sample 274:
+player 1: 0.3867127496159754
+ |a|b|c|d|e|f|g|h|
+1| | |r|r| | | |g
+2|g|r|r| |r|r|g| 
+3|r|g|r|r|r|g| | 
+4|r|r|g|r|r|r|r|r
+5|r|r|r|g|g|g|r|r
+6|r|r|g|g|g|r|g|g
+7|r|r|r|g|r|g| |g
+8|r|r|r|r|g|g|g|g
+
+sample 275:
+player 1: 0.0
+ |a|b|c|d|e|f|g|h|
+1|g|g|r| |r|g| | 
+2|g|r|g|r|g| |r|g
+3|g| |r|g|r|r|g| 
+4| |r|r|r|r|g|r| 
+5|r| |r|r|g|g|r|g
+6| |r|r|g|r|g|g|g
+7|r|r|g|r|g|g|g|g
+8|r|g|g|g|g|g|g|g
+
+sample 276:
+player 1: 0.5602501842368814
+ |a|b|c|d|e|f|g|h|
+1|g|r|r| |g|g|g| 
+2|g|g|r|r|g|r|r| 
+3| |r|g|g|r|r|r| 
+4|g|g|g|r|g|r| |r
+5|g|g|r|r|g|r|r|r
+6| |g|g|g|r|r|g|r
+7|r|r|g|r|r|r|r| 
+8|r| |r|r|r|r|r| 
+
+sample 277:
+player 1: 0.04407241084353204
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|g| |r|g
+2| |r|r|g|g|g|g|g
+3|g|r|r|r|r|r|r|r
+4|g|g|r|r|g|g|r| 
+5| |r|g|g|g|r|r|g
+6|g|r|r|g|r|r| |r
+7|g|g|g| |g|r|r| 
+8|g|g|g| |r|r|r| 
+
+sample 278:
+player 1: 0.16954576296051788
+ |a|b|c|d|e|f|g|h|
+1|g|r| |g|g|g|g|g
+2|g|r|r|r|r|r|g|g
+3| |r|g|r|r|g|r| 
+4|r|g|r|r|r|r|r|r
+5|g|g|g|g|r|g|r|r
+6| |g|g|r|g|r|g|r
+7| | |g|g|r|g|g|g
+8| | |g|r| |g|r| 
+
+sample 279:
+player 1: 0.82530345565811
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|r|r|r|r|r
+2|g|g|g|g|r|g| | 
+3| |g|g|r|g|g|r|g
+4|g|g|g|r|r|g|r|g
+5|r|g|r|g|r| |g|g
+6| |g|r|r|g|r| |g
+7|r|g|g|g| |g|r| 
+8|r|g|g|g|g| | |r
+
+sample 280:
+player 1: 0.5513123468664775
+ |a|b|c|d|e|f|g|h|
+1| |r|g|g|r|r| |g
+2|g| |g|g|g|g|g| 
+3|g|g|g|r|r|g| | 
+4|r|r|g|r|r|r| | 
+5|r|r|r|g|r|g|r|r
+6|r|r|g|g|r|r|r|r
+7| |g|r|r|g|g|r|r
+8|g| |r|r|r|r|r|r
+
+sample 281:
+player 1: 0.3128003681107059
+ |a|b|c|d|e|f|g|h|
+1|r| |g|g|r|r|r|r
+2|g|g|g|g|g|g|g|g
+3| |g|r|g|r| |g| 
+4|g|r|g|r|r|g|g|g
+5|g|g|g|g|r|g|g| 
+6|g|g|g|g|r|g|g| 
+7|g|r|r|r|r|g| | 
+8|g|r|r|r|r|g| | 
+
+sample 282:
+player 1: 0.602123172798928
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r| |g|g|r
+2|g| |r|r|r|g|r|r
+3|g|g|r|g|g|g|g|r
+4|r|r|r|g|r|g|r| 
+5| |r|g|r|g|g|g|g
+6|r|g|r|r| |g|g| 
+7|g|r|r| |g|g|g|r
+8|r|r| |g|g|g|g| 
+
+sample 283:
+player 1: 0.9990106356665842
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|r|r| 
+2|r|g|g|g|g|g|g| 
+3|r|g|g|g|r|g|r|g
+4| |r|g|g|r|r|g| 
+5| | |r|g|r|r|r|g
+6|r|r|r|r|r|r|g|r
+7| |r|r|r| |g|r|r
+8| | |r|r|r|r|r|r
+
+sample 284:
+player 1: 0.01219591013675965
+ |a|b|c|d|e|f|g|h|
+1| |r|g|g|g| | |r
+2|r| |r|g| | |r| 
+3|r|r|g|r|r|r|g|g
+4|r|r|g|r|r|r| | 
+5|r|g|g|r|r|r|r|g
+6|g|g|g|r|g|g|r| 
+7|g|g|g|r|r|r|g|r
+8|g|g|g|g|g|g|g|g
+
+sample 285:
+player 1: 0.04515641282360393
+ |a|b|c|d|e|f|g|h|
+1|g|r|g| |r| |r|g
+2|g|g|g|g|g|g|g|g
+3| |g|r|g|r|g|r|g
+4|r|r|g|r|r|g|r|g
+5| |r|r|g|r|g|r|g
+6| |r|g|g|r|r|r|g
+7| |g|r|r|g|r|r|g
+8|g| | | |r|r|r| 
+
+sample 286:
+player 1: 0.6862935226539055
+ |a|b|c|d|e|f|g|h|
+1|r| |r| |r|g|g| 
+2| |r|g|g|g|g|g|g
+3|r|g|r|g|r|r|r|r
+4|g|g|g|r|r|g| |g
+5|r|g|r|g|g|g|g| 
+6|r|r|g|g|r|g|r|r
+7|r|r|r|g|g|g|g| 
+8|r| |g|g| | |r|g
+
+sample 287:
+player 1: 0.4268413093199685
+ |a|b|c|d|e|f|g|h|
+1| | |r|r|r|r|r| 
+2|g| | |r|g|r|g|g
+3|g|g|g|g|r|g|g| 
+4|r|g|r|r|r|g|r|r
+5|r|g|r|g|g|r|g| 
+6|r|g|g|g|r|g|g|g
+7|r|g|r|r|r|r|r|r
+8| | |r|r|r|r|r| 
+
+sample 288:
+player 1: 0.08835150940414098
+ |a|b|c|d|e|f|g|h|
+1|g|r|r|g|g| | | 
+2| |g|g|g|g|g|g| 
+3|g|g|g|r|r|g|g|g
+4|r|g|g|r|r|g|g|r
+5| |g|g|g|g|g| |r
+6| |r|r|g|g|g|g|r
+7|r|g|g|g|g|g|g|r
+8| |g|g|g|g|g| |r
+
+sample 289:
+player 1: 0.3812605624047652
+ |a|b|c|d|e|f|g|h|
+1| | | |g|g|g|g|r
+2| |r| |g|g|g|r|r
+3|r|r|r|g|g|g|g|r
+4|g|r|r|r|r|g|g| 
+5|g|g|r|r|r|g| |g
+6|g|r|g|g|r|g|g|g
+7|g|r| |r|g|g|r|r
+8|g|r|r|g|g|g| | 
+
+sample 290:
+player 1: 1.770945862184993E-4
+ |a|b|c|d|e|f|g|h|
+1|r| |r|r|r|r|g|g
+2| |r|r|r|r|r|r|r
+3| |r|r|r|g|g|r|r
+4|r|g|g|r|g|r| | 
+5|g|r|g|r|g|r|r| 
+6|g|g|g|r|g|r|r| 
+7|g|g|g|g|g|g|g| 
+8|g|g|g|g|g|g| | 
+
+sample 291:
+player 1: 0.019124866595517608
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|g|g|g|g
+2|r|g|g|g|r|g|r| 
+3|g|g|g|g|g|g|r|r
+4|r|g| |r|g|g|r|g
+5|r|r|r|g|r|r|g|g
+6| |r|g|g|g|r|g|g
+7|r|r|r|g|g|g|r| 
+8| |r| |r|g| | | 
+
+sample 292:
+player 1: 0.7232552115594698
+ |a|b|c|d|e|f|g|h|
+1|g| |g| |g|g|g|r
+2|r|g|r|r|r|g|g|g
+3|r|r|g|g|g|r|g|r
+4|r| |r|r|r|r|g|r
+5| |r| |r|r|r|g|r
+6|r| |r| |r|r|r|r
+7| |r|r|r|g|g|r|r
+8| | |r|r|r|r|r|r
+
+sample 293:
+player 1: 0.3596557086930874
+ |a|b|c|d|e|f|g|h|
+1| |g| | |g|g| |r
+2|r|g|g| |g|g|g|r
+3|g|g|g|g|g|r| |r
+4|g|g|g|g|r|g|r|r
+5|g|g|g|r|g|r|r|r
+6|g| |g|g|g|g|r|r
+7| |r|g|g|g|g|r|r
+8|r| | |r|g|g|g|g
+
+sample 294:
+player 1: 0.03345322814638041
+ |a|b|c|d|e|f|g|h|
+1| | |g|r| |r|g|g
+2| |g| |r|r|g| |g
+3|g|g|g|r|r|r|r|g
+4|g|g|g|r|r|r|r|g
+5|g|g|r|r|r|r|r|g
+6|g|r|g|g|g|g|r|g
+7|r| |r|g|g|g|g| 
+8| | |r|r|r|g|g|g
+
+sample 295:
+player 1: 0.10873372781065088
+ |a|b|c|d|e|f|g|h|
+1|r|r|g|g|r| |r| 
+2|r|r|g|g|r|r|g| 
+3|r|r|g|g|g| | | 
+4|r|r|g|r|r|g|g|g
+5| |r|g|r|g|g|g|g
+6|r|r|r|g|r|r|g|g
+7| |r|g|r|r|g|g|g
+8| |g| |r|r|r|g|g
+
+sample 296:
+player 1: 0.07434109296669479
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g|g|r
+2|g|r|r|r|r|g|g|r
+3| |r|r|r|g|r|g|r
+4|r|g|r|g|r|g|g| 
+5|g| |g|r|g|g|g|g
+6| |g|g|g|g|g|g|g
+7| |r|r|r|g|g| |r
+8| | | |r|r|r|r| 
+
+sample 297:
+player 1: 0.9765421372719374
+ |a|b|c|d|e|f|g|h|
+1|r|g| | |r|r|r|r
+2| |g| |g|g|r|g|r
+3|r|g|g|g|g| |r|r
+4| |r|g|g|g|g|r|r
+5|g|r|r|g|r|g|g|r
+6|g|r|r|r|g|g| |r
+7|g|r|r|r|r|g|r|r
+8| |r| |r|r|r| |r
+
+sample 298:
+player 1: 0.1647709806332616
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g| |r|r|g
+2| |r|r|r|r|r|r|g
+3| | |g|g|g|r|g|g
+4| |r|g|g|r|g|r|g
+5| |r|g|r|g|g|r|g
+6| |r|g|r|g|g|g|g
+7|r|r|g|r|r|g|g|g
+8| |g|g|g|g|g|r| 
+
+sample 299:
+player 1: 0.1840363484033126
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g| |r| 
+2|r|g|r|r|g|r| |r
+3| |r|r|g|r|g|g| 
+4| | |g|g|g|r|g|g
+5|r|g|r|r|g|g|g|r
+6|g|g|g|g|g|g|r|r
+7| |g| |g|g|r|r|r
+8|g|g|g| |g|g|r|r
+
+sample 300:
+player 1: 0.4565221896045588
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|g|r|r|r
+2|g|r|r|g|g|g|r|r
+3|r| |r|r|g|g|r|r
+4|r|r|g|g|g|g|g|r
+5|r|r|r|g|r|g|g|g
+6| |r|g|r|g|r| |g
+7|r|g|r|g|g|r| | 
+8|g| | |g|g|r| | 
+
+sample 301:
+player 1: 0.3863466010647499
+ |a|b|c|d|e|f|g|h|
+1|g|g|r|g| |g| | 
+2|g|g|g|r|g| | |r
+3|g|g|g|g|r|r|r|g
+4| |r|g|r|r|r|g|g
+5|g|r|r|g|r|g|g|g
+6|r|r|r|r|g|r|r|g
+7|r|r| |r| |g|g|g
+8|r|r|r|r|r| |g| 
+
+sample 302:
+player 1: 0.3072477946541089
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g| |g
+2| |r|r| |g|g|g|r
+3|r| |r|g|g|g|r| 
+4|r|r|g|g|g|r|g|g
+5|r|g|g|g|r| |r|g
+6|g|g|r|r|g|r|r| 
+7|g| |r|r|r|r|r|r
+8| |r|r|r| |r|r|r
+
+sample 303:
+player 1: 0.10655797420982603
+ |a|b|c|d|e|f|g|h|
+1|g| |g|g| |r|g|g
+2|g|g|g|g|r|r|g|r
+3|g|g|g|g|r|g|g| 
+4|r|r|r|r|g|r|g| 
+5| |r|r|g|r|r|g| 
+6|g|g|g|g|g|r|g|g
+7|g|g|g|g|g|g|r| 
+8|g| |g|r| | |g|r
+
+sample 304:
+player 1: 0.7785539909275981
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r| |g|r
+2|g|g|g|g|g|g|g|g
+3|g|g|r|g|g|r|g|r
+4|g|g|r|g|g| |g| 
+5| |g|r|g|g|g|g|g
+6| |g|r|r|r|r|r|r
+7|r|r|r|g|g| |g|g
+8|r|r|r| | |g| | 
+
+sample 305:
+player 1: 0.19866878088354598
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r| | | | 
+2|r|g|g|r|r| |g| 
+3|g|g|g|g|r|r|r|g
+4|g|g|g|g|g|r|r|g
+5|r|g|r|r|r|g|r|g
+6| |r|g|r|g|r|g|g
+7| |g|r|r|r|g| | 
+8|g|g|g|r|g|g|g|g
+
+sample 306:
+player 1: 0.19221902017291068
+ |a|b|c|d|e|f|g|h|
+1|g| |g|g|r| |g|g
+2|g|g|g|g|g|r|g|r
+3|r|r|g|r|r|r|r|r
+4|g|g|g|r|g|g|r|r
+5|g|g|g|g|r|r|r|r
+6| |r|r|r|r|r| |g
+7| |r|r|r|r| |r| 
+8| |r|r|r|r|r| | 
+
+sample 307:
+player 1: 0.0
+ |a|b|c|d|e|f|g|h|
+1| |g|r|r|g|g|g|g
+2| | |r|r|g|g|g|g
+3| | |r|g|r|g|g|g
+4|g|r|g|g|g|g|g|g
+5|g|g|r|g|g|g|r|g
+6|g|r|r|r| |g|g|r
+7|g|g|g|g| |g|g| 
+8|g|g|g|g|g|g| | 
+
+sample 308:
+player 1: 0.7073440715248706
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g| | |r| 
+2| |r|r|g|g|r|r| 
+3|r|r|g|g|g|r|r|g
+4|r|r|r|r|g|g|r| 
+5|r|r|g|r|g|g|r| 
+6|r|g|r|r|g|r|r| 
+7|r|r|g|g|g|g|g|r
+8|r| |r|r|r|g|g| 
+
+sample 309:
+player 1: 0.7422405538778817
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|r|g| 
+2|r|r|r|r|r|g|g|g
+3|r|r|r|r|r|r|g| 
+4|g|r|g|g|r|g|g|g
+5|g|g|r|r|g|g|g|g
+6| |g|g|g| |g|g|g
+7|r| |g|g|g| |g|r
+8| |r|g|g|g| | | 
+
+sample 310:
+player 1: 0.0
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g| | | 
+2|g|g|g|g|g|g|g|g
+3|g|r|g|g|g|g|r|r
+4|g|r|g|g|g|g|r|r
+5| |g|r|g|r|g|r| 
+6|g|g|g|r|r|r|g|r
+7| | |g|g|g|g|g|g
+8| | |g| |g|g|g|g
+
+sample 311:
+player 1: 0.08842132202398362
+ |a|b|c|d|e|f|g|h|
+1| | | |r|r|r|r|g
+2|r|r|r|r|r|r|r|g
+3| |g| |r|r|r|r|g
+4| |g|g|g|g|g|r|r
+5|g|g|g|g|r|g|r|r
+6| |g|r|r|r|r|r|g
+7| | |g|r|r|r|r|g
+8| |g|g|g|g|g|g|g
+
+sample 312:
+player 1: 0.0
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g| | | 
+2|g|g|g|r| |g| | 
+3|g|g|g|g|g|g|g|g
+4|g|g|r|r|g|g|g| 
+5|g|g|g|r|g|g| |g
+6|g|g|r|r|r|g|g| 
+7|g|g|g|g|r|r|r|r
+8| |g|g|g|g|g|g|g
+
+sample 313:
+player 1: 0.8034400999517278
+ |a|b|c|d|e|f|g|h|
+1| | | | |g|g|g|r
+2| |g|g|g| |g|g| 
+3| |g|g|r|g|r|r|r
+4| |g|g|g|r|g|r|r
+5|g|g|g|g|g|r|g|r
+6|g|g|g|g|g|g|g| 
+7|r|g|g|g|g|g|g|g
+8|r|r|r|r|r|r|r|r
+
+sample 314:
+player 1: 0.12047641506113571
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|g|g|r| 
+2| | |g|r|g|g|g|r
+3| | |r|g|r|r|r|r
+4|g|g|g|r|r|r|g|g
+5|r|g|g|r|g|r|g| 
+6|r|r|r|g|r|g|g|g
+7|r|r|r| |r|g|g| 
+8| |r|r|r|r|g|g|g
+
+sample 315:
+player 1: 0.8298096994578223
+ |a|b|c|d|e|f|g|h|
+1| | | | | |g|r|r
+2|g| |g|r|g|r|r|r
+3|g|g| |g|r|r|g|r
+4|r|r|g|r|g|g|r|r
+5|g|g|g|g|g|g|r|r
+6|g|g|g|g|g|r|r|r
+7| |g|r|r|r|r|r|r
+8|r| |g|g|g|r| |r
+
+sample 316:
+player 1: 0.8625833136880907
+ |a|b|c|d|e|f|g|h|
+1|g| |r|r|g|g|g| 
+2|g|g| |r|r|r| | 
+3|r|r|g|r|r|r|r|r
+4| |g|g|g|g|g|r|r
+5|g| |r|r|r|r|g|r
+6| |r|r|r|r|r|g|r
+7|r|r|r|r|r|g|g|r
+8|r| | |r|r|r|g|r
+
+sample 317:
+player 1: 0.3841032561335717
+ |a|b|c|d|e|f|g|h|
+1| | |r| |g|g|g|r
+2|g|g|g|g|g|g|r| 
+3| |g|r|g|r|r|g| 
+4|r|g|r|g|r|g|g| 
+5|r|g|r|g|r|g|g|g
+6|r|r|r|g|g|g|g|r
+7| |g|r|g|g|g|r|r
+8| |g|g|g|g|g| |r
+
+sample 318:
+player 1: 0.09593754034738625
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|r| | |r
+2| |g|g|r|r|r|r|r
+3|g|r|g|g|r|r|r|r
+4| |r|g|r|g|g|r|r
+5| |r|r|r|g|g|r|r
+6|g|r|r|r|g|r|g|r
+7|g| |g|g|r| | |g
+8|g|g|g| |g|g|g| 
+
+sample 319:
+player 1: 0.03246421702946032
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|r| | |g
+2| |g|g|r|r|r|r|g
+3|g|g|r|g|r|r|r|g
+4|g|g|r|g|r|g|r|r
+5|g|g|r|g|r|g|r| 
+6|r|g|g|r|r|r|g|g
+7| |g|g|g|g|g|g|g
+8| | | | |r|g|g|g
+
+sample 320:
+player 1: 0.8061529366288456
+ |a|b|c|d|e|f|g|h|
+1|r|g| |r| |r|g| 
+2| |r|g| |r|g|g| 
+3| |g|r|r|g|g|g|r
+4|g|g|r|r|g|r|g|r
+5| |r|g|g|r|r|g|r
+6|r|g|g|r|r|r|g|r
+7| |g|r|g|g|g|r|r
+8|g| |r|r|r|r|r|r
+
+sample 321:
+player 1: 0.38874199424172984
+ |a|b|c|d|e|f|g|h|
+1| |r| |r|g| |r| 
+2|g|g|g|g|g|g|g| 
+3|g|g|r|r|r|g| | 
+4|g|g|g|r|g|r|r| 
+5| |g|r|g|r|r|r|g
+6| |g|g|r|r|g|r|g
+7|g|g|r|r|g|r|r|g
+8|g|r|r|r|r|r|r|g
+
+sample 322:
+player 1: 0.8175845521023766
+ |a|b|c|d|e|f|g|h|
+1| |g| | | |r| | 
+2|g|g|g|g|g|g|g|g
+3| |g|g|r|r|r|g|g
+4|r|g|r|g|r|r|r|g
+5|r|r|r|r|g|r|g|g
+6|r|r|r|r|g|r| |g
+7|r|r|g|g|r|g|g|g
+8|r|g| |g| |r|g|r
+
+sample 323:
+player 1: 0.7732862847742464
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|g|g| 
+2| |r|g|r|r|g| |r
+3|g|r|r|r|r|r|r| 
+4|g|r|g|g|r|r|r| 
+5| |g|g|g|r|r|r|r
+6|g|g|g|g|g|g|g|g
+7| | |g|r|g|g|r|r
+8| |r|g| |r|r|r|r
+
+sample 324:
+player 1: 0.12794502914434383
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|g|g|g| 
+2|r|r|g|g|r|g|g| 
+3| |r|g|r|g|g|g|g
+4|g| |g|g|g|g|g|r
+5|g|g|g|r|r|g|g| 
+6|g|g|r| |r|g|g|r
+7|g|g|g|r|g|g|g|g
+8|r| |r| |g|g|r| 
+
+sample 325:
+player 1: 0.8275035095928872
+ |a|b|c|d|e|f|g|h|
+1| | |g|r| |r|r|r
+2|r|g|g|g|r|r|r|r
+3| |g|g|r|g|r|r|r
+4|g|g|r|r|g|r|g|r
+5| |g|r|r|g|g|g|r
+6|r|g|g|r|g|g|g|r
+7|r|g|g|g|g|g|g|r
+8| | |g|g|g| | | 
+
+sample 326:
+player 1: 0.40241567186568244
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|g|g|g| 
+2|g|g|g|g|g|g|g| 
+3|r|g|r|r|r|g|g| 
+4| |r|g|r|g|r|g| 
+5|g|g|r|g|g|g|r| 
+6| |r|r|r|r|r|r|r
+7|r|r|r|r|r|g|g|r
+8| |g|g|g|g|g|g| 
+
+sample 327:
+player 1: 0.12466275194413586
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g| | | |r
+2|g|g|r|r|r|r|r|r
+3|g|g|g|g|g|g|r| 
+4|g|r|g|g|r|r|g|g
+5|g|g|r|r|g|r|g|r
+6|g|g|r|r|r|g|g| 
+7|r|r| |r| |g| | 
+8|r|r|r|r|g|g|r| 
+
+sample 328:
+player 1: 0.6178005364545233
+ |a|b|c|d|e|f|g|h|
+1| |r|r|r|r|g|g|g
+2|g|g|g|g|g|g|g| 
+3|g|r|g|g|g|g|r|r
+4|g|g|r|g|g|r|r| 
+5|g|g|r|g|r|r|r| 
+6|g|g|r|r|r|r|r|r
+7| |r|r|r|g|r| | 
+8|r| |r|r|r|r| | 
+
+sample 329:
+player 1: 0.5408295236843743
+ |a|b|c|d|e|f|g|h|
+1| |g|g| | |g| | 
+2|r|g|r|g|g|r| | 
+3|r|r|r|r|r| |r|g
+4|g|g|g|r|r|r| |g
+5|g|g|r|g|r|g|r|g
+6|g|g|g|r|r|r|g|g
+7|g|g|r|g|r|g|g|g
+8|r|r| |r|r|r|r|r
+
+sample 330:
+player 1: 0.8609451311933712
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|r|r| 
+2|g|r|r|g|r|r|g| 
+3|g|g|g|r|r|r|g|g
+4|g|g|g|r|r|g|g| 
+5|g|g|g|r|r|g|g|r
+6|g| |r|g|g|r|r| 
+7| |g|g|g|g|g|r|r
+8|r| |g| |r|g| | 
+
+sample 331:
+player 1: 0.20117271675601292
+ |a|b|c|d|e|f|g|h|
+1|g|r| | |r|g|g| 
+2| |g|r|r|g|g|r| 
+3|r|g|g|g|r|g| | 
+4|r|g|g|g|r|r|g|g
+5|r|g|g|g|g|g|g| 
+6|r|g|g|g|r|g|r|r
+7|r|g|r|g|r|r|r|r
+8| |g|g|g|g|g|g| 
+
+sample 332:
+player 1: 0.0
+ |a|b|c|d|e|f|g|h|
+1|g| |g|g|g|g|g|g
+2| |g| |g|g|g|g|g
+3| | |g|r|g|g|g|g
+4| |r|g|g|r|g|g|g
+5| |r|r|r|g|g|g|g
+6|g|r|g|r|r|g|g|g
+7| |r|r|r|r|r|r|g
+8|r|r|g| | |g|r|r
+
+sample 333:
+player 1: 0.01936500242365487
+ |a|b|c|d|e|f|g|h|
+1|r| | |r|r|r| | 
+2|g|g|g|g|r|g|g|g
+3| |r|r|r|g|r|g|g
+4|r|r|r|r|r|r|g| 
+5|g|g|g|r|r|g|g|g
+6|g| |g|r|r|r|g|g
+7|g| |g|r|r| |r|g
+8|g|g|g|r| |r|r|g
+
+sample 334:
+player 1: 0.00916402319843635
+ |a|b|c|d|e|f|g|h|
+1| | |g|g|g|g|g|g
+2| | |g|g| |g|g|g
+3|g|g|g|r|g|r|g|g
+4|r|r|r|r|r|r|g|g
+5|r|r|g|g|r|r|g|g
+6| |g|g|g|g|r| |g
+7|g|g|g|g|g|g|r|g
+8|r|r|g|g| | | |r
+
+sample 335:
+player 1: 0.39855574055712495
+ |a|b|c|d|e|f|g|h|
+1| |r|g| |g| |r|g
+2| |r|r|g|g|g|r| 
+3| |r|g|g|g|g|g| 
+4|r|g|r|r|r|g|r|g
+5|g|g|g|r|g|r|r|g
+6| |g|r|g|r|r|r|g
+7|g|g|g|r|r|r|r|g
+8| |g|g|g|r|r|r| 
+
+sample 336:
+player 1: 0.9023362458945281
+ |a|b|c|d|e|f|g|h|
+1|r|g| |r|r|r|r| 
+2| |r|g|g|g|g|g|g
+3|r|g|r|g|r|g|g| 
+4|g|g|g|r|g|g| | 
+5|g|g|r|g|g|r|g| 
+6| |r|r|g|r|r|r|g
+7|r|r|g|r|r|r|r| 
+8|r|r|r|r|r|r|r| 
+
+sample 337:
+player 1: 0.138721075129738
+ |a|b|c|d|e|f|g|h|
+1| | |r|r|r|g|g|g
+2|g| | |r|r|r|g|g
+3|g| |r|r|r|r|r|g
+4|g|r|r|r|r|r|r|r
+5| |g|r|g|g|g|r|r
+6| |g|g|r|g|r|r|r
+7|r|g|g|r|r|g| |r
+8|g|g| |r|r|r|g| 
+
+sample 338:
+player 1: 0.9074404893414217
+ |a|b|c|d|e|f|g|h|
+1| | | |g|r|r|r|r
+2|r| |g|g|g|r|r|r
+3| |g|g|g|r|r|g|r
+4|g| |r|r|g|g|g|r
+5|r|g|g|r|r|r|g|r
+6|r|g|g|g|g|g|r|r
+7|r|r|g|g| | |g|r
+8|r| |g|g|g| |r|g
+
+sample 339:
+player 1: 0.18078219669336446
+ |a|b|c|d|e|f|g|h|
+1|r| |g| |r|g|g| 
+2| |g|r|r| |g| | 
+3|g| |r|g|g|g|r|g
+4|g|g|g|g|g|g|r|g
+5|g|g|r|g|r|g|r|r
+6|g|g|r|g|r|g|r|r
+7| |g|g|g|r|g|r| 
+8|g|g|g|g|g|g|g|g
+
+sample 340:
+player 1: 0.0031385130422653088
+ |a|b|c|d|e|f|g|h|
+1|g| |g| |g|r| | 
+2|g|g|g|g|g|g| | 
+3|g|r|r|r|g|g| |g
+4|r|r|r|g|g|r|g|g
+5|g|r|g|g|g|g|g|g
+6|g|g|r|r|r|r|g|g
+7|g|g|r|r| |r|r|g
+8|g|r|r|r| | |r|g
+
+sample 341:
+player 1: 0.9825233075961939
+ |a|b|c|d|e|f|g|h|
+1|r| |g| | |r| | 
+2| |g|g|g|r|r|g| 
+3|g|g|g|r|g|r| |g
+4|r|r|r|r|r|g|g|r
+5|r|r|g|r|r|r|g| 
+6|r| |g|r|r|r|g|g
+7|r|r|r|g|g|r|g|g
+8|g|r|r|r|r|r|r|r
+
+sample 342:
+player 1: 0.03904100615747413
+ |a|b|c|d|e|f|g|h|
+1| | | |g|g|g| | 
+2| | |r|r|g|g|r|g
+3|g|g|g|g|g|g|g|g
+4| |r|r|g|g|g|g|g
+5|g|r|g|r|r|r|g|r
+6| |g|r|r|r|g|r| 
+7|g|g|r|r|g|r|r|g
+8|g|g|g|g|g|g|g|g
+
+sample 343:
+player 1: 0.09107797837374362
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|r| | | 
+2|g|g|g|g|r|r| |r
+3|g|g|g|g|r| |r| 
+4|g|g|g|g|g|g|g| 
+5|g|g|g|g|g|g| |r
+6| |g|g|r|g|g|g|r
+7|r|r|g|g|g|g|g|r
+8| |r|r|r|r|r|r|r
+
+sample 344:
+player 1: 0.8901353965183753
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r| |r|g| 
+2|r|r|r|r|r|g|g|g
+3|g|g|g|g|g|r|g|g
+4|g|g|r|g|r|g|r| 
+5|g|g|g|r|g|g| |r
+6|g|r|g|r|g|g| | 
+7|g|g|r|g|g|g| | 
+8| |g|g|g|g|g|g| 
+
+sample 345:
+player 1: 0.002038905787227521
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|r| |g| 
+2|g|g|g|r|r| |g| 
+3| |g|r|g|r|r|g| 
+4| |r|r|g|g|g|r|g
+5| |r|r|g|g|g|g|r
+6| |r|r|r|g|g|g|r
+7| |g|r|r|r|g|r|r
+8|g|r|r|g|g|g|g|r
+
+sample 346:
+player 1: 0.33636978756004404
+ |a|b|c|d|e|f|g|h|
+1|r|g|g|g|g| | | 
+2|r|g|r|r|r|r| |g
+3|r|g|g|g|r| |g|r
+4|r|r|g|r|g|g|g|g
+5| |r|r|g|g|g|g| 
+6|g|r|r|r|r|g|g| 
+7|g|g|r|r|r|r|g|g
+8|g|g|r| |r|r|r| 
+
+sample 347:
+player 1: 0.19184150451135992
+ |a|b|c|d|e|f|g|h|
+1|g|g|g| |g| |g| 
+2| |g|g|g|g|g|g| 
+3|r| |g|g|g| |g| 
+4| |r|g|g|r|r|r|r
+5|g|g|r|r|r|r|r|r
+6|g|g|r|r|r|r|r|g
+7|g|g|g|g|g|g|g|g
+8|r|r|g|r|r|r|r| 
+
+sample 348:
+player 1: 0.17133593973490988
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g|g|g
+2|r|g|g|g|g|g|g| 
+3| |g|r|r|g|r|r| 
+4| | |g|g|r|r|r|r
+5| | |g|g|g|g|r|r
+6| |g|r|r|r|r|r|r
+7|g|g|g|g|g|g|r|r
+8| | |g|g|g|g|g|r
+
+sample 349:
+player 1: 0.7127844757926729
+ |a|b|c|d|e|f|g|h|
+1| |g|g|g|g|g|r| 
+2| |g|g|g|g|g|r|g
+3|g|r| |g|r|r|r|r
+4| |r|g|r|r|g|r|r
+5|g|g|r|r|g|g|r|r
+6|g|g|g|g|r| |r| 
+7| |r|r|r|r|r|r|g
+8|r|r|r| |g|r|r| 
+
+sample 350:
+player 1: 0.36613272311212813
+ |a|b|c|d|e|f|g|h|
+1| |r|r|g|r| |g|g
+2| |g|r|r|r|r|r|r
+3|r|g|g|r|r|g| | 
+4|r|g|g|g|g|g|r| 
+5|r|g|g|g|g|r|g|r
+6|r|g|g|g|r| |g|g
+7|r|g|g|g|g|g|g| 
+8| |g|g|g|g|g|g| 
+
+sample 351:
+player 1: 0.27023242789134694
+ |a|b|c|d|e|f|g|h|
+1|g|r| |g| | | | 
+2|g|r|g|g|g| |g|r
+3|g|r|r|r|g|g|g| 
+4|g|r|r|g|g|r|g|r
+5|g|r|r|g|r|g|g|r
+6| |g|r|g|r|g|g|r
+7| |g|g|g|g|r| |r
+8|g|g|g|g|r|r|r|r
+
+sample 352:
+player 1: 0.9963914639457475
+ |a|b|c|d|e|f|g|h|
+1|g| | |r| | |r| 
+2| |g| |r| |r|r|r
+3| |r|g|r|g|g|r|r
+4|r|r|r|g|r|r|g|r
+5|r|r|g|r|r|r|r|r
+6|r|g|g|r| |r|r|r
+7|g|r|r|r|r|r|r|r
+8|r|r|r|r|r|r|r|r
+
+sample 353:
+player 1: 0.8986983693499303
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r|r|g| 
+2| |r|r|g|r|g|r|g
+3|g|g|g|g|g|r| |r
+4| |g|g|g|r|r|r| 
+5|r| |g|r|r|r|g|r
+6|g|g|r|r|g|r|g| 
+7|g|g|g|g|r|r|g|r
+8| | |g|g| |r|r|r
+
+sample 354:
+player 1: 0.4678786519932986
+ |a|b|c|d|e|f|g|h|
+1|g| |g| |g| | | 
+2|r|g|g|g|g|g| |g
+3|r|r|g|r|g|r|r|r
+4|r|r|g|r|r|r|r| 
+5|r|r|g|r|r|r|r| 
+6|r|r|g|r|r|r|r|r
+7|r|r|g|g|g|r|g| 
+8|r| |g|r|r|r|g|g
+
+sample 355:
+player 1: 0.16114456687651404
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|r| |r
+2|g|g|g|g|r|g|r| 
+3|g|g|g|g|g|r|g|r
+4|r|g|r|r|g|g|r|r
+5| |r|g|r|r|g|r|r
+6| |r|r|g|g|r|r|r
+7|r|r|r|r|r|r|r|g
+8| | | |g|r| | | 
+
+sample 356:
+player 1: 0.489176822039926
+ |a|b|c|d|e|f|g|h|
+1|r| | |r|r|r|g| 
+2|g|g|g|g|g|g| | 
+3|g|r|g|g|g| |r|g
+4|g|r|r|r|r|r|r|r
+5|g|r|r|r|g|g|r| 
+6|g|g|r|r|g|r| |g
+7| |g|g|g|r|r|g|g
+8|r|g|g|g|r| |r|g
+
+sample 357:
+player 1: 0.6484056218830285
+ |a|b|c|d|e|f|g|h|
+1| |r| |g|r| |g|r
+2| |r|r|g|g|g|g|g
+3|g|g|g|g|g|g|g| 
+4|g|g|r|r|r|r|g| 
+5|g|g|g|r|g|r|g|g
+6|g|r|r|g|g| |g| 
+7|g|r|g|g|g|g|g|r
+8|r|r|r|r|r| |g| 
+
+sample 358:
+player 1: 0.3145377093458489
+ |a|b|c|d|e|f|g|h|
+1|g| |r|r|g|g|g| 
+2|r|r|r|g|r| |g|g
+3|r|r|g|r| |r|g|g
+4| |g|r|r|r|g|r|r
+5|r|r|r|r|g|g|r|r
+6|r|g|g|g|r|r|r|r
+7|g|g|g|g| |r|r|r
+8|g| |r|g|g| | | 
+
+sample 359:
+player 1: 0.16187911430281268
+ |a|b|c|d|e|f|g|h|
+1| | | |r|r|r|r|g
+2|r|r|r|r|r|r|g|r
+3|g|r|r|g|g|r| |r
+4|g|r|r|r|r|r|r|r
+5| |r|r|g|g|r|g|r
+6|g|r|g|g|g|r|r|r
+7| |r|g|r|r| |r|r
+8|g|r|r|r|g| | | 
+
+sample 360:
+player 1: 0.3001185926999605
+ |a|b|c|d|e|f|g|h|
+1| |g|g| |g|g| |r
+2|g|g|g|g|g|g|r|r
+3|g|r|g|g|g|g|g|g
+4|g|r|r|g|g|g|g|g
+5|g|g|g|r|g|g| |g
+6|g|g|g|g|g|g|r|g
+7| | | |g| |r|r|g
+8| | |r|g|g|r|r|g
+
+sample 361:
+player 1: 0.37349549816795485
+ |a|b|c|d|e|f|g|h|
+1|r|g| |g| |r| |r
+2|r|r|r|r|r|r|r|g
+3| |g|g|g|g|g|g|g
+4|r|g|r|r|g|g|g|g
+5| |g| |g|g|r|g|g
+6|r|g|g|r|g|g|r| 
+7| |g| |r|r|r|r|r
+8| |r|r|r|r|g|g|g
+
+sample 362:
+player 1: 0.02830233105721686
+ |a|b|c|d|e|f|g|h|
+1| |r| |g|r|r| | 
+2| |g|r|g|g|g|g|g
+3|g|g|g|r|g|g|g|g
+4|r|g| |g|g|g| |g
+5| |r|g|g|g|g|g|g
+6|r|r|g|r|g|g|g| 
+7|g|r|r|g|g|g|g|r
+8| |r|g|g|g|g|g|g
+
+sample 363:
+player 1: 2.4608418539982527E-5
+ |a|b|c|d|e|f|g|h|
+1|g|g|g| |g|r| | 
+2|g|g|g|g|g| |r| 
+3|g|g|g|g|g|g|g|r
+4|g|r|r|r|r|g|r| 
+5|g|g|r|r|g|r|r|r
+6|g|r| |g|r|r| |r
+7|r| |g|g|g|r|g| 
+8|g|g|g|g|g|g|g|g
+
+sample 364:
+player 1: 0.03988768684449583
+ |a|b|c|d|e|f|g|h|
+1|r|g|g|g| |r| | 
+2|g|g|g|g|g|g|g| 
+3|g|g|r|g|g|g| |g
+4|g|g|r|r|g|g|g| 
+5|g|r|r|g|r|r|g| 
+6|r|r|g|r|g|r|g|g
+7|r| |r|r|r|g|g| 
+8| |r|r|r|g|g|g|g
+
+sample 365:
+player 1: 0.4516714959131601
+ |a|b|c|d|e|f|g|h|
+1| |g|r| | | |g| 
+2|g|r|r|r|g|g|g| 
+3|r|r|r|r|r|r|g|g
+4| |r|g|g|g|r|g|g
+5|r|r|g|g|g|g|g|r
+6| |r|g|g|g|g|g|r
+7|g|r|g|g|g|g|g|r
+8| |r|g|g|g|g| |r
+
+sample 366:
+player 1: 0.07022115320371485
+ |a|b|c|d|e|f|g|h|
+1|g|g|g|g|g|g|g| 
+2| |r|g|g|g|g|g|r
+3|r|r|r|g|g|r|g|r
+4|r|r|r|r|r|r|g| 
+5| |r|r|r|g|r|g|g
+6| |r|r|r|r|r|g|g
+7|r| |r|r| |g|g|g
+8| |g|r| |g|r|r| 
+
+sample 367:
+player 1: 0.9866398048987381
+ |a|b|c|d|e|f|g|h|
+1|r|r|r|r|r| | | 
+2|r|r|r|r|r|r|g|g
+3|r|r|r|r|r|g|g|g
+4|r|r|r|r|g|r|g|g
+5|r|r|r|g|g|r|g|g
+6|r|r|r|r|r|r|r| 
+7|g|g| |r|r|r|r| 
+8|g|g|g| |r| | | 
+
+sample 368:
+player 1: 0.6724953066179145
+ |a|b|c|d|e|f|g|h|
+1| |r| |g|r|r|r| 
+2| | |r|g|g|r|g| 
+3|g|g|g|g|g|g|g|g
+4|g|g|g|g|r|g|g|g
+5|g|g|g|r|g|r|r|g
+6|g| |g|r|g|r|r| 
+7|r|r|r|g|g|g|r|r
+8|r| |g|g|g| |r|r
+

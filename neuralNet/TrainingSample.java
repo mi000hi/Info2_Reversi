@@ -68,4 +68,8 @@ public class TrainingSample {
 		numberOfDraws++;
 	}
 
+	public String toString() {
+		return "player " + this.nextPlayer + ": " + this.gameResult + "\n" + this.gb;
+	}
+	
 }
