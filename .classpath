@@ -8,7 +8,7 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="ElPulpo.jar"/>
 	<classpathentry kind="lib" path="reversi.jar"/>
-	<classpathentry kind="lib" path="NeuralNetwork.jar"/>
 	<classpathentry kind="lib" path="BugattiCinque03.jar"/>
+	<classpathentry kind="lib" path="NeuralNetwork.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -4,8 +4,8 @@ import reversi.Coordinates;
 
 public class Move implements Comparable<Move> {
 
-	Coordinates coord;
-	double rating;
+	public Coordinates coord;
+	public double rating;
 
 	public Move(Coordinates coord, double rating) {
 		this.coord = coord;

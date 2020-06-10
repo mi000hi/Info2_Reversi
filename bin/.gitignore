@@ -28,4 +28,5 @@ DutyCalls.java
 # the ratings files
 #*.txt
 /neuralNet/
-/data/
+/corona/
+/neuralNet_reversi_0_to_10_ff_10reps.txt

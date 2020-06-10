@@ -1,34 +1,26 @@
-package corona;
+package neuralNet;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
 
-import dataAccess.DataReader;
+import NeuronalNetwork.Net;
+import Utils.DataReader;
+import corona.FullGameBoardException;
+import corona.Move;
+import corona.NoTimeLeftException;
+import corona.SkipCalculationException;
 import reversi.Coordinates;
 import reversi.GameBoard;
 import reversi.OutOfBoundsException;
 import reversi.ReversiPlayer;
 import reversi.Utils;
 
-public class StayHomeStayHealthy implements ReversiPlayer {
+public class neuralNetPlayer implements ReversiPlayer {
 
-	private int MY_COLOR, ENEMY_COLOR;
-	private long TIME_LIMIT;
+	private int myColor;
+	private long timeLimit;
+	private Net net;
 
 	private final int BOARDSIZE = 8;
-	private final static String BASE_FILENAME = "12122019_1300_Random_vs_Random"; // name of the file where the ratings
-																					// are stored
-	private DataReader dataReader = new DataReader(8);
-	ArrayList<double[][]> stoneRatings;
-	ArrayList<double[][]> mobilityRatings;
-	ArrayList<double[][]> moveRatings;
-	double[][] nrOfFieldColorChange;
-
-	// save the previous board to determine the enemy his move
-	GameBoard previousBoard = null;
-
 	int lastCompletedDepth;
 	int numberOfCuts;
 	int NUMBER_OF_FOLLOWING_MOVES_ME = 20;
@@ -37,28 +29,25 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 
 	@Override
 	public void initialize(int myColor, long timeLimit) {
+		this.myColor = myColor;
+		this.timeLimit = timeLimit;
 
-		MY_COLOR = myColor;
-		ENEMY_COLOR = Utils.other(MY_COLOR);
-
-		TIME_LIMIT = (long) (0.95 * timeLimit);
-
-		readDataFromFiles();
-
-		lastCompletedDepth = 0 + 2; // + 2 because there was no move before
-
+		// load the neural net from file
+		String filename = "neuralNet_reversi_0_to_10_ff_10reps.txt";
+//		net = DataReader.readNetFromFile(filename);
+		net = new Net(65, (int) Math.round(2.0 / 3 * 65 + 1), 1, 0.1);
 	}
 
 	@Override
 	public Coordinates nextMove(GameBoard gb) {
 
 		// start time-measurement
-		long endTime = System.currentTimeMillis() + TIME_LIMIT;
+		long endTime = System.currentTimeMillis() + timeLimit;
 
 		// save current Gameboard
 		GameBoard currentGameBoard = gb.clone();
 
-		System.out.println("we have " + countSaveStones(currentGameBoard, MY_COLOR) + " safestones");
+		System.out.println("we have " + countSaveStones(currentGameBoard, myColor) + " safestones");
 		bestMove = null;
 
 		int freeFields = 64 - currentGameBoard.countStones(1) - currentGameBoard.countStones(2);
@@ -78,7 +67,7 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 
 				System.out.println("starting with depth: " + Math.max(1, lastCompletedDepth));
 
-//				numberOfCuts = 0;
+//						numberOfCuts = 0;
 
 				myMove = alphaBetaFindMove(endTime, Math.max(1, lastCompletedDepth), gb.clone());
 
@@ -102,12 +91,8 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 		} catch (SkipCalculationException e) {
 			// TODO Auto-generated catch block
 			myMove = e.move;
-//				e.printStackTrace();
+//						e.printStackTrace();
 		}
-
-		// save previous gameboard
-		currentGameBoard.makeMove(MY_COLOR, myMove.coord);
-		previousBoard = currentGameBoard;
 
 		if (myMove.coord == null) {
 			if (bestMove != null) {
@@ -126,7 +111,7 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 			throws NoTimeLeftException, FullGameBoardException, SkipCalculationException {
 
 		// if theres no move available, pass
-		if (!gb.isMoveAvailable(MY_COLOR)) {
+		if (!gb.isMoveAvailable(myColor)) {
 			throw new SkipCalculationException(new Move(null)); // pass
 			// TODO: do not return
 		}
@@ -137,7 +122,7 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 		for (int x = 1; x <= BOARDSIZE; x++) {
 			for (int y = 1; y <= BOARDSIZE; y++) {
 				coord = new Coordinates(y, x);
-				if (gb.checkMove(MY_COLOR, coord)) {
+				if (gb.checkMove(myColor, coord)) {
 					possibleMoves.add(new Move(coord));
 //						System.out.println("adding possible move " + move.toMoveString());
 				}
@@ -149,9 +134,10 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 			throw new SkipCalculationException(possibleMoves.get(0));
 		}
 
+		// TODO: sort moves
 		// sort moves
-		possibleMoves = sortMovesByStones(possibleMoves, gb.countStones(MY_COLOR) + gb.countStones(ENEMY_COLOR) - 4,
-				MY_COLOR, gb);
+//		possibleMoves = sortMovesByStones(possibleMoves, gb.countStones(myColor) + gb.countStones(Utils.other(myColor)) - 4,
+//				myColor, gb);
 
 //		System.out.print("We have " + possibleMoves.size() + " moves to choose from: ");
 //		printPossibleMoves(possibleMoves);
@@ -168,10 +154,10 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 
 			// make the move
 			GameBoard afterMove = gb.clone();
-			afterMove.makeMove(MY_COLOR, possibleMoves.get(i).coord);
+			afterMove.makeMove(myColor, possibleMoves.get(i).coord);
 
 			// calculate the alpha-beta rating for this move
-			double moveRating = alphaBeta(endTime, depth - 1, afterMove, possibleMoves.get(i), ENEMY_COLOR,
+			double moveRating = alphaBeta(endTime, depth - 1, afterMove, possibleMoves.get(i), Utils.other(myColor),
 					maximalAlpha, minimalBeta);
 
 			// if move rating is higher than alpha-rating, use this move!
@@ -212,7 +198,7 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 
 			// see if we do not have stones left, return rating
 			if (gb.countStones(activePlayer) == 0) {
-				if (activePlayer == MY_COLOR) {
+				if (activePlayer == myColor) {
 					return -Double.MAX_VALUE;
 				} else {
 					return Double.MAX_VALUE;
@@ -233,9 +219,10 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 			}
 		}
 
+		// TODO: sort moves
 		// sort moves
-		possibleMoves = sortMovesByStones(possibleMoves, gb.countStones(MY_COLOR) + gb.countStones(ENEMY_COLOR) - 4,
-				activePlayer, gb);
+//		possibleMoves = sortMovesByStones(possibleMoves, gb.countStones(MY_COLOR) + gb.countStones(ENEMY_COLOR) - 4,
+//				activePlayer, gb);
 
 		// find the best move
 		for (int i = 0; i < possibleMoves.size(); i++) {
@@ -245,8 +232,8 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 			afterMove.makeMove(activePlayer, possibleMoves.get(i).coord);
 
 			// go one move further
-			if (activePlayer == MY_COLOR) {
-				double moveRating = alphaBeta(endTime, depth - 1, afterMove, possibleMoves.get(i), ENEMY_COLOR,
+			if (activePlayer == myColor) {
+				double moveRating = alphaBeta(endTime, depth - 1, afterMove, possibleMoves.get(i), Utils.other(myColor),
 						maxAlpha, minBeta);
 
 				// if move rating is higher than alpha-rating, use this move!
@@ -260,7 +247,7 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 					break;
 				}
 			} else {
-				double moveRating = alphaBeta(endTime, depth - 1, afterMove, possibleMoves.get(i), MY_COLOR, maxAlpha,
+				double moveRating = alphaBeta(endTime, depth - 1, afterMove, possibleMoves.get(i), myColor, maxAlpha,
 						minBeta);
 
 				// if move rating is less than beta-rating, use this move!
@@ -277,7 +264,7 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 		}
 
 		// return rating value
-		if (activePlayer == MY_COLOR) {
+		if (activePlayer == myColor) {
 			return maxAlpha;
 		} else {
 			return minBeta;
@@ -286,68 +273,27 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 
 	private double rating(GameBoard gb, int lastMoveBy, boolean longRating) {
 
-		int moveNumber = Math.min(59, gb.countStones(MY_COLOR) + gb.countStones(ENEMY_COLOR) - 4);
-		double[][] ratingsFieldOccupation = stoneRatings.get(Math.max(0, moveNumber - 1)); // we need to look at the
-																							// past field
-		double[][] ratingsFieldMobility = mobilityRatings.get(moveNumber); // we need to look at the upcoming field
-		double occupationRating = 0;
-		double mobilityRating = 0;
-		double savestoneRating = 0;
-
-		Coordinates field;
-
-		for (int x = 0; x < BOARDSIZE; x++) {
-			for (int y = 0; y < BOARDSIZE; y++) {
-
-				field = new Coordinates(y + 1, x + 1);
-
+		// create arrays to feed to the neural network
+		double[] input = new double[65];
+		
+		input[0] = Utils.other(lastMoveBy);
+		for (int y = 1; y <= 8; y++) {
+			for (int x = 1; x <= 8; x++) {
 				try {
-
-					/** RATING NO MATTER WHOSE MOVE IT WAS **/
-
-					// rating from stonelocations
-					if (gb.getOccupation(field) == MY_COLOR) {
-
-//						occupationRating += ratingsFieldOccupation[x][y];
-
-					} else if (gb.getOccupation(field) == ENEMY_COLOR) {
-
-//						occupationRating -= ratingsFieldOccupation[x][y];
-					}
-
-					/** RATING THAT DEPENDS ON ACTIVE PLAYER **/
-
-					if (lastMoveBy != MY_COLOR) {
-
-						// rating from mobility
-						if (gb.checkMove(MY_COLOR, field)) {
-							// or +10 +20
-							mobilityRating += 5 * ratingsFieldMobility[x][y];
-						}
-					} else {
-
-						// rating from mobility
-						if (gb.checkMove(ENEMY_COLOR, field)) {
-							mobilityRating -= 10 * ratingsFieldMobility[x][y];
-						}
-					}
+					input[(y - 1) * 8 + x] = gb.getOccupation(new Coordinates(y, x));
 				} catch (OutOfBoundsException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}
 
-		// rating from save stones that cant change its color anymore
-		if (longRating) {
-			savestoneRating = countSaveStones(gb, MY_COLOR) - 20 * countSaveStones(gb, ENEMY_COLOR);
-		}
+		// TODO: ratinc cannot be correct. it is always around 3.7679570574766785E-10
+		double prediction = net.compute(input)[0];
+		System.out.println("prediction: " + (1-prediction));
 
-		// print ratings for comparison
-//		System.out.println("Occupation: " + occupationRating);
-//		System.out.println("Mobility: " + mobilityRating);
-		// ==> occupationRating
-
-		return occupationRating + mobilityRating + savestoneRating;
+		// 1 - prediction because the network predicts the winrate for the player who can move now
+		return 1 - prediction;
 
 	}
 
@@ -502,161 +448,6 @@ public class StayHomeStayHealthy implements ReversiPlayer {
 				|| (downRightColorChange % 2 == 0 && downRightOccupied) || (upLeftOccupied && downRightOccupied);
 
 		return horizSafe && vertSafe && diag01Safe && diag02Safe;
-	}
-
-	/**
-	 * 
-	 * @param moves
-	 * @param moveNumber
-	 * @param activePlayer the player that can choose one of the given moves
-	 * @return
-	 */
-	private ArrayList<Move> sortMovesByStones(ArrayList<Move> moves, int moveNumber, int activePlayer, GameBoard gb) {
-
-		double[][] ratingsField = moveRatings.get(moveNumber);
-		PriorityQueue<Move> sortingMoves = new PriorityQueue<>();
-		ArrayList<Move> sortedMoves = new ArrayList<>();
-		int maxNumberOfMoves;
-
-		if (activePlayer == MY_COLOR) {
-			maxNumberOfMoves = NUMBER_OF_FOLLOWING_MOVES_ME;
-		} else {
-			maxNumberOfMoves = NUMBER_OF_FOLLOWING_MOVES_ENEMY;
-		}
-
-		// do not sort if size == 1
-		if (moves.size() == 1) {
-			return moves;
-		}
-
-		Coordinates move;
-		for (int i = 0; i < moves.size(); i++) {
-			move = moves.get(i).coord;
-
-			// split per player because field ratings state a negative value for good enemy
-			// moves ==> move needs to be highly considered
-			if (activePlayer == MY_COLOR) {
-				sortingMoves.add(new Move(move,
-						ratingsField[move.getCol() - 1][move.getRow() - 1] * rating(gb, Utils.other(activePlayer), false)));
-			} else {
-				// TODO: minussign?
-				sortingMoves.add(new Move(move,
-						-ratingsField[move.getCol() - 1][move.getRow() - 1] * rating(gb, Utils.other(activePlayer), false)));
-			}
-		}
-
-		for (int i = 0; i < moves.size() && i < maxNumberOfMoves; i++) {
-			sortedMoves.add(sortingMoves.poll());
-		}
-
-		return sortedMoves;
-	}
-
-	private void readDataFromFiles() {
-
-		// initialize rating boards
-		// myColor begins
-		if (MY_COLOR == GameBoard.RED) {
-			stoneRatings = normalize(
-					dataReader.readRatingsFromFile(this.getClass(), BASE_FILENAME + "_stoneRatings_red_wins.txt"));
-			mobilityRatings = normalize(
-					dataReader.readRatingsFromFile(this.getClass(), BASE_FILENAME + "_mobilityRatings_red_wins.txt"));
-			moveRatings = normalize(
-					dataReader.readRatingsFromFile(this.getClass(), BASE_FILENAME + "_moveRatings_red_wins.txt"));
-		}
-		// myColor is second player
-		else {
-			stoneRatings = normalize(
-					dataReader.readRatingsFromFile(this.getClass(), BASE_FILENAME + "_stoneRatings_green_wins.txt"));
-			mobilityRatings = normalize(
-					dataReader.readRatingsFromFile(this.getClass(), BASE_FILENAME + "_mobilityRatings_green_wins.txt"));
-			moveRatings = normalize(
-					dataReader.readRatingsFromFile(this.getClass(), BASE_FILENAME + "_moveRatings_green_wins.txt"));
-		}
-
-		nrOfFieldColorChange = normalize(
-				dataReader.readRatingFromFile(this.getClass(), BASE_FILENAME + "_colorChange.txt"));
-
-		// print ratings to see what they look like:
-//		dataReader.printRatingsBoard(moveRatings, 0);
-//		dataReader.printRatingsBoard(moveRatings, 1);
-//		dataReader.printRatingsBoard(moveRatings, 2);
-
-	}
-
-	/**
-	 * normalizes the ratings to interval [-1,1]
-	 * 
-	 * TODO: maybe even round the ratings or make a threshold that neglects the
-	 * values close to 0
-	 * 
-	 * (change perhaps interval, if absolute value of ratings is too high)
-	 */
-	private ArrayList<double[][]> normalize(ArrayList<double[][]> ratings) {
-
-		ArrayList<double[][]> normalized = new ArrayList<>();
-		double maximumValue;
-		double[][] currentRatings;
-		double[][] currentNormalizedRatings; // copying all values so we dont destroy them (because pointer)
-
-		// find the maximum value per move and divide the ratings from this move by that
-		// value
-		for (int i = 0; i < ratings.size(); i++) {
-
-			// find maximum value
-			currentRatings = ratings.get(i);
-			maximumValue = Math.abs(currentRatings[0][0]);
-			for (int x = 0; x < currentRatings.length; x++) {
-				for (int y = 0; y < currentRatings.length; y++) {
-
-					if (Math.abs(currentRatings[x][y]) > maximumValue) {
-						maximumValue = Math.abs(currentRatings[x][y]);
-					}
-				}
-			}
-			// divide all values by maximum value
-			currentNormalizedRatings = new double[currentRatings.length][currentRatings.length];
-			for (int x = 0; x < currentRatings.length; x++) {
-				for (int y = 0; y < currentRatings.length; y++) {
-
-					currentNormalizedRatings[x][y] = currentRatings[x][y] / Math.max(1, maximumValue);
-
-				}
-			}
-			normalized.add(currentNormalizedRatings);
-		}
-		return normalized;
-	}
-
-	/**
-	 * normalizes the ratings to interval [-1,1]
-	 * 
-	 * (change perhaps interval, if absolute value of ratings is too high)
-	 */
-	private double[][] normalize(double[][] ratings) {
-
-		double[][] normalized = new double[ratings.length][ratings.length];
-		double maximumValue;
-
-		// find maximum value
-		maximumValue = Math.abs(ratings[0][0]);
-		for (int x = 0; x < ratings.length; x++) {
-			for (int y = 0; y < ratings.length; y++) {
-
-				if (Math.abs(ratings[x][y]) > maximumValue) {
-					maximumValue = Math.abs(ratings[x][y]);
-				}
-			}
-		}
-		// divide all values by maximum value
-		for (int x = 0; x < ratings.length; x++) {
-			for (int y = 0; y < ratings.length; y++) {
-
-				normalized[x][y] = ratings[x][y] / Math.max(1, maximumValue);
-
-			}
-		}
-		return normalized;
 	}
 
 }
