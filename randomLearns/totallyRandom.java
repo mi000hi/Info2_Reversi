@@ -45,7 +45,7 @@ public class totallyRandom implements ReversiPlayer {
 	GameBoard actualBoard;
 
 	// name of the file where the ratings are stored
-	private final static String BASE_FILENAME = "12122019_1300_Random_vs_Random";
+	private String BASE_FILENAME = "13122019_2300_";
 	private DataReader dataReader = new DataReader(8);
 	ArrayList<double[][]> stoneRatings;
 	ArrayList<double[][]> mobilityRatings;
@@ -61,6 +61,13 @@ public class totallyRandom implements ReversiPlayer {
 		this.timeLimit = timeLimit;
 		timeToUse = 0.999;
 		noTimeLeft = false;
+		
+		// adjust file path
+		if(myColor == 1) {
+			BASE_FILENAME += "AB_prettyGood_vs_Random";
+		} else {
+			BASE_FILENAME += "Random_vs_AB_prettyGood";
+		}
 
 		// initialize hypotheticalMoves with 15 coordinates, so that we will not have a
 		// out of bounds index error
