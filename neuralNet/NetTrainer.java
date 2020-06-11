@@ -14,7 +14,7 @@ public class NetTrainer implements Terminatable {
 
 	static double learnrate = 0.1;
 	private static boolean killMe = false;
-	private static int repetitionsPerSample = 10;
+	private static int repetitionsPerSample = 10000;
 	private static TrainingDataCollector tdc = new TrainingDataCollector();
 
 	public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class NetTrainer implements Terminatable {
 		int minFreeFields = 0;
 		int maxFreeFields = 10;
 		int totalSamplesTrained = 0;
-		String filename = "neuralNet_reversi_0_to_10_ff_10reps.txt";
+		String filename = "neuralNet_reversi_0_to_10_ff_10000reps.txt";
 
 		// 65 input neurons, 44 hidden neurons, 1 output neuron
 		Net net = new Net(65, (int) Math.round(2.0 / 3 * 65 + 1), 1, learnrate);

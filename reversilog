@@ -34022,3 +34022,11 @@ RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
 18:48:10: rating=37/26 RED RandomPlayer moves a5
 18:48:12: rating=41/23 GREEN neuralNetPlayer moves a4
 18:48:12: rating=44/19 RED RandomPlayer moves h4
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/BugattiCinque03.jar:/home/michael/eclipse-workspace/Info2_Reversi/NeuralNetwork.jar
+ID = TestGame
+DATE = 11.06.20
+RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
+15:21:54: Players initialized
+15:21:54: rating=32/32 RED RandomPlayer moves f6
+15:21:56: rating=32/32 GREEN neuralNetPlayer moves f5
+15:21:57: rating=32/32 RED RandomPlayer moves f4

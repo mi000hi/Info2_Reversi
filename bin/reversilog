@@ -33996,3 +33996,37 @@ RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
 18:42:45: rating=22/42 RED RandomPlayer moves a7
 18:42:47: rating=26/38 GREEN neuralNetPlayer moves a6
 18:42:47: rating=21/43 RED RandomPlayer moves c2
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/BugattiCinque03.jar:/home/michael/eclipse-workspace/Info2_Reversi/NeuralNetwork.jar
+ID = TestGame
+DATE = 10.06.20
+RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
+18:47:50: Players initialized
+18:47:50: rating=32/32 RED RandomPlayer moves e6
+18:47:52: rating=32/32 GREEN neuralNetPlayer moves d3
+18:47:52: rating=32/32 RED RandomPlayer moves c4
+18:47:54: rating=32/31 GREEN neuralNetPlayer moves f5
+18:47:54: rating=32/31 RED RandomPlayer moves e3
+18:47:56: rating=32/32 GREEN neuralNetPlayer moves b5
+18:47:56: rating=31/32 RED RandomPlayer moves g4
+18:47:59: rating=31/32 GREEN neuralNetPlayer moves f3
+18:47:59: rating=31/33 RED RandomPlayer moves e2
+18:48:01: rating=30/34 GREEN neuralNetPlayer moves d6
+18:48:01: rating=29/34 RED RandomPlayer moves c2
+18:48:03: rating=29/34 GREEN neuralNetPlayer moves g5
+18:48:03: rating=29/35 RED RandomPlayer moves c5
+18:48:05: rating=28/36 GREEN neuralNetPlayer moves b4
+18:48:05: rating=28/35 RED RandomPlayer moves c6
+18:48:07: rating=30/33 GREEN neuralNetPlayer moves b1
+18:48:08: rating=31/32 RED RandomPlayer moves f6
+18:48:10: rating=34/29 GREEN neuralNetPlayer moves b7
+18:48:10: rating=37/26 RED RandomPlayer moves a5
+18:48:12: rating=41/23 GREEN neuralNetPlayer moves a4
+18:48:12: rating=44/19 RED RandomPlayer moves h4
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/BugattiCinque03.jar:/home/michael/eclipse-workspace/Info2_Reversi/NeuralNetwork.jar
+ID = TestGame
+DATE = 11.06.20
+RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
+15:21:54: Players initialized
+15:21:54: rating=32/32 RED RandomPlayer moves f6
+15:21:56: rating=32/32 GREEN neuralNetPlayer moves f5
+15:21:57: rating=32/32 RED RandomPlayer moves f4
