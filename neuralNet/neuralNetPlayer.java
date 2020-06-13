@@ -33,9 +33,9 @@ public class neuralNetPlayer implements ReversiPlayer {
 		this.timeLimit = timeLimit;
 
 		// load the neural net from file
-		String filename = "neuralNet_reversi_0_to_10_ff_10reps.txt";
-//		net = DataReader.readNetFromFile(filename);
-		net = new Net(65, (int) Math.round(2.0 / 3 * 65 + 1), 1, 0.1);
+		String filename = "neuralNet_reversi_0_to_10_ff_1000reps_24hidden.txt";
+		net = DataReader.readNetFromFile(filename);
+//		net = new Net(65, (int) Math.round(2.0 / 3 * 65 + 1), 1, 0.1);
 	}
 
 	@Override

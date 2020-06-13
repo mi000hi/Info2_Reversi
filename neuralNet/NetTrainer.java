@@ -12,13 +12,16 @@ import reversi.OutOfBoundsException;
 
 public class NetTrainer implements Terminatable {
 
-	static double learnrate = 0.2;
+	static double learnrate = 0.1;
 	private static boolean killMe = false;
 	private static int repetitionsPerSample = 100;
 	private static TrainingDataCollector tdc = new TrainingDataCollector();
 
 	public static void main(String[] args) {
-		
+
+		if (args.length == 0) {
+			System.out.println("\nArguments: {minFreeFields} {maxFreeFields} {repetitionsPerSample} {filename}\n");
+		}
 		// start the terminator thread
 		Terminator terminator = new Terminator(new NetTrainer());
 		Thread terminatorThread = new Thread(terminator);
@@ -29,16 +32,28 @@ public class NetTrainer implements Terminatable {
 		int minFreeFields = 0;
 		int maxFreeFields = 10;
 		int totalSamplesTrained = 0;
-		String filename = "neuralNet_reversi_0_to_10_ff_100reps_24hidden.txt";
+		String filename = "neuralNet_reversi_10_to_10_ff_100reps_24hidden.txt";
 
-		// 65 input neurons, 44 hidden neurons, 1 output neuron
-		Net net = new Net(65, 24, 1, learnrate);
+		// look for arguments
+		if (args.length != 0) {
+			minFreeFields = Integer.parseInt(args[0]);
+			maxFreeFields = Integer.parseInt(args[1]);
+			repetitionsPerSample = Integer.parseInt(args[2]);
+		}
+		if (args.length == 4) {
+			filename = args[3];
+			Net net = DataReader.readNetFromFile(filename);
+		} else {
+
+			// 65 input neurons, 44 hidden neurons, 1 output neuron
+			Net net = new Net(65, 24, 1, learnrate);
 //		Net net = new Net(65, (int) Math.round(2.0 / 3 * 65 + 1), 1, learnrate);
 //		Net net = DataReader.readNetFromFile(filename);
 //		System.out.println("we made " + Math.round(2.0 / 3 * 64 + 1) + " hidden neurons");
 
+		}
 		while (!killMe) {
-			
+
 			// nextInt is normally exclusive of the top value,
 			// so add 1 to make it inclusive
 			int randomNum = ThreadLocalRandom.current().nextInt(minFreeFields, maxFreeFields + 1);
@@ -51,7 +66,7 @@ public class NetTrainer implements Terminatable {
 			for (int y = 1; y <= 8; y++) {
 				for (int x = 1; x <= 8; x++) {
 					try {
-						input[(y-1) * 8 + x] = sample.gb.getOccupation(new Coordinates(y, x));
+						input[(y - 1) * 8 + x] = sample.gb.getOccupation(new Coordinates(y, x));
 					} catch (OutOfBoundsException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -61,13 +76,12 @@ public class NetTrainer implements Terminatable {
 			output[0] = sample.gameResult;
 
 			// train the sample
-			net.train
-			(new double[][] { input }, new double[][] { output }, repetitionsPerSample);
-			
+			net.train(new double[][] { input }, new double[][] { output }, repetitionsPerSample);
+
 			totalSamplesTrained++;
 			System.out.println("new samples trained: " + totalSamplesTrained);
 		}
-		
+
 		// save the neural network
 		DataWriter.writeNetToFile(filename, net);
 	}
