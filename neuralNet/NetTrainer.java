@@ -1,5 +1,6 @@
 package neuralNet;
 
+import java.io.File;
 import java.util.concurrent.ThreadLocalRandom;
 
 import NeuronalNetwork.Net;
@@ -43,7 +44,11 @@ public class NetTrainer implements Terminatable {
 		}
 		if (args.length == 4) {
 			filename = args[3];
-			net = DataReader.readNetFromFile(filename);
+			if(new File(filename).exists()) {
+				net = DataReader.readNetFromFile(filename);
+			} else {
+				net = new Net(65, 24, 1, learnrate);
+			}
 		} else {
 
 			// 65 input neurons, 44 hidden neurons, 1 output neuron
