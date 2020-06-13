@@ -21,7 +21,7 @@ public class NetTrainer implements Terminatable {
 	public static void main(String[] args) {
 
 		if (args.length == 0) {
-			System.out.println("\nArguments: {minFreeFields} {maxFreeFields} {repetitionsPerSample} {filename}\n");
+			System.out.println("\nArguments: {minFreeFields} {maxFreeFields} {repetitionsPerSample} {nrHiddenNeurons} {filename}\n");
 		}
 		// start the terminator thread
 		Terminator terminator = new Terminator(new NetTrainer());
@@ -33,6 +33,7 @@ public class NetTrainer implements Terminatable {
 		int minFreeFields = 0;
 		int maxFreeFields = 10;
 		int totalSamplesTrained = 0;
+		int nrHidden = 24;
 		String filename = "neuralNet_reversi_10_to_10_ff_100reps_24hidden.txt";
 
 		// look for arguments
@@ -41,18 +42,19 @@ public class NetTrainer implements Terminatable {
 			minFreeFields = Integer.parseInt(args[0]);
 			maxFreeFields = Integer.parseInt(args[1]);
 			repetitionsPerSample = Integer.parseInt(args[2]);
+			nrHidden = Integer.parseInt(args[3]);
 		}
-		if (args.length == 4) {
-			filename = args[3];
+		if (args.length == 5) {
+			filename = args[4];
 			if(new File(filename).exists()) {
 				net = DataReader.readNetFromFile(filename);
 			} else {
-				net = new Net(65, 24, 1, learnrate);
+				net = new Net(65, nrHidden, 1, learnrate);
 			}
 		} else {
 
 			// 65 input neurons, 44 hidden neurons, 1 output neuron
-			net = new Net(65, 24, 1, learnrate);
+			net = new Net(65, nrHidden, 1, learnrate);
 //		Net net = new Net(65, (int) Math.round(2.0 / 3 * 65 + 1), 1, learnrate);
 //		Net net = DataReader.readNetFromFile(filename);
 //		System.out.println("we made " + Math.round(2.0 / 3 * 64 + 1) + " hidden neurons");
