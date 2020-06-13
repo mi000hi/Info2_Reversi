@@ -12,9 +12,9 @@ import reversi.OutOfBoundsException;
 
 public class NetTrainer implements Terminatable {
 
-	static double learnrate = 0.1;
+	static double learnrate = 0.2;
 	private static boolean killMe = false;
-	private static int repetitionsPerSample = 10000;
+	private static int repetitionsPerSample = 100;
 	private static TrainingDataCollector tdc = new TrainingDataCollector();
 
 	public static void main(String[] args) {
@@ -29,10 +29,11 @@ public class NetTrainer implements Terminatable {
 		int minFreeFields = 0;
 		int maxFreeFields = 10;
 		int totalSamplesTrained = 0;
-		String filename = "neuralNet_reversi_0_to_10_ff_10000reps.txt";
+		String filename = "neuralNet_reversi_0_to_10_ff_100reps_24hidden.txt";
 
 		// 65 input neurons, 44 hidden neurons, 1 output neuron
-		Net net = new Net(65, (int) Math.round(2.0 / 3 * 65 + 1), 1, learnrate);
+		Net net = new Net(65, 24, 1, learnrate);
+//		Net net = new Net(65, (int) Math.round(2.0 / 3 * 65 + 1), 1, learnrate);
 //		Net net = DataReader.readNetFromFile(filename);
 //		System.out.println("we made " + Math.round(2.0 / 3 * 64 + 1) + " hidden neurons");
 
