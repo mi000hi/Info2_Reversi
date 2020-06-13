@@ -35,6 +35,7 @@ public class NetTrainer implements Terminatable {
 		String filename = "neuralNet_reversi_10_to_10_ff_100reps_24hidden.txt";
 
 		// look for arguments
+		Net net;
 		if (args.length != 0) {
 			minFreeFields = Integer.parseInt(args[0]);
 			maxFreeFields = Integer.parseInt(args[1]);
@@ -42,11 +43,11 @@ public class NetTrainer implements Terminatable {
 		}
 		if (args.length == 4) {
 			filename = args[3];
-			Net net = DataReader.readNetFromFile(filename);
+			net = DataReader.readNetFromFile(filename);
 		} else {
 
 			// 65 input neurons, 44 hidden neurons, 1 output neuron
-			Net net = new Net(65, 24, 1, learnrate);
+			net = new Net(65, 24, 1, learnrate);
 //		Net net = new Net(65, (int) Math.round(2.0 / 3 * 65 + 1), 1, learnrate);
 //		Net net = DataReader.readNetFromFile(filename);
 //		System.out.println("we made " + Math.round(2.0 / 3 * 64 + 1) + " hidden neurons");
