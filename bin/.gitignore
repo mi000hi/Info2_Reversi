@@ -27,12 +27,3 @@ DutyCalls.java
 
 # the ratings files
 #*.txt
-/neuralNet_reversi_0_to_10_ff_1000reps_24hidden.txt
-/corona/
-/data/
-/dataAccess/
-/neuralNet/
-/randomLearns/
-/reversiPlayers/
-/NetTrainer.jar
-/neuralNet_reversi_10_to_10_ff_1000reps_15hidden.txt

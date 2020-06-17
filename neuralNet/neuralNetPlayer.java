@@ -289,7 +289,7 @@ public class neuralNetPlayer implements ReversiPlayer {
 		}
 
 		double prediction = net.compute(input)[0];
-		System.out.println("prediction: " + (1-prediction));
+//		System.out.println("prediction: " + (1-prediction));
 
 		// 1 - prediction because the network predicts the winrate for the player who can move now
 		return 1 - prediction;

@@ -34314,3 +34314,343 @@ RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
 14:24:02: finished reds=34 greens=30
 14:24:02: REGULAR FINISH: GameState: RED wins (RED vs. GREEN = 34:30)
 CSV: RED,,34,30
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/BugattiCinque03.jar:/home/michael/eclipse-workspace/Info2_Reversi/NeuralNetwork.jar
+ID = TestGame
+DATE = 13.06.20
+RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
+16:13:24: Players initialized
+16:13:24: rating=32/32 RED RandomPlayer moves d6
+16:13:26: rating=32/32 GREEN neuralNetPlayer moves c5
+16:13:26: rating=32/32 RED RandomPlayer moves f6
+16:13:29: rating=32/32 GREEN neuralNetPlayer moves d3
+16:13:29: rating=31/32 RED RandomPlayer moves c3
+16:13:31: rating=31/32 GREEN neuralNetPlayer moves f5
+16:13:31: rating=31/32 RED RandomPlayer moves d2
+16:13:33: rating=31/32 GREEN neuralNetPlayer moves e3
+16:13:33: rating=31/33 RED RandomPlayer moves g6
+16:13:35: rating=30/33 GREEN neuralNetPlayer moves f4
+16:13:35: rating=29/35 RED RandomPlayer moves f3
+16:13:37: rating=28/36 GREEN neuralNetPlayer moves c2
+16:13:37: rating=29/35 RED RandomPlayer moves b6
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/BugattiCinque03.jar:/home/michael/eclipse-workspace/Info2_Reversi/NeuralNetwork.jar
+ID = TestGame
+DATE = 13.06.20
+RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
+16:13:45: java.lang.NullPointerException
+	at java.base/java.io.Reader.<init>(Reader.java:167)
+	at java.base/java.io.InputStreamReader.<init>(InputStreamReader.java:72)
+	at Utils.DataReader.readNetFromFile(DataReader.java:45)
+	at neuralNet.neuralNetPlayer.initialize(neuralNetPlayer.java:37)
+	at reversi.Arena.<init>(Arena.java:218)
+	at reversi.Arena.main(Arena.java:777)
+
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/BugattiCinque03.jar:/home/michael/eclipse-workspace/Info2_Reversi/NeuralNetwork.jar
+ID = TestGame
+DATE = 13.06.20
+RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
+16:14:29: java.lang.NullPointerException
+	at java.base/java.io.Reader.<init>(Reader.java:167)
+	at java.base/java.io.InputStreamReader.<init>(InputStreamReader.java:72)
+	at Utils.DataReader.readNetFromFile(DataReader.java:45)
+	at neuralNet.neuralNetPlayer.initialize(neuralNetPlayer.java:37)
+	at reversi.Arena.<init>(Arena.java:218)
+	at reversi.Arena.main(Arena.java:777)
+
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/BugattiCinque03.jar:/home/michael/eclipse-workspace/Info2_Reversi/NeuralNetwork.jar
+ID = TestGame
+DATE = 13.06.20
+RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
+16:15:48: Players initialized
+16:15:48: rating=32/32 RED RandomPlayer moves e6
+16:15:50: rating=32/32 GREEN neuralNetPlayer moves d3
+16:15:50: rating=32/31 RED RandomPlayer moves c3
+16:15:52: rating=33/31 GREEN neuralNetPlayer moves f7
+16:15:52: rating=32/31 RED RandomPlayer moves c5
+16:15:54: rating=33/31 GREEN neuralNetPlayer moves c4
+16:15:55: rating=33/30 RED RandomPlayer moves b4
+16:15:57: rating=33/30 GREEN neuralNetPlayer moves b5
+16:15:57: rating=33/31 RED RandomPlayer moves d6
+16:15:59: rating=32/31 GREEN neuralNetPlayer moves f4
+16:15:59: rating=33/31 RED RandomPlayer moves e7
+16:16:01: rating=33/31 GREEN neuralNetPlayer moves b6
+16:16:01: rating=33/30 RED RandomPlayer moves g3
+16:16:03: rating=33/30 GREEN neuralNetPlayer moves g4
+16:16:03: rating=32/31 RED RandomPlayer moves d2
+16:16:05: rating=32/32 GREEN neuralNetPlayer moves c2
+16:16:06: rating=31/33 RED RandomPlayer moves b2
+16:16:08: rating=30/33 GREEN neuralNetPlayer moves e3
+16:16:08: rating=26/37 RED RandomPlayer moves b3
+16:16:10: rating=22/42 GREEN neuralNetPlayer moves d1
+16:16:10: rating=21/43 RED RandomPlayer moves e1
+16:16:12: rating=21/42 GREEN neuralNetPlayer moves c1
+16:16:12: rating=22/41 RED RandomPlayer moves f3
+16:16:14: rating=22/41 GREEN neuralNetPlayer moves a5
+16:16:14: rating=22/41 RED RandomPlayer moves g7
+16:16:17: rating=23/40 GREEN neuralNetPlayer moves g2
+16:16:17: rating=21/42 RED RandomPlayer moves b7
+16:16:19: rating=22/42 GREEN neuralNetPlayer moves a6
+16:16:19: rating=22/41 RED RandomPlayer moves f5
+16:16:21: rating=19/45 GREEN neuralNetPlayer moves g8
+16:16:21: rating=19/45 RED RandomPlayer moves b1
+16:16:23: rating=20/43 GREEN neuralNetPlayer moves e8
+16:16:23: rating=19/44 RED RandomPlayer moves f8
+16:16:25: rating=24/39 GREEN neuralNetPlayer moves a7
+16:16:25: rating=31/33 RED RandomPlayer moves h8
+16:16:28: rating=30/33 GREEN neuralNetPlayer moves h7
+16:16:28: rating=31/32 RED RandomPlayer moves d7
+16:16:30: rating=33/31 GREEN neuralNetPlayer moves a4
+16:16:30: rating=33/30 RED RandomPlayer moves h3
+16:16:32: rating=39/25 GREEN neuralNetPlayer moves a1
+16:16:32: rating=37/26 RED RandomPlayer moves f6
+16:16:34: rating=30/34 GREEN neuralNetPlayer moves a2
+16:16:34: rating=30/34 RED RandomPlayer moves a3
+16:16:36: rating=34/30 GREEN neuralNetPlayer moves b8
+16:16:37: rating=38/26 RED RandomPlayer moves g1
+16:16:39: rating=39/24 GREEN neuralNetPlayer moves c6
+16:16:39: rating=37/26 RED RandomPlayer moves e2
+16:16:39: rating=34/30 GREEN neuralNetPlayer moves f1
+16:16:39: rating=34/29 RED RandomPlayer moves h6
+16:16:39: rating=34/29 GREEN neuralNetPlayer moves f2
+16:16:40: rating=33/30 RED RandomPlayer moves d8
+16:16:40: rating=36/27 GREEN neuralNetPlayer moves g5
+16:16:40: rating=40/24 RED RandomPlayer moves g6
+16:16:40: rating=40/24 GREEN neuralNetPlayer moves c7
+16:16:40: rating=39/25 RED RandomPlayer moves c8
+16:16:40: rating=39/25 GREEN neuralNetPlayer moves h1
+16:16:40: rating=40/24 RED RandomPlayer moves a8
+16:16:40: rating=40/24 GREEN neuralNetPlayer moves h2
+16:16:40: rating=36/27 RED RandomPlayer passes.
+16:16:40: rating=33/31 GREEN neuralNetPlayer moves h4
+16:16:40: rating=33/31 RED RandomPlayer passes.
+16:16:40: rating=33/31 GREEN neuralNetPlayer moves h5
+16:16:40: finished reds=33 greens=31
+16:16:40: REGULAR FINISH: GameState: RED wins (RED vs. GREEN = 33:31)
+CSV: RED,,33,31
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/BugattiCinque03.jar:/home/michael/eclipse-workspace/Info2_Reversi/NeuralNetwork.jar
+ID = TestGame
+DATE = 13.06.20
+RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
+16:16:53: Players initialized
+16:16:53: rating=32/32 RED RandomPlayer moves d6
+16:16:55: rating=32/32 GREEN neuralNetPlayer moves c5
+16:16:55: rating=32/31 RED RandomPlayer moves f6
+16:16:57: rating=33/30 GREEN neuralNetPlayer moves f5
+16:16:57: rating=33/31 RED RandomPlayer moves f4
+16:17:00: rating=32/32 GREEN neuralNetPlayer moves d3
+16:17:00: rating=32/32 RED RandomPlayer moves c2
+16:17:02: rating=32/32 GREEN neuralNetPlayer moves g7
+16:17:02: rating=31/32 RED RandomPlayer moves b4
+16:17:04: rating=35/28 GREEN neuralNetPlayer moves g4
+16:17:04: rating=38/25 RED RandomPlayer moves h3
+16:17:06: rating=37/26 GREEN neuralNetPlayer moves g6
+16:17:06: rating=37/27 RED RandomPlayer moves c4
+16:17:08: rating=36/27 GREEN neuralNetPlayer moves d2
+16:17:09: rating=36/28 RED RandomPlayer moves e2
+16:17:11: rating=36/27 GREEN neuralNetPlayer moves b5
+16:17:11: rating=35/28 RED RandomPlayer moves e6
+16:17:13: rating=33/31 GREEN neuralNetPlayer moves g5
+16:17:13: rating=33/31 RED RandomPlayer moves c6
+16:17:15: rating=33/30 GREEN neuralNetPlayer moves e7
+16:17:15: rating=34/30 RED RandomPlayer moves f8
+16:17:17: rating=34/29 GREEN neuralNetPlayer moves d1
+16:17:17: rating=33/30 RED RandomPlayer moves d7
+16:17:20: rating=32/31 GREEN neuralNetPlayer moves g3
+16:17:20: rating=33/31 RED RandomPlayer moves e3
+16:17:22: rating=33/30 GREEN neuralNetPlayer moves c3
+16:17:22: rating=34/29 RED RandomPlayer moves h2
+16:17:24: rating=35/29 GREEN neuralNetPlayer moves a5
+16:17:24: rating=33/30 RED RandomPlayer moves a3
+16:17:26: rating=34/30 GREEN neuralNetPlayer moves b6
+16:17:26: rating=34/30 RED RandomPlayer moves h4
+16:17:28: rating=34/30 GREEN neuralNetPlayer moves d8
+16:17:28: rating=31/32 RED RandomPlayer moves c1
+16:17:31: rating=29/34 GREEN neuralNetPlayer moves e8
+16:17:31: rating=31/33 RED RandomPlayer moves c7
+16:17:33: rating=31/33 GREEN neuralNetPlayer moves g8
+16:17:33: rating=29/34 RED RandomPlayer moves b7
+16:17:35: rating=28/35 GREEN neuralNetPlayer moves a4
+16:17:35: rating=26/38 RED RandomPlayer moves b2
+16:17:37: rating=25/39 GREEN neuralNetPlayer moves a1
+16:17:37: rating=25/39 RED RandomPlayer moves a6
+16:17:39: rating=23/40 GREEN neuralNetPlayer moves a7
+16:17:40: rating=25/39 RED RandomPlayer moves a8
+16:17:42: rating=30/33 GREEN neuralNetPlayer moves b1
+16:17:42: rating=37/27 RED RandomPlayer moves a2
+16:17:42: rating=38/26 GREEN neuralNetPlayer moves b3
+16:17:42: rating=37/27 RED RandomPlayer moves f7
+16:17:42: rating=36/27 GREEN neuralNetPlayer moves b8
+16:17:42: rating=34/29 RED RandomPlayer moves h8
+16:17:42: rating=35/29 GREEN neuralNetPlayer moves e1
+16:17:43: rating=37/26 RED RandomPlayer moves h7
+16:17:43: rating=39/24 GREEN neuralNetPlayer moves f3
+16:17:43: rating=42/21 RED RandomPlayer moves c8
+16:17:43: rating=43/21 GREEN neuralNetPlayer moves h5
+16:17:43: rating=43/21 RED RandomPlayer moves h6
+16:17:43: rating=43/21 GREEN neuralNetPlayer moves g2
+16:17:43: rating=43/21 RED RandomPlayer moves f1
+16:17:43: rating=43/21 GREEN neuralNetPlayer moves f2
+16:17:43: rating=41/23 RED RandomPlayer moves g1
+16:17:43: rating=39/25 GREEN neuralNetPlayer moves h1
+16:17:43: finished reds=39 greens=25
+16:17:43: REGULAR FINISH: GameState: RED wins (RED vs. GREEN = 39:25)
+CSV: RED,,39,25
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/BugattiCinque03.jar:/home/michael/eclipse-workspace/Info2_Reversi/NeuralNetwork.jar
+ID = TestGame
+DATE = 17.06.20
+RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
+17:27:44: Players initialized
+17:27:44: rating=32/32 RED RandomPlayer moves c6
+17:27:46: rating=32/32 GREEN neuralNetPlayer moves c3
+17:27:46: rating=32/32 RED RandomPlayer moves e6
+17:27:48: rating=32/32 GREEN neuralNetPlayer moves f4
+17:27:49: rating=32/32 RED RandomPlayer moves e3
+17:27:51: rating=32/32 GREEN neuralNetPlayer moves d6
+17:27:51: rating=32/32 RED RandomPlayer moves c5
+17:27:53: rating=32/32 GREEN neuralNetPlayer moves c4
+17:27:53: rating=32/32 RED RandomPlayer moves c2
+17:27:55: rating=33/31 GREEN neuralNetPlayer moves b5
+17:27:55: rating=32/31 RED RandomPlayer moves b6
+17:27:57: rating=31/32 GREEN neuralNetPlayer moves b3
+17:27:57: rating=31/33 RED RandomPlayer moves a4
+17:28:00: rating=30/33 GREEN neuralNetPlayer moves a5
+17:28:00: rating=29/35 RED RandomPlayer moves g4
+17:28:02: rating=28/35 GREEN neuralNetPlayer moves d3
+17:28:02: rating=28/36 RED RandomPlayer moves a6
+17:28:04: rating=26/37 GREEN neuralNetPlayer moves g3
+17:28:04: rating=27/36 RED RandomPlayer moves g5
+17:28:06: rating=28/36 GREEN neuralNetPlayer moves f7
+17:28:06: rating=28/36 RED RandomPlayer moves e7
+17:28:08: rating=28/35 GREEN neuralNetPlayer moves a7
+17:28:08: rating=28/36 RED RandomPlayer moves h2
+17:28:11: rating=30/33 GREEN neuralNetPlayer moves f3
+17:28:11: rating=30/34 RED RandomPlayer moves f5
+17:28:13: rating=29/35 GREEN neuralNetPlayer moves d2
+17:28:13: rating=30/34 RED RandomPlayer moves b4
+17:28:15: rating=30/34 GREEN neuralNetPlayer moves g6
+17:28:15: rating=28/35 RED RandomPlayer moves g7
+17:28:17: rating=30/34 GREEN neuralNetPlayer moves h6
+17:28:17: rating=26/37 RED RandomPlayer moves b7
+17:28:19: rating=23/41 GREEN neuralNetPlayer moves h5
+17:28:20: rating=21/43 RED RandomPlayer moves h3
+17:28:22: rating=19/44 GREEN neuralNetPlayer moves h7
+17:28:22: rating=18/45 RED RandomPlayer moves g2
+17:28:24: rating=21/43 GREEN neuralNetPlayer moves f2
+17:28:24: rating=21/42 RED RandomPlayer moves d1
+17:28:26: rating=17/47 GREEN neuralNetPlayer moves g8
+17:28:26: rating=14/50 RED RandomPlayer moves a8
+17:28:28: rating=17/47 GREEN neuralNetPlayer moves h4
+17:28:28: rating=26/37 RED RandomPlayer moves e2
+17:28:31: rating=33/31 GREEN neuralNetPlayer moves e8
+17:28:31: rating=33/30 RED RandomPlayer moves f6
+17:28:33: rating=33/31 GREEN neuralNetPlayer moves d8
+17:28:33: rating=32/31 RED RandomPlayer moves h8
+17:28:35: rating=31/32 GREEN neuralNetPlayer moves a2
+17:28:35: rating=37/27 RED RandomPlayer moves b2
+17:28:36: rating=39/24 GREEN neuralNetPlayer moves a3
+17:28:36: rating=38/26 RED RandomPlayer moves c7
+17:28:36: rating=37/26 GREEN neuralNetPlayer moves a1
+17:28:36: rating=36/27 RED RandomPlayer moves d7
+17:28:36: rating=33/30 GREEN neuralNetPlayer moves b1
+17:28:36: rating=31/32 RED RandomPlayer moves f8
+17:28:36: rating=30/34 GREEN neuralNetPlayer moves b8
+17:28:36: rating=32/32 RED RandomPlayer moves c8
+17:28:36: rating=33/30 GREEN neuralNetPlayer moves c1
+17:28:36: rating=35/29 RED RandomPlayer moves e1
+17:28:36: rating=35/29 GREEN neuralNetPlayer moves f1
+17:28:36: rating=35/29 RED RandomPlayer moves g1
+17:28:36: rating=35/29 GREEN neuralNetPlayer moves h1
+17:28:36: finished reds=35 greens=29
+17:28:36: REGULAR FINISH: GameState: RED wins (RED vs. GREEN = 35:29)
+CSV: RED,,35,29
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/BugattiCinque03.jar:/home/michael/eclipse-workspace/Info2_Reversi/NeuralNetwork.jar
+ID = TestGame
+DATE = 17.06.20
+RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
+17:29:05: Players initialized
+17:29:05: rating=32/32 RED RandomPlayer moves f6
+17:29:07: rating=32/32 GREEN neuralNetPlayer moves d3
+17:29:07: rating=32/32 RED RandomPlayer moves c6
+17:29:09: rating=32/32 GREEN neuralNetPlayer moves f4
+17:29:09: rating=32/32 RED RandomPlayer moves e3
+17:29:11: rating=32/32 GREEN neuralNetPlayer moves d6
+17:29:12: rating=31/32 RED RandomPlayer moves c5
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/BugattiCinque03.jar:/home/michael/eclipse-workspace/Info2_Reversi/NeuralNetwork.jar
+ID = TestGame
+DATE = 17.06.20
+RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
+17:29:31: java.lang.NullPointerException
+	at java.base/java.io.Reader.<init>(Reader.java:167)
+	at java.base/java.io.InputStreamReader.<init>(InputStreamReader.java:72)
+	at Utils.DataReader.readNetFromFile(DataReader.java:45)
+	at neuralNet.neuralNetPlayer.initialize(neuralNetPlayer.java:37)
+	at reversi.Arena.<init>(Arena.java:218)
+	at reversi.Arena.main(Arena.java:777)
+
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/BugattiCinque03.jar:/home/michael/eclipse-workspace/Info2_Reversi/NeuralNetwork.jar
+ID = TestGame
+DATE = 17.06.20
+RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
+17:29:46: Players initialized
+17:29:46: rating=32/32 RED RandomPlayer moves c6
+17:29:48: rating=32/32 GREEN neuralNetPlayer moves e3
+17:29:48: rating=32/32 RED RandomPlayer moves f5
+17:29:51: rating=32/32 GREEN neuralNetPlayer moves c4
+17:29:51: rating=31/32 RED RandomPlayer moves b3
+17:29:53: rating=31/33 GREEN neuralNetPlayer moves e6
+17:29:53: rating=30/33 RED RandomPlayer moves f4
+17:29:55: rating=30/34 GREEN neuralNetPlayer moves g5
+17:29:55: rating=30/34 RED RandomPlayer moves f2
+17:29:57: rating=30/33 GREEN neuralNetPlayer moves c5
+17:29:57: rating=30/33 RED RandomPlayer moves f6
+17:29:59: rating=30/33 GREEN neuralNetPlayer moves d3
+17:29:59: rating=30/34 RED RandomPlayer moves e2
+17:30:02: rating=29/34 GREEN neuralNetPlayer moves d2
+17:30:02: rating=30/34 RED RandomPlayer moves h4
+17:30:04: rating=30/33 GREEN neuralNetPlayer moves f1
+17:30:04: rating=30/33 RED RandomPlayer moves d6
+17:30:06: rating=31/33 GREEN neuralNetPlayer moves c3
+17:30:06: rating=31/33 RED RandomPlayer moves g4
+17:30:08: rating=29/34 GREEN neuralNetPlayer moves g7
+17:30:08: rating=29/34 RED RandomPlayer moves c2
+Java Classpath: /home/michael/eclipse-workspace/Info2_Reversi/bin:/home/michael/eclipse-workspace/Info2_Reversi/ElPulpo.jar:/home/michael/eclipse-workspace/Info2_Reversi/reversi.jar:/home/michael/eclipse-workspace/Info2_Reversi/BugattiCinque03.jar:/home/michael/eclipse-workspace/Info2_Reversi/NeuralNetwork.jar
+ID = TestGame
+DATE = 17.06.20
+RED: reversiPlayers.RandomPlayer, GREEN: neuralNet.neuralNetPlayer
+17:30:17: Players initialized
+17:30:17: rating=32/32 RED RandomPlayer moves c6
+17:30:19: rating=32/32 GREEN neuralNetPlayer moves e3
+17:30:19: rating=32/32 RED RandomPlayer moves f3
+17:30:21: rating=32/32 GREEN neuralNetPlayer moves c5
+17:30:21: rating=32/32 RED RandomPlayer moves c4
+17:30:24: rating=32/32 GREEN neuralNetPlayer moves d3
+17:30:24: rating=31/32 RED RandomPlayer moves f5
+17:30:26: rating=30/33 GREEN neuralNetPlayer moves f4
+17:30:26: rating=29/34 RED RandomPlayer moves g3
+17:30:28: rating=29/35 GREEN neuralNetPlayer moves g2
+17:30:28: rating=27/36 RED RandomPlayer moves c2
+17:30:30: rating=31/33 GREEN neuralNetPlayer moves d2
+17:30:30: rating=36/28 RED RandomPlayer moves f2
+17:30:32: rating=36/28 GREEN neuralNetPlayer moves e2
+17:30:33: rating=36/28 RED RandomPlayer moves c3
+17:30:35: rating=36/27 GREEN neuralNetPlayer moves b2
+17:30:35: rating=37/27 RED RandomPlayer moves b1
+17:30:37: rating=42/22 GREEN neuralNetPlayer moves b6
+17:30:37: rating=46/17 RED RandomPlayer moves c1
+17:30:39: rating=47/17 GREEN neuralNetPlayer moves d1
+17:30:39: rating=47/16 RED RandomPlayer moves g1
+17:30:41: rating=47/17 GREEN neuralNetPlayer moves h2
+17:30:41: rating=30/33 RED RandomPlayer moves a7
+17:30:43: rating=31/33 GREEN neuralNetPlayer moves b3
+17:30:44: rating=38/26 RED RandomPlayer moves a2
+17:30:46: rating=36/27 GREEN neuralNetPlayer moves h4
+17:30:46: rating=35/29 RED RandomPlayer moves h1
+17:30:48: rating=35/29 GREEN neuralNetPlayer moves g4
+17:30:48: rating=35/28 RED RandomPlayer moves f1
+17:30:50: rating=35/29 GREEN neuralNetPlayer moves f6
+17:30:50: rating=34/30 RED RandomPlayer moves h3
+17:30:52: rating=36/28 GREEN neuralNetPlayer moves d6
+17:30:52: rating=36/28 RED RandomPlayer moves e7
+17:30:55: rating=35/28 GREEN neuralNetPlayer moves g6
+17:30:55: rating=35/29 RED RandomPlayer moves a3
+17:30:57: rating=35/28 GREEN neuralNetPlayer moves g5
+17:30:57: rating=35/28 RED RandomPlayer moves h5
